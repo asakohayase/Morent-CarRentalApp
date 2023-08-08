@@ -18,6 +18,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
+    "firebase": "^10.1.0",
     "framer-motion": "^10.15.1",
     "next": "13.4.13",
     "postcss": "8.4.27",
