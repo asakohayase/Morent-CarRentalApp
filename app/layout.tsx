@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Footer from '@/components/reusable/Footer';
+import React from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,10 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <NavBar />
-      <body className={inter.className}>{children}</body>
-      <Footer />
+    <html lang='en'>
+      <body
+        className={`${inter.className} mx-auto flex max-w-[1440px] flex-col`}
+      >
+        <NavBar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
