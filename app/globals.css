@@ -1,3 +1,145 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    /* General padding for all layout */
+
+    .padding-layout {
+        @apply max-w-7xl mx-auto px-6 md:px-3;
+    }  
+
+    /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
+
+    .regular-1 {
+        @apply text-neutral-900 text-xs font-normal;
+    }
+    .regular-2 {
+        @apply text-neutral-900 text-sm font-normal leading-[21px];
+    }
+    .regular-3 {
+        @apply text-neutral-900 text-base font-normal leading-normal;
+    }
+    .regular-4 {
+        @apply text-neutral-900 text-lg font-normal leading-[27px];
+    }
+    .regular-5 {
+        @apply text-neutral-900 text-xl font-normal leading-[30px];
+    }
+    .regular-6 {
+        @apply text-neutral-900 text-xl font-normal leading-[30px];
+    }
+    .regular-7 {
+        @apply text-neutral-900 text-[32px] font-normal leading-[48px];
+    }
+    .regular-8 {
+        @apply text-neutral-900 text-4xl font-normal leading-[54px];
+    }
+    .regular-9 {
+        @apply text-neutral-900 text-[40px] font-normal leading-[60px];
+    }
+    .regular-10 {
+        @apply text-neutral-900 text-7xl font-normal leading-[108px];
+    }
+
+    /* CUSTOMS STYLE FOR MEDIUM FONTS. Refer to figma > Style Guide to understand */
+    .medium-1 {
+        @apply text-neutral-900 text-xs font-normal;
+    }
+    .medium-2 {
+        @apply text-neutral-900 text-sm font-normal leading-[21px];
+    }
+    .medium-3 {
+        @apply text-neutral-900 text-base font-normal leading-normal;
+    }
+    .medium-4 {
+        @apply text-neutral-900 text-lg font-normal leading-[27px];
+    }
+    .medium-5 {
+        @apply text-neutral-900 text-xl font-normal leading-[30px];
+    }
+    .medium-6 {
+        @apply text-neutral-900 text-xl font-normal leading-[30px];
+    }
+    .medium-7 {
+        @apply text-neutral-900 text-[32px] font-normal leading-[48px];
+    }
+    .medium-8 {
+        @apply text-neutral-900 text-4xl font-normal leading-[54px];
+    }
+    .medium-9 {
+        @apply text-neutral-900 text-[40px] font-normal leading-[60px];
+    }
+    .medium-10 {
+        @apply text-neutral-900 text-7xl font-normal leading-[108px];
+    }
+
+    /* CUSTOMS STYLE FOR SEMIBOLD FONTS. Refer to figma > Style Guide to understand */
+    .semibold-1 {
+        @apply text-neutral-900 text-xs font-semibold ;
+    }
+    .semibold-2 {
+        @apply text-neutral-900 text-sm font-semibold leading-[21px];
+    }
+    .semibold-3 {
+        @apply text-neutral-900 text-base font-semibold leading-normal;
+    }
+    .semibold-4 {
+        @apply text-neutral-900 text-lg font-semibold leading-[27px];
+    }
+    .semibold-5 {
+        @apply text-neutral-900 text-xl font-semibold leading-[30px];
+    }
+    .semibold-6 {
+        @apply text-neutral-900 text-2xl font-semibold leading-9;
+    }
+    .semibold-7 {
+        @apply text-neutral-900 text-[32px] font-semibold leading-[48px];
+    }
+    .semibold-8 {
+        @apply text-neutral-900 text-4xl font-normal leading-[54px];
+    }
+    .semibold-9 {
+        @apply text-neutral-900 text-[40px] font-semibold leading-[60px];
+    }
+    .semibold-10 {
+        @apply text-neutral-900 text-7xl font-semibold leading-[108px];
+    }
+
+    /* CUSTOMS STYLE FOR BOLD FONTS. Refer to figma > Style Guide to understand */
+    .bold-1 {
+        @apply text-neutral-900 text-xs font-bold;
+    }
+    .bold-2 {
+        @apply text-neutral-900 text-sm font-bold leading-[21px];
+    }
+    .bold-3 {
+        @apply text-neutral-900 text-base font-bold leading-normal;
+    }
+    .bold-4 {
+        @apply text-neutral-900 text-lg font-bold leading-[27px];
+    }
+    .bold-5 {
+        @apply text-neutral-900 text-xl font-bold leading-[30px];
+    }
+    .bold-6 {
+        @apply text-neutral-900 text-2xl font-bold leading-9;
+    }
+    .bold-7 {
+        @apply text-neutral-900 text-[32px] font-bold leading-[48px];
+    }
+    .bold-8 {
+        @apply text-neutral-900 text-4xl font-bold leading-[54px];
+    }
+    .bold-9 {
+        @apply text-neutral-900 text-[40px] font-bold leading-[60px];
+    }
+    .bold-10 {
+        @apply text-neutral-900 text-7xl font-bold leading-[108px];
+    }
+
+
+
+
+}
