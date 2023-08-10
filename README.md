@@ -1,34 +1,119 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Project CarRent
 
-## Getting Started
+Build a FullStack modern car renting marketplace Application.
 
-First, run the development server:
+Check out the complete project requirements [here](https://docs.google.com/document/d/11BBlTR9XVYIXdxg4KbvkZhelDdmEceHi_8BRX1HhBWY/edit?usp=sharing)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# Contributing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+When contributing to this repository, please first discuss the change you wish to make via issue.
+Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## System Requirements
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To get started with development, you need to install few tools
 
-## Learn More
+1. git
 
-To learn more about Next.js, take a look at the following resources:
+   `git` version 2.13.1 or higher. Download [git](https://git-scm.com/downloads) if you don't have it already.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   To check your version of git, run:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```shell
+    git --version
+   ```
 
-## Deploy on Vercel
+2. node
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   `node` version 16.15.1 or higher. Download [node](https://nodejs.org/en/download/) if you don't have it already.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   To check your version of node, run:
+
+   ```shell
+    node --version
+   ```
+
+3. npm
+
+   `npm` version 5.6.1 or higher. You will have it after you install node
+
+   To check your version of npm, run:
+
+   ```shell
+    npm --version
+   ```
+
+## Setup
+
+To set up a development environment, please follow these steps:
+
+1. Clone the repo
+
+   ```shell
+    git clone https://github.com/JavaScript-Mastery-PRO/Cohort5_DivineDomain_CarRent.git
+   ```
+
+2. Change directory to the project directory
+
+   ```shell
+   cd Cohort5_DivineDomain_CarRent
+   ```
+
+You have successfully cloned the repo. Go ahead and start developing the project with your chosen framework (React.js or Next.js)!
+
+## Issues
+
+You've found a bug in the source code, a mistake in the documentation or maybe you'd like a new feature? You can help us by [submitting an issue on GitHub](https://github.com/orgs/JavaScript-Mastery-PRO/projects/8). Before you create an issue, make sure to search the issue archive -- your issue may have already been addressed!
+
+Please try to create bug reports that are:
+
+- _Reproducible._ Include steps to reproduce the problem.
+- _Specific._ Include as much detail as possible: which version, what environment, etc.
+- _Unique._ Do not duplicate existing opened issues.
+- _Scoped to a Single Bug._ One bug per report.
+
+## Pull Request
+
+There are 2 main work flows when dealing with pull requests:
+
+- Pull Request from a [forked repository](https://help.github.com/articles/fork-a-repo)
+- Pull Request from a branch within a repository
+
+Here we are going to focus on 2. Creating a Topical Branch:
+
+1. First, we will need to create a branch from the latest commit on master. Make sure your repository is up to date first using
+
+   ```bash
+    git pull origin main
+   ```
+
+   _Note:_ `git pull` does a `git fetch` followed by a `git merge` to update the local repo with the remote repo. For a more detailed explanation, see [this stackoverflow post](http://stackoverflow.com/questions/292357/whats-the-difference-between-git-pull-and-git-fetch).
+
+2. To create a branch, use `git checkout -b <new-branch-name> [<base-branch-name>]`, where `base-branch-name` is optional and defaults to `main`.
+
+   Use a standard convention for branch names. For example, `<your-name>-dev`. It will be easier to track your pull requests if you use this convention.
+
+   I'm going to create a new branch called `jsm-dev` from the `main` branch and push it to github.
+
+   ```bash
+    git checkout -b jsm-dev main
+    git push origin jsm-dev
+   ```
+
+3. To create a pull request, you must have changes committed to your new branch.
+
+4. Go to [Pull Requests](https://github.com/JavaScript-Mastery-PRO/project1_team4_repository/pulls) and click on the `New Pull Request` button.
+
+5. Select the `main` branch as the `base` branch and the `jsm-dev` branch as the `compare` branch.
+
+6. Follow the template and fill in the proper information for the pull request.
+
+7. Click on the `Submit` button.
+
+8. You have successfully created a pull request. Add at least one of the mentors as a code reviewer.
+
+9. Now wait for mentor approval. Once approved, you can merge the pull request.
+
+#
+
+###
