@@ -38,7 +38,7 @@ export default function Home() {
       {/* Popular Car Section */}
       <section className='mt-3 flex flex-col gap-6'>
         <h5 className='text-lg font-medium text-gray-600'>Popular Cars</h5>
-        <section className='scrollbar-hide flex justify-between overflow-x-auto scroll-smooth'>
+        <section className='scrollbar-hide flex justify-between gap-6 overflow-x-auto scroll-smooth'>
           {[...Array(4)].map((item, index) => (
             <div key={index}>
               <article className='flex h-[286px] w-[304px] items-center justify-center rounded-2xl border-2 border-black bg-slate-700 md:h-[388px]'>
