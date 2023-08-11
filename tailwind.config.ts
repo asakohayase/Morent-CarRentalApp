@@ -23,7 +23,8 @@ const config: Config = {
         "white-0": "#FFFFFF",
         "white-100": "#F7F9FC",
         "white-200": "#F6F7F9",
-    },
+     },
+   },
   },
   plugins: [],
 };
