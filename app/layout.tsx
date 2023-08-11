@@ -1,10 +1,10 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import NavBar from '@/components/reusable/NavBar';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import Footer from '@/components/reusable/Footer';
-import React from 'react';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
@@ -19,10 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <NavBar />
-      <body className={plusJakartaSans.className}>{children}</body>
-      <Footer />
+    <html lang='en'>
+      <body className={`${plusJakartaSans.className} mx-auto max-w-[1312px]`}>
+        <NavBar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
