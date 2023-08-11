@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .padding-layout {
+    @apply max-w-7xl mx-auto px-6 md:px-3;
+  }
+
+  .btn-login {
+    @apply px-[136px] py-3.5 md:px-[17px] md:py-2.5 flex items-center bg-white md:bg-blue-600 rounded md:border-none md:gap-2 text-center md:text-white text-blue-600 text-base font-semibold justify-center border border-slate-300 gap-1.5;
+  }
+
+  .btn-logout {
+    @apply px-[131px] py-3.5 flex items-center bg-red-500 rounded-md gap-2 text-white text-base font-semibold justify-center;
+  }
+
+  .btn-primary {
+    @apply px-5 py-2.5 flex items-center bg-blue-600 rounded gap-2 text-center text-white text-xs md:text-base font-semibold justify-center;
+  }
+
+  .btn-show-more {
+    @apply px-5 py-2.5 flex items-center bg-blue-600 rounded gap-2 text-center text-white text-xs md:text-base font-semibold justify-center;
+  }
+
+  .btn-rent {
+    @apply px-8 py-[13px] md:px-9 md:py-4 bg-blue-600 rounded gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-rent-secondary {
+    @apply px-[125.5] py-4 md:px-9 md:py-[18px] bg-blue-600 rounded-[10px] gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-register {
+    @apply px-[115.5] md:px-[26px] py-[18px] bg-blue-600 rounded-[10px] gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-edit-profile {
+    @apply px-[17px] py-1.5 md:px-[27px] md:py-[11px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold md:text-sm text-xs;
+  }
+
+  .btn-add-cars {
+    @apply px-[74px] py-[18px] md:px-[24px] md:py-[18px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold text-base;
+  }
+
+  .btn-remove {
+    @apply pl-[129.5] pr-[103.5] py-[17.5] bg-red-500 md:pl-[43.5] md:pr-[20.5] md:py-[18px] rounded-[10px] flex justify-center items-center gap-[3px] text-white font-bold text-base;
+  }
+
+  .btn-edit {
+    @apply px-[132.5] py-[17.5] md:px-[43px] md:py-[18px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold text-base;
+  }
+
+  .btn-search {
+    @apply p-[18px] bg-blue-600 rounded-[10px];
+  }
+}
