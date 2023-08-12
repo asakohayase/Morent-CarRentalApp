@@ -1,3 +1,377 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+@layer components {
+  .padding-layout {
+    @apply max-w-7xl mx-auto px-6 md:px-3;
+  }
+  /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
+
+  .regular-1 {
+    @apply text-neutral-900 text-xs font-normal;
+  }
+  .regular-2 {
+    @apply text-neutral-900 text-sm font-normal leading-[21px];
+  }
+  .regular-3 {
+    @apply text-neutral-900 text-base font-normal leading-normal;
+  }
+  .regular-4 {
+    @apply text-neutral-900 text-lg font-normal leading-[27px];
+  }
+  .regular-5 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .regular-6 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .regular-7 {
+    @apply text-neutral-900 text-[32px] font-normal leading-[48px];
+  }
+  .regular-8 {
+    @apply text-neutral-900 text-4xl font-normal leading-[54px];
+  }
+  .regular-9 {
+    @apply text-neutral-900 text-[40px] font-normal leading-[60px];
+  }
+  .regular-10 {
+    @apply text-neutral-900 text-7xl font-normal leading-[108px];
+  }
+
+  /* CUSTOMS STYLE FOR MEDIUM FONTS. Refer to figma > Style Guide to understand */
+  .medium-1 {
+    @apply text-neutral-900 text-xs font-normal;
+  }
+  .medium-2 {
+    @apply text-neutral-900 text-sm font-normal leading-[21px];
+  }
+  .medium-3 {
+    @apply text-neutral-900 text-base font-normal leading-normal;
+  }
+  .medium-4 {
+    @apply text-neutral-900 text-lg font-normal leading-[27px];
+  }
+  .medium-5 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .medium-6 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .medium-7 {
+    @apply text-neutral-900 text-[32px] font-normal leading-[48px];
+  }
+  .medium-8 {
+    @apply text-neutral-900 text-4xl font-normal leading-[54px];
+  }
+  .medium-9 {
+    @apply text-neutral-900 text-[40px] font-normal leading-[60px];
+  }
+  .medium-10 {
+    @apply text-neutral-900 text-7xl font-normal leading-[108px];
+  }
+
+  /* CUSTOMS STYLE FOR SEMIBOLD FONTS. Refer to figma > Style Guide to understand */
+  .semibold-1 {
+    @apply text-neutral-900 text-xs font-semibold;
+  }
+  .semibold-2 {
+    @apply text-neutral-900 text-sm font-semibold leading-[21px];
+  }
+  .semibold-3 {
+    @apply text-neutral-900 text-base font-semibold leading-normal;
+  }
+  .semibold-4 {
+    @apply text-neutral-900 text-lg font-semibold leading-[27px];
+  }
+  .semibold-5 {
+    @apply text-neutral-900 text-xl font-semibold leading-[30px];
+  }
+  .semibold-6 {
+    @apply text-neutral-900 text-2xl font-semibold leading-9;
+  }
+  .semibold-7 {
+    @apply text-neutral-900 text-[32px] font-semibold leading-[48px];
+  }
+  .semibold-8 {
+    @apply text-neutral-900 text-4xl font-normal leading-[54px];
+  }
+  .semibold-9 {
+    @apply text-neutral-900 text-[40px] font-semibold leading-[60px];
+  }
+  .semibold-10 {
+    @apply text-neutral-900 text-7xl font-semibold leading-[108px];
+  }
+
+  /* CUSTOMS STYLE FOR BOLD FONTS. Refer to figma > Style Guide to understand */
+  .bold-1 {
+    @apply text-neutral-900 text-xs font-bold;
+  }
+  .bold-2 {
+    @apply text-neutral-900 text-sm font-bold leading-[21px];
+  }
+  .bold-3 {
+    @apply text-neutral-900 text-base font-bold leading-normal;
+  }
+  .bold-4 {
+    @apply text-neutral-900 text-lg font-bold leading-[27px];
+  }
+  .bold-5 {
+    @apply text-neutral-900 text-xl font-bold leading-[30px];
+  }
+  .bold-6 {
+    @apply text-neutral-900 text-2xl font-bold leading-9;
+  }
+  .bold-7 {
+    @apply text-neutral-900 text-[32px] font-bold leading-[48px];
+  }
+  .bold-8 {
+    @apply text-neutral-900 text-4xl font-bold leading-[54px];
+  }
+  .bold-9 {
+    @apply text-neutral-900 text-[40px] font-bold leading-[60px];
+  }
+  .bold-10 {
+    @apply text-neutral-900 text-7xl font-bold leading-[108px];
+  }
+
+  .btn-login {
+    @apply px-[136px] py-3.5 md:px-[17px] md:py-2.5 flex items-center bg-white md:bg-blue-600 rounded md:border-none md:gap-2 text-center md:text-white text-blue-600 text-base font-semibold justify-center border border-slate-300 gap-1.5;
+  }
+
+  .btn-logout {
+    @apply px-[131px] py-3.5 flex items-center bg-red-500 rounded-md gap-2 text-white text-base font-semibold justify-center;
+  }
+
+  .btn-primary {
+    @apply px-5 py-2.5 flex items-center bg-blue-600 rounded gap-2 text-center text-white text-xs md:text-base font-semibold justify-center;
+  }
+
+  .btn-show-more {
+    @apply px-5 py-2.5 flex items-center bg-blue-600 rounded gap-2 text-center text-white text-xs md:text-base font-semibold justify-center;
+  }
+
+  .btn-rent {
+    @apply px-8 py-[13px] md:px-9 md:py-4 bg-blue-600 rounded gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-rent-secondary {
+    @apply px-[125.5] py-4 md:px-9 md:py-[18px] bg-blue-600 rounded-[10px] gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-register {
+    @apply px-[115.5] md:px-[26px] py-[18px] bg-blue-600 rounded-[10px] gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-edit-profile {
+    @apply px-[17px] py-1.5 md:px-[27px] md:py-[11px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold md:text-sm text-xs;
+  }
+
+  .btn-add-cars {
+    @apply px-[74px] py-[18px] md:px-[24px] md:py-[18px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold text-base;
+  }
+
+  .btn-remove {
+    @apply pl-[129.5] pr-[103.5] py-[17.5] bg-red-500 md:pl-[43.5] md:pr-[20.5] md:py-[18px] rounded-[10px] flex justify-center items-center gap-[3px] text-white font-bold text-base;
+  }
+
+  .btn-edit {
+    @apply px-[132.5] py-[17.5] md:px-[43px] md:py-[18px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold text-base;
+  }
+
+  .btn-search {
+    @apply p-[18px] bg-blue-600 rounded-[10px];
+  }
+}
+
+@layer components {
+  .padding-layout {
+    @apply max-w-7xl mx-auto px-6 md:px-3;
+  }
+  /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
+
+  .regular-1 {
+    @apply text-neutral-900 text-xs font-normal;
+  }
+  .regular-2 {
+    @apply text-neutral-900 text-sm font-normal leading-[21px];
+  }
+  .regular-3 {
+    @apply text-neutral-900 text-base font-normal leading-normal;
+  }
+  .regular-4 {
+    @apply text-neutral-900 text-lg font-normal leading-[27px];
+  }
+  .regular-5 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .regular-6 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .regular-7 {
+    @apply text-neutral-900 text-[32px] font-normal leading-[48px];
+  }
+  .regular-8 {
+    @apply text-neutral-900 text-4xl font-normal leading-[54px];
+  }
+  .regular-9 {
+    @apply text-neutral-900 text-[40px] font-normal leading-[60px];
+  }
+  .regular-10 {
+    @apply text-neutral-900 text-7xl font-normal leading-[108px];
+  }
+
+  /* CUSTOMS STYLE FOR MEDIUM FONTS. Refer to figma > Style Guide to understand */
+  .medium-1 {
+    @apply text-neutral-900 text-xs font-normal;
+  }
+  .medium-2 {
+    @apply text-neutral-900 text-sm font-normal leading-[21px];
+  }
+  .medium-3 {
+    @apply text-neutral-900 text-base font-normal leading-normal;
+  }
+  .medium-4 {
+    @apply text-neutral-900 text-lg font-normal leading-[27px];
+  }
+  .medium-5 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .medium-6 {
+    @apply text-neutral-900 text-xl font-normal leading-[30px];
+  }
+  .medium-7 {
+    @apply text-neutral-900 text-[32px] font-normal leading-[48px];
+  }
+  .medium-8 {
+    @apply text-neutral-900 text-4xl font-normal leading-[54px];
+  }
+  .medium-9 {
+    @apply text-neutral-900 text-[40px] font-normal leading-[60px];
+  }
+  .medium-10 {
+    @apply text-neutral-900 text-7xl font-normal leading-[108px];
+  }
+
+  /* CUSTOMS STYLE FOR SEMIBOLD FONTS. Refer to figma > Style Guide to understand */
+  .semibold-1 {
+    @apply text-neutral-900 text-xs font-semibold;
+  }
+  .semibold-2 {
+    @apply text-neutral-900 text-sm font-semibold leading-[21px];
+  }
+  .semibold-3 {
+    @apply text-neutral-900 text-base font-semibold leading-normal;
+  }
+  .semibold-4 {
+    @apply text-neutral-900 text-lg font-semibold leading-[27px];
+  }
+  .semibold-5 {
+    @apply text-neutral-900 text-xl font-semibold leading-[30px];
+  }
+  .semibold-6 {
+    @apply text-neutral-900 text-2xl font-semibold leading-9;
+  }
+  .semibold-7 {
+    @apply text-neutral-900 text-[32px] font-semibold leading-[48px];
+  }
+  .semibold-8 {
+    @apply text-neutral-900 text-4xl font-normal leading-[54px];
+  }
+  .semibold-9 {
+    @apply text-neutral-900 text-[40px] font-semibold leading-[60px];
+  }
+  .semibold-10 {
+    @apply text-neutral-900 text-7xl font-semibold leading-[108px];
+  }
+
+  /* CUSTOMS STYLE FOR BOLD FONTS. Refer to figma > Style Guide to understand */
+  .bold-1 {
+    @apply text-neutral-900 text-xs font-bold;
+  }
+  .bold-2 {
+    @apply text-neutral-900 text-sm font-bold leading-[21px];
+  }
+  .bold-3 {
+    @apply text-neutral-900 text-base font-bold leading-normal;
+  }
+  .bold-4 {
+    @apply text-neutral-900 text-lg font-bold leading-[27px];
+  }
+  .bold-5 {
+    @apply text-neutral-900 text-xl font-bold leading-[30px];
+  }
+  .bold-6 {
+    @apply text-neutral-900 text-2xl font-bold leading-9;
+  }
+  .bold-7 {
+    @apply text-neutral-900 text-[32px] font-bold leading-[48px];
+  }
+  .bold-8 {
+    @apply text-neutral-900 text-4xl font-bold leading-[54px];
+  }
+  .bold-9 {
+    @apply text-neutral-900 text-[40px] font-bold leading-[60px];
+  }
+  .bold-10 {
+    @apply text-neutral-900 text-7xl font-bold leading-[108px];
+  }
+
+  .btn-login {
+    @apply px-[136px] py-3.5 md:px-[17px] md:py-2.5 flex items-center bg-white md:bg-blue-600 rounded md:border-none md:gap-2 text-center md:text-white text-blue-600 text-base font-semibold justify-center border border-slate-300 gap-1.5;
+  }
+
+  .btn-logout {
+    @apply px-[131px] py-3.5 flex items-center bg-red-500 rounded-md gap-2 text-white text-base font-semibold justify-center;
+  }
+
+  .btn-primary {
+    @apply px-5 py-2.5 flex items-center bg-blue-600 rounded gap-2 text-center text-white text-xs md:text-base font-semibold justify-center;
+  }
+
+  .btn-show-more {
+    @apply px-5 py-2.5 flex items-center bg-blue-600 rounded gap-2 text-center text-white text-xs md:text-base font-semibold justify-center;
+  }
+
+  .btn-rent {
+    @apply px-8 py-[13px] md:px-9 md:py-4 bg-blue-600 rounded gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-rent-secondary {
+    @apply px-[125.5] py-4 md:px-9 md:py-[18px] bg-blue-600 rounded-[10px] gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-register {
+    @apply px-[115.5] md:px-[26px] py-[18px] bg-blue-600 rounded-[10px] gap-2 font-bold text-base text-white flex items-center justify-center;
+  }
+
+  .btn-edit-profile {
+    @apply px-[17px] py-1.5 md:px-[27px] md:py-[11px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold md:text-sm text-xs;
+  }
+
+  .btn-add-cars {
+    @apply px-[74px] py-[18px] md:px-[24px] md:py-[18px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold text-base;
+  }
+
+  .btn-remove {
+    @apply pl-[129.5] pr-[103.5] py-[17.5] bg-red-500 md:pl-[43.5] md:pr-[20.5] md:py-[18px] rounded-[10px] flex justify-center items-center gap-[3px] text-white font-bold text-base;
+  }
+
+  .btn-edit {
+    @apply px-[132.5] py-[17.5] md:px-[43px] md:py-[18px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold text-base;
+  }
+
+  .btn-search {
+    @apply p-[18px] bg-blue-600 rounded-[10px];
+  }
+}
