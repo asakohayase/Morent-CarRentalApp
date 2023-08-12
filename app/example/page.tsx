@@ -1,9 +1,14 @@
+
 import Button from '@/components/reusable/Button';
+
 import React from 'react';
 
 type Props = {};
 
 const Page = (props: Props) => {
+  return <main></main>;
+};
+
   return (
     <main className="ml-5 mt-5 w-[300px]">
       <div className="flex h-[600px] flex-col gap-2 ">
@@ -40,5 +45,5 @@ const Page = (props: Props) => {
     </main>
   );
 };
-
+        
 export default Page;
