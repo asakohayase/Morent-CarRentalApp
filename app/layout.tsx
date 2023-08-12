@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import NavBar from '@/components/reusable/NavBar';
 import './globals.css';
@@ -18,12 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-    <body className={plusJakartaSans.className}>
-      <NavBar />
+    <html lang='en'>
+      <body className={`${plusJakartaSans.className} mx-auto max-w-[1312px]`}>
+        <NavBar />
         {children}
-      <Footer />
-    </body>
+        <Footer />
+      </body>
     </html>
   );
 }
