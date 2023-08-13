@@ -14,7 +14,7 @@
 }
 @layer components {
     .padding-layout {
-      @apply max-w-8xl mx-auto px-6 md:px-3;
+      @apply max-w-[1312px] mx-auto px-6 md:px-3;
     }
    /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
 
@@ -174,7 +174,7 @@
   }
 
   .btn-edit-profile {
-    @apply px-[17px] py-1.5 md:px-[27px] md:py-[11px] bg-blue-600 rounded-[10px] flex justify-center items-center gap-2 text-white font-bold md:text-sm text-xs;
+    @apply px-[17px] py-1.5 md:px-[27px] md:py-[11px] bg-blue-600 rounded-md md:rounded-[10px] flex justify-center items-center gap-2 text-white font-bold md:text-sm text-xs;
   }
 
   .btn-add-cars {
