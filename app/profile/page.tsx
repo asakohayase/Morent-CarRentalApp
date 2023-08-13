@@ -24,7 +24,7 @@ const Page = (props: Props) => {
           ))}
         </section>
       </section>
-      <div className="mt-12 flex justify-center md:mt-16">
+      <div className="my-12 flex justify-center md:my-16">
         <Button href="/" title="Add More Cars for Rent" style="btn-add-cars w-[228px] h-14 px-5" />
       </div>
     </main>
