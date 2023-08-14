@@ -22,7 +22,7 @@ const NavMobile = () => {
               alt={'sun'}
             />
             <Image
-              src={'./icons/menu.svg'}
+              src={'./Icons/menu.svg'}
               width={24}
               height={24}
               alt={'menu'}
@@ -35,9 +35,10 @@ const NavMobile = () => {
         {open && (
           <motion.div
             className='absolute left-[15px] top-7 flex h-[400px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 sm:left-[17px] sm:w-[96%]'
-            initial='hide'
-            animate='show'
-            exit='hide'
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.3 }}
           >
             <section className='flex w-full items-center justify-between'>
               <Image
@@ -47,7 +48,7 @@ const NavMobile = () => {
                 alt={'logo'}
               />
               <Image
-                src={'./icons/close.svg'}
+                src={'./Icons/close.svg'}
                 width={24}
                 height={24}
                 alt={'close'}
@@ -59,7 +60,7 @@ const NavMobile = () => {
                 <div className='flex h-full flex-col justify-around'>
                   <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
                     <Image
-                      src={'./icons/home.svg'}
+                      src={'./Icons/home.svg'}
                       width={18}
                       height={18}
                       alt={'home'}
@@ -71,7 +72,7 @@ const NavMobile = () => {
                   </li>
                   <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
                     <Image
-                      src={'./icons/search.svg'}
+                      src={'./Icons/search.svg'}
                       width={18}
                       height={18}
                       alt={'home'}
@@ -82,7 +83,7 @@ const NavMobile = () => {
                   </li>
                   <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
                     <Image
-                      src={'./icons/plus.svg'}
+                      src={'./Icons/plus.svg'}
                       width={18}
                       height={18}
                       alt={'home'}

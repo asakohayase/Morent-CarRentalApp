@@ -27,8 +27,8 @@ const NavDesktop = (props: Props) => {
             href='#'
             style={'btn-login w-[116px] hover:opacity-80'}
           />
-          <Image src={'/icons/line.svg'} height={36} width={2} alt={'line'} />
-          <Image src={'/icons/sun.svg'} height={20} width={20} alt={'line'} />
+          <Image src={'/Icons/line.svg'} height={36} width={2} alt={'line'} />
+          <Image src={'/Icons/sun.svg'} height={20} width={20} alt={'line'} />
         </div>
       </ul>
     </nav>
