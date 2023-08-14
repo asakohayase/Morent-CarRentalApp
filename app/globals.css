@@ -13,10 +13,10 @@
   scrollbar-width: none; /* Firefox */
 }
 @layer components {
-  .padding-layout {
-    @apply max-w-7xl mx-auto px-6 md:px-3;
-  }
-  /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
+    .padding-layout {
+      @apply max-w-8xl mx-auto px-6 md:px-3;
+    }
+   /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
 
   .regular-1 {
     @apply text-neutral-900 text-xs font-normal;
