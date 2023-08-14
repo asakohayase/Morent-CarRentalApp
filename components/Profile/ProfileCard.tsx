@@ -5,7 +5,7 @@ import Image from 'next/image';
 const ProfileCard = () => {
   return (
     <section className="relative flex h-[301px] w-full rounded-[10px] bg-white">
-        <div className="profileBanner h-[150px] w-full rounded-t-[10px] md:h-[182px] md:overflow-hidden">
+        <div className="profileBanner h-[150px] w-full rounded-t-[10px] md:h-[182px]">
         </div>
         <div className="absolute left-[13px] top-[115px] h-[70px] w-[70px] md:left-[31px] md:top-[119px] md:h-40 md:w-40">
             <Image
