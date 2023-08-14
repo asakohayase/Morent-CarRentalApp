@@ -17,7 +17,7 @@ const Footer = (props: Props) => {
           {/* About ~ Social */}
       <div className="flex flex-wrap gap-16 pt-12 md:flex-nowrap md:pt-0">
         {footerLinks.map((item) => (
-          <section key={item.title} className="inline-flex flex-col items-start justify-start gap-4">
+          <div key={item.title} className="inline-flex flex-col items-start justify-start gap-[1.5rem]">
             <h3 className="text-xl font-semibold leading-normal text-gray-900">{item.title}</h3>
             <p className="flex flex-col gap-5">{item.links.map((link) => (
                 <Link key={link.title} href={link.url} className="text-base font-medium leading-tight text-gray-400">
