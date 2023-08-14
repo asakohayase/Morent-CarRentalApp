@@ -14,7 +14,7 @@
 }
 @layer components {
     .padding-layout {
-      @apply max-w-[1032px] mx-auto px-6 md:px-3;
+      @apply max-w-[1312px] mx-auto px-6 md:px-16;
     }
    /* CUSTOMS STYLE FOR REGULAR FONTS. Refer to figma > Style Guide to understand */
 
