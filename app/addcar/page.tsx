@@ -1,7 +1,4 @@
-"use client"
-
-import { AddCarForm } from '@/components/EditCar/AddCarForm'
-import Button from '@/components/reusable/Button'
+import { AddCarForm } from '@/components/AddCar/AddCarForm'
 import React from 'react'
 
 const page = () => {
@@ -15,14 +12,6 @@ const page = () => {
             <div className="text-lg font-extrabold text-blue-500">CAR INFO</div>
             <AddCarForm />
         </div>
-        
-        {/* <div className="pt-7 md:flex md:w-full md:justify-end">
-          <Button
-            href="/"
-            title="Register Car"
-            style="btn-register"
-          />
-        </div> */}
    </div>
   )
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import * as Form from '@radix-ui/react-form';
 import { formItems } from '@/constants/index';
@@ -5,7 +7,7 @@ import Image from '@/node_modules/next/image';
 
 export const AddCarForm = () => (
      <Form.Root className="w-full">
-        <div className="grid w-full gap-8 md:grid-cols-2">
+        <section className="grid w-full gap-8 md:grid-cols-2">
             {formItems.map((item, index) => ( 
                 <Form.Field key={index} className="grid gap-4" name={item.title}>
                     <div className="flex items-baseline">
@@ -17,17 +19,17 @@ export const AddCarForm = () => (
                         </Form.Message>
                     </div>
                     <Form.Control asChild>
-                        <div className="flex items-center">
+                        <p className="flex items-center">
                             <textarea
                             className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 p-[10px] text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px]"
                             placeholder={item.placeholder}
                             required
                             />
-                        </div>
+                        </p>
                     </Form.Control>
                 </Form.Field>
             ))}
-        </div>
+        </section>
 
         <h2 className="mt-6 text-sm font-semibold text-gray-900 md:mt-11">
             Upload Images
