@@ -374,4 +374,11 @@
   .btn-search {
     @apply p-[18px] bg-blue-600 rounded-[10px];
   }
+
+  .profileBanner {
+    background-image: url("/img/cover.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
