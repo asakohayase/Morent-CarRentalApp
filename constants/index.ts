@@ -5,7 +5,7 @@ export const footerLinks = [
         { title: "How it works", url: "/" },
         { title: "Featured", url: "/" },
         { title: "Partnership", url: "/" },
-        { title: "Bussiness Relation", url: "/" },
+        { title: "Business Relation", url: "/" },
       ],
     },
     {
@@ -25,5 +25,40 @@ export const footerLinks = [
         { title: "Twitter", url: "/" },
         { title: "Facebook", url: "/" },
       ],
+    },
+  ];
+
+  export const formItems = [
+    {
+      title: "Car Title",
+      placeholder: "Your title"
+    },
+    {
+      title: "Car Type",
+      placeholder: "Brand Name"
+    },
+    {
+      title: "Rent Price",
+      placeholder: "Price in dollars"
+    },
+    {
+      title: "Capacity",
+      placeholder: "Capacity in persons"
+    },
+    {
+      title: "Transmission",
+      placeholder: "Car Type"
+    },
+    {
+      title: "Location",
+      placeholder: "Select your location"
+    },
+    {
+      title: "Fuel Capacity",
+      placeholder: "Fuel Capacity in liters"
+    },
+    {
+      title: "Short Description",
+      placeholder: "Enter a short description"
     },
   ];
