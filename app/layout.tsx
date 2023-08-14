@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${plusJakartaSans.className} mx-auto max-w-[1312px]`}>
+      <body className={`${plusJakartaSans.className}`}>
         <NavBar />
         {children}
         <Footer />

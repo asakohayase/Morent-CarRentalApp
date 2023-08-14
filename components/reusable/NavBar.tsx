@@ -1,11 +1,17 @@
-import React from 'react'
+'use client';
 
-type Props = {}
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import React from 'react';
+import NavDesktop from './NavDesktop';
+import NavMobile from './NavMobile';
 
-const NavBar = (props: Props) => {
-  return (
-	<nav>navbar</nav>
-  )
-}
+const NavBar = () => {
+  const md = useMediaQuery('md');
+  if (md) {
+    return <NavDesktop />;
+  } else {
+    return <NavMobile />;
+  }
+};
 
-export default NavBar
+export default NavBar;
