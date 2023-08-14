@@ -14,7 +14,7 @@ const NavMobile = () => {
         <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
           <div className='flex w-[110px] justify-between'>
-            <Image src={'./icons/sun.svg'} width={20} height={20} alt={'sun'} />
+            <Image src={'./Icons/sun.svg'} width={20} height={20} alt={'sun'} />
             <Image
               src={'./img/profileplaceholder.svg'}
               width={28}
@@ -60,7 +60,7 @@ const NavMobile = () => {
                 <div className='flex h-full flex-col justify-around'>
                   <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
                     <Image
-                      src={'./Icons/home.svg'}
+                      src={'./Icons/Home.svg'}
                       width={18}
                       height={18}
                       alt={'home'}
@@ -72,7 +72,7 @@ const NavMobile = () => {
                   </li>
                   <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
                     <Image
-                      src={'./Icons/search.svg'}
+                      src={'./Icons/Search.svg'}
                       width={18}
                       height={18}
                       alt={'home'}
