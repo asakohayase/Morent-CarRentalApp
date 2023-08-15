@@ -38,7 +38,7 @@ const AdCard = ({
             {slogan}
           </h4>
         </hgroup>
-        <figure className='relative top-24 h-16 sm:h-32'>
+        <figure className='relative top-28 h-16 sm:h-24'>
           <Image
             src={carImage}
             alt='Stock Car Image'
