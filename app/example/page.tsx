@@ -9,6 +9,7 @@ const Page = (props: Props) => {
   return (
     <main className='ml-5 mt-5 w-[300px]'>
       <div className='flex h-[600px] flex-col gap-2'>
+        main
         <Button title={'Login'} href='#' style={'btn-login w-[116px]'} />
         <Button title={'Logout'} href='#' style={'btn-logout'} />
         <Button title={'More Info'} href='#' style={'btn-primary w-fit'} />
@@ -36,7 +37,6 @@ const Page = (props: Props) => {
         />
         <Button title={'Remove Car'} href='#' style={'btn-remove w-fit'} />
         <Button title={'Edit Car'} href='#' style={'btn-edit w-fit'} />
-
         <Button title={''} href='#' style={'btn-search w-fit'} />
       </div>
     </main>
