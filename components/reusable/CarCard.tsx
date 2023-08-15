@@ -43,7 +43,6 @@ const CarCard = ({
           height={64}
           className='md:mt-8 md:h-[100px] md:w-[248px]'
         />
-        <div className='absolute  top-[125px] z-10 h-[44px] w-[190px] bg-gradient-to-b from-white to-white opacity-20 md:top-[170px]  md:h-[68px] md:w-[250px]' />
         <section className='flex  flex-col'>
           <section className='flex flex-col items-start justify-between  text-sm font-medium text-slate-400 md:w-[250px] md:flex-row'>
             <div className='flex gap-2'>
