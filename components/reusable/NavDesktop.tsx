@@ -10,7 +10,7 @@ import Button from '@/components/reusable/Button';
 import { supabaseClientComponent } from '@/utils/supabase';
 import { Popover, Transition } from '@headlessui/react';
 
-const NavDesktop = ({ session }: { session: Session | null }) => {
+const NavDesktop = ({ session }: { session?: Session | null }) => {
   const supabase = supabaseClientComponent;
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
