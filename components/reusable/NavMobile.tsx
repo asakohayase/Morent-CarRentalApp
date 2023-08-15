@@ -2,18 +2,18 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import * as Avatar from '@radix-ui/react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import Button from './Button';
-import { supabaseClientComponent } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
-import * as Avatar from '@radix-ui/react-avatar';
+
+import { supabaseClientComponent } from '@/utils/supabase';
+import Button from './Button';
 
 const NavMobile = () => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((isOpen) => !isOpen);
   const supabase = supabaseClientComponent;
-  const [loading, setLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
 
@@ -26,25 +26,17 @@ const NavMobile = () => {
 
   const getProfile = useCallback(async () => {
     try {
-      setLoading(true);
-
-      const { data, error, status } = await supabase
+      const { data } = await supabase
         .from('profiles')
         .select(`avatar_url`)
         .eq('id', user?.id)
         .single();
 
-      if (error && status !== 406) {
-        throw error;
-      }
-
       if (data) {
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      //   alert('Error loading user data!' + user);
-    } finally {
-      setLoading(false);
+      //   console.error(error);
     }
   }, [user, supabase]);
 
@@ -65,19 +57,31 @@ const NavMobile = () => {
     });
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setAvatarUrl(null);
+  };
+
   return (
     <motion.div className='sticky top-0 z-10'>
       <nav className='padding-layout  mb-7 flex h-[92px] justify-between bg-white'>
         <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
-          <div className='flex w-[110px] justify-between'>
+          <div className='flex w-[110px] items-center justify-end gap-4'>
             <Image src={'./Icons/sun.svg'} width={20} height={20} alt={'sun'} />
-            <Image
-              src={'./img/profileplaceholder.svg'}
-              width={28}
-              height={28}
-              alt={'sun'}
-            />
+            {avatarUrl && (
+              <Avatar.Root>
+                <Avatar.Image
+                  className='h-7 rounded-full'
+                  src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                />
+                <Avatar.Fallback
+                  className='h-7 rounded-full bg-slate-800'
+                  delayMs={600}
+                />
+              </Avatar.Root>
+            )}
             <Image
               src={'./Icons/menu.svg'}
               width={24}
@@ -153,19 +157,31 @@ const NavMobile = () => {
               </ul>
             </section>
             {avatarUrl ? (
-              <button className='flex h-14 w-full items-center justify-center gap-4 rounded-md border border-blue-50 bg-white'>
-                <Avatar.Root>
-                  <Avatar.Image
-                    className='h-10 rounded-full'
-                    src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
-                  />
-                  <Avatar.Fallback
-                    className='h-10 rounded-full bg-slate-800'
-                    delayMs={600}
-                  />
-                </Avatar.Root>
-                <span>My Profile</span>
-              </button>
+              <>
+                <button className='active:bg-white-200 flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white'>
+                  <Avatar.Root>
+                    <Avatar.Image
+                      className='h-6 rounded-full'
+                      src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                    />
+                    <Avatar.Fallback
+                      className='h-6 rounded-full bg-slate-800'
+                      delayMs={600}
+                    />
+                  </Avatar.Root>
+                  <span className='font-semibold text-blue-500'>
+                    My Profile
+                  </span>
+                </button>
+                <Button
+                  title={'Logout'}
+                  href='#'
+                  style={
+                    'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
+                  }
+                  handleClick={handleLogout}
+                />
+              </>
             ) : (
               <Button
                 title={'Login'}

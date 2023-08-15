@@ -3,15 +3,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as Avatar from '@radix-ui/react-avatar';
+import { Session, User } from '@supabase/supabase-js';
 
 import Button from '@/components/reusable/Button';
 import { supabaseClientComponent } from '@/utils/supabase';
-import { Session, User } from '@supabase/supabase-js';
-import * as Avatar from '@radix-ui/react-avatar';
+import { Popover, Transition } from '@headlessui/react';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
   const supabase = supabaseClientComponent;
-  const [loading, setLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
 
@@ -24,25 +24,17 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
 
   const getProfile = useCallback(async () => {
     try {
-      setLoading(true);
-
-      const { data, error, status } = await supabase
+      const { data } = await supabase
         .from('profiles')
         .select(`avatar_url`)
         .eq('id', user?.id)
         .single();
 
-      if (error && status !== 406) {
-        throw error;
-      }
-
       if (data) {
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      //   alert('Error loading user data!' + user);
-    } finally {
-      setLoading(false);
+      //   console.error(error);
     }
   }, [user, supabase]);
 
@@ -63,6 +55,12 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
     });
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setAvatarUrl(null);
+  };
+
   return (
     <nav className=' sticky top-0 z-10 mb-8 flex h-[100px] w-full items-center border-b border-b-slate-300/40 bg-white'>
       <ul className='padding-layout flex w-full flex-row items-center justify-between '>
@@ -80,16 +78,54 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
             <Link href='/addcar'>Add Car</Link>
           </li>
           {avatarUrl ? (
-            <Avatar.Root>
-              <Avatar.Image
-                className='h-10 rounded-full'
-                src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
-              />
-              <Avatar.Fallback
-                className='h-10 rounded-full bg-slate-800'
-                delayMs={600}
-              />
-            </Avatar.Root>
+            <Popover className='relative z-20'>
+              <Popover.Button className='focus:outline-none'>
+                <Avatar.Root>
+                  <Avatar.Image
+                    className='h-10 rounded-full'
+                    src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                  />
+                  <Avatar.Fallback
+                    className='h-10 rounded-full bg-slate-800'
+                    delayMs={600}
+                  />
+                </Avatar.Root>
+              </Popover.Button>
+              <Transition
+                enter='transition duration-100 ease-out'
+                enterFrom='transform scale-95 opacity-0'
+                enterTo='transform scale-100 opacity-100'
+                leave='transition duration-75 ease-out'
+                leaveFrom='transform scale-100 opacity-100'
+                leaveTo='transform scale-95 opacity-0'
+              >
+                <Popover.Panel className='absolute right-0 z-20 flex w-56 flex-col gap-3 rounded-lg border border-blue-50 bg-white p-4'>
+                  <button className='hover:bg-white-200 flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white'>
+                    <Avatar.Root>
+                      <Avatar.Image
+                        className='h-6 rounded-full'
+                        src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                      />
+                      <Avatar.Fallback
+                        className='h-6 rounded-full bg-slate-800'
+                        delayMs={600}
+                      />
+                    </Avatar.Root>
+                    <span className='font-semibold text-blue-500'>
+                      My Profile
+                    </span>
+                  </button>
+                  <Button
+                    title={'Logout'}
+                    href='#'
+                    style={
+                      'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 text-white font-semibold hover:bg-red-700'
+                    }
+                    handleClick={handleLogout}
+                  />
+                </Popover.Panel>
+              </Transition>
+            </Popover>
           ) : (
             <Button
               title={'Login'}
