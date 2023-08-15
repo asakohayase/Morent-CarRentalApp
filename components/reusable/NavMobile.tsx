@@ -1,12 +1,69 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import Button from './Button';
+import { supabaseClientComponent } from '@/utils/supabase';
+import { User } from '@supabase/supabase-js';
+import * as Avatar from '@radix-ui/react-avatar';
 
 const NavMobile = () => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((isOpen) => !isOpen);
+  const supabase = supabaseClientComponent;
+  const [loading, setLoading] = useState(true);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+
+  const getUser = useCallback(async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setUser(user);
+  }, [supabase]);
+
+  const getProfile = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      const { data, error, status } = await supabase
+        .from('profiles')
+        .select(`avatar_url`)
+        .eq('id', user?.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setAvatarUrl(data.avatar_url);
+      }
+    } catch (error) {
+      //   alert('Error loading user data!' + user);
+    } finally {
+      setLoading(false);
+    }
+  }, [user, supabase]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
+  useEffect(() => {
+    getProfile();
+  }, [user, getProfile]);
+
+  const handleOAuth = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `http://${location.origin}/auth/callback`,
+      },
+    });
+  };
 
   return (
     <motion.div className='sticky top-0 z-10'>
@@ -95,11 +152,28 @@ const NavMobile = () => {
                 </div>
               </ul>
             </section>
-            <Button
-              title={'Login'}
-              href='#'
-              style={'btn-login w-full hover:bg-blue-600 hover:text-white'}
-            />
+            {avatarUrl ? (
+              <button className='flex h-14 w-full items-center justify-center gap-4 rounded-md border border-blue-50 bg-white'>
+                <Avatar.Root>
+                  <Avatar.Image
+                    className='h-10 rounded-full'
+                    src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                  />
+                  <Avatar.Fallback
+                    className='h-10 rounded-full bg-slate-800'
+                    delayMs={600}
+                  />
+                </Avatar.Root>
+                <span>My Profile</span>
+              </button>
+            ) : (
+              <Button
+                title={'Login'}
+                href='#'
+                style={'btn-login w-full hover:bg-blue-600 hover:text-white'}
+                handleClick={handleOAuth}
+              />
+            )}
           </motion.div>
         )}
       </AnimatePresence>
