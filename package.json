@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.3",
+    "@radix-ui/react-form": "^0.0.3",
     "@radix-ui/react-icons": "^1.3.0",
     "@supabase/auth-helpers-nextjs": "^0.7.4",
     "@supabase/auth-ui-react": "^0.4.2",
@@ -20,6 +21,7 @@
     "@types/react-dom": "18.2.7",
     "@types/tailwindcss": "3.1.0",
     "autoprefixer": "10.4.14",
+    "country-state-city": "^3.1.4",
     "encoding": "^0.1.13",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
@@ -31,12 +33,14 @@
     "postcss": "8.4.27",
     "prettier": "^3.0.1",
     "react": "18.2.0",
+    "react-datetime": "^3.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   },
   "devDependencies": {
     "@types/next": "^9.0.0",
-    "supabase": "^1.86.1"
+    "supabase": "^1.83.7",
+    "tailwind-scrollbar": "^3.0.5"
   }
 }
