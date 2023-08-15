@@ -7,8 +7,7 @@ type Props = {};
 
 const Page = (props: Props) => {
   return (
-    <main className='bg-white-200 min-h-screen px-3 md:p-1'>
-      <PickUpDropOff />
+    <main className='ml-5 mt-5 w-[300px]'>
       <div className='mt-5 flex h-[600px] flex-col gap-2'>
         <Button title={'Login'} href='#' style={'btn-login w-[116px]'} />
         <Button title={'Logout'} href='#' style={'btn-logout'} />

@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 'use client';
 import Image from 'next/image';
 import React, { Dispatch, SetStateAction, useState } from 'react';
@@ -13,21 +12,24 @@ const SelectInput = ({ selected, setSelected }: Props) => {
   const states: IState[] = State.getAllStates();
   const [input, setInput] = useState('');
   const [open, setOpen] = useState(false);
+  const handleClick = (state: IState) => {
+    if (state?.name?.toLowerCase() !== selected.toLowerCase()) {
+      setSelected(state?.name);
+      setOpen(false);
+      setInput('');
+    }
+  };
 
   return (
-    <div className='relative'>
+    <div className='relative cursor-pointer'>
       <div
         onClick={() => {
           setOpen((prev) => !prev);
         }}
-        className='bg-white-200 flex justify-between gap-5 rounded-[10px] px-[18px] py-[14px]'
+        className='bg-white-200 rounded-10 flex justify-between gap-5 px-[18px] py-[14px]'
       >
         <span className='truncate text-xs leading-5 text-gray-400 md:text-sm md:leading-7'>
-          {selected
-            ? selected?.length > 25
-              ? selected?.substring(0, 25) + '...'
-              : selected
-            : 'Location - Select your city'}
+          {selected || 'Location - Select your city'}
         </span>
         <Image
           src={'/img/arrow.svg'}
@@ -40,7 +42,7 @@ const SelectInput = ({ selected, setSelected }: Props) => {
       <ul
         className={`absolute mt-3 ${
           open ? 'max-h-56' : 'max-h-0'
-        } scrollbar-thin scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-thumb-blue-500 w-full overflow-y-auto rounded-b-[10px] bg-white drop-shadow-md`}
+        } scrollbar-hide w-full overflow-y-auto rounded-b-[10px] bg-white drop-shadow-md`}
       >
         <input
           type='text'
@@ -51,28 +53,27 @@ const SelectInput = ({ selected, setSelected }: Props) => {
           placeholder='Enter city name'
           className='sticky top-0 w-full border-b-[1px] border-gray-100 p-2 outline-none drop-shadow-sm placeholder:text-sm placeholder:text-gray-300'
         />
-        {states?.map((el, i) => {
+        {states?.map((state: IState, i) => {
+          if (!state?.name) {
+            return <li key={i}>No city found</li>;
+          }
           return (
             <li
-              onClick={() => {
-                if (el?.name?.toLowerCase() !== selected.toLowerCase()) {
-                  setSelected(el?.name);
-                  setOpen(false);
-                  setInput('');
-                }
-              }}
-              key={i}
-              className={`cursor-pointer p-2 text-sm hover:bg-blue-500/10  ${
-                el?.name?.toLowerCase() === selected?.toLowerCase() &&
-                'bg-blue-500 text-white'
+              onClick={() => handleClick(state)}
+              key={state?.isoCode + state?.countryCode}
+              className={`cursor-pointer p-2 text-sm  ${
+                state?.name?.toLowerCase() === selected?.toLowerCase()
+                  ? 'bg-blue-500 text-white hover:bg-blue-500'
+                  : 'hover:bg-blue-500/10'
               } ${
-                el?.name?.toLowerCase() === selected?.toLowerCase() &&
-                'text-white hover:bg-blue-500'
-              } ${
-                el?.name?.toLowerCase().startsWith(input) ? 'block' : 'hidden'
+                state?.name?.toLowerCase().startsWith(input)
+                  ? 'block'
+                  : 'hidden'
               }`}
             >
-              {el?.name + ', ' + Country.getCountryByCode(el.countryCode)?.name}
+              {state?.name +
+                ', ' +
+                Country.getCountryByCode(state?.countryCode)?.name}
             </li>
           );
         })}
