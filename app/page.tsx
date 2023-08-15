@@ -1,5 +1,7 @@
 import AdCard from '@/components/Homepage/AdCard';
+import CarCard from '@/components/reusable/CarCard';
 import PickUpDropOff from '@/components/reusable/PickUpDropOff';
+import { carArray } from '@/data';
 
 export default function Home() {
   return (
@@ -30,12 +32,8 @@ export default function Home() {
         <h5 className='text-lg font-medium text-gray-600'>Popular Cars</h5>
         {/* <div className='absolute right-0 top-14 z-10 h-5/6 w-1/4 bg-gradient-to-tr from-transparent to-black/30 sm:hidden'></div> */}
         <section className='scrollbar-hide relative flex justify-between overflow-x-auto  scroll-smooth'>
-          {[...Array(4)].map((item, index) => (
-            <div key={index}>
-              <article className='mr-6 flex h-[286px] w-[304px] items-center justify-center rounded-2xl border-2 border-black bg-slate-700 md:h-[388px] xl:mr-0'>
-                <h4 className='text-3xl font-bold text-white'>Car Card</h4>
-              </article>
-            </div>
+          {carArray.slice(0, 4).map((item, index) => (
+            <CarCard key={index} data={item} />
           ))}
         </section>
       </section>
@@ -43,12 +41,8 @@ export default function Home() {
       <section className='flex flex-col gap-6  pr-14'>
         <h5 className='text-lg font-medium text-gray-600'>Recommended Cars</h5>
         <section className='grid grid-cols-1 gap-x-12 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {[...Array(8)].map((item, index) => (
-            <div key={index}>
-              <article className='flex h-[286px] w-[304px] items-center justify-center rounded-2xl border-2 border-black bg-slate-700 md:h-[388px]'>
-                <h4 className='text-3xl font-bold text-white'>Car Card</h4>
-              </article>
-            </div>
+          {carArray.slice(0, 8).map((item, index) => (
+            <CarCard key={index} data={item} />
           ))}
         </section>
       </section>
