@@ -6,13 +6,17 @@ import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
 import { User } from '@supabase/supabase-js';
 
+import {
+  createClientComponentClient,
+  type Session,
+} from '@supabase/auth-helpers-nextjs';
+
 import Button from '@/components/reusable/Button';
-import { supabaseClientComponent } from '@/utils/supabase';
 import { Popover, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 
-const NavDesktop = () => {
-  const supabase = supabaseClientComponent;
+const NavDesktop = ({ session }: { session: Session | null }) => {
+  const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
@@ -69,7 +73,7 @@ const NavDesktop = () => {
           <li className='hover:text-blue-500'>
             <Link href='/addcar'>Add Car</Link>
           </li>
-          {avatarUrl ? (
+          {session ? (
             <Popover className='relative z-20'>
               <Popover.Button className='focus:outline-none'>
                 <Avatar.Root>
@@ -98,10 +102,7 @@ const NavDesktop = () => {
                         className='h-6 rounded-full'
                         src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
                       />
-                      <Avatar.Fallback
-                        className='h-6 rounded-full bg-slate-800'
-                        delayMs={600}
-                      />
+                      <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
                     </Avatar.Root>
                     <span className='font-semibold text-blue-500'>
                       My Profile

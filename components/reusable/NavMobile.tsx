@@ -7,14 +7,18 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
 
-import { supabaseClientComponent } from '@/utils/supabase';
+import {
+  createClientComponentClient,
+  type Session,
+} from '@supabase/auth-helpers-nextjs';
+
 import Button from './Button';
 import { useRouter } from 'next/navigation';
 
-const NavMobile = () => {
+const NavMobile = ({ session }: { session: Session | null }) => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((isOpen) => !isOpen);
-  const supabase = supabaseClientComponent;
+  const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
