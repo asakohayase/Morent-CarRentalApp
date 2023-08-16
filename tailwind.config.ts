@@ -8,6 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      borderRadius: {
+        DEFAULT: '0.25rem', // Extend default value
+        sm: '0.125rem', // Extend small value
+        lg: '0.5rem', // Extend large value
+        xl: '1rem', // Extend extra large value
+        '2xl': '1.5rem', // Extend 2 extra large value
+        '3xl': '2rem', // Extend 3 extra large value
+        '10': '10px', // Add the new 10px value
+      },
+      screens: {
+        lg: '1010px',
+      },
       colors: {
         'blue-500': '#3563E9',
         'blue-300': '#5CAFFC',
@@ -26,6 +38,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')({ nocompatible: true })],
 };
 export default config;
