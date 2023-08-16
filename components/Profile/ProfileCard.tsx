@@ -9,7 +9,7 @@ const ProfileCard = () => {
         </div>
         <div className="absolute left-[13px] top-[115px] h-[70px] w-[70px] md:left-[31px] md:top-[119px] md:h-40 md:w-40">
             <Image
-            src={"/img/70x70.png"}
+            src={"/img/profile.jpg"}
             alt='Profile Image'
             fill
             priority
