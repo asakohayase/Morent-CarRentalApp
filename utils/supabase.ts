@@ -1,5 +1,6 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { createClient } from '@supabase/supabase-js';
+import { Database } from './database.types';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -12,4 +13,6 @@ const options = {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, options);
 
-export const supabaseClientComponent = createClientComponentClient();
+export const supabaseClientComponent = createClientComponentClient<Database>({
+  isSingleton: false,
+});

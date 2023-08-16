@@ -1,50 +1,43 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
-import { Session, User } from '@supabase/supabase-js';
+import { User } from '@supabase/supabase-js';
 
 import Button from '@/components/reusable/Button';
 import { supabaseClientComponent } from '@/utils/supabase';
 import { Popover, Transition } from '@headlessui/react';
+import { useRouter } from 'next/navigation';
 
-const NavDesktop = ({ session }: { session?: Session | null }) => {
+const NavDesktop = () => {
   const supabase = supabaseClientComponent;
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
 
-  const getUser = useCallback(async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    setUser(user);
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
   }, [supabase]);
 
-  const getProfile = useCallback(async () => {
-    try {
+  useEffect(() => {
+    const getAvatar = async () => {
       const { data } = await supabase
         .from('profiles')
         .select(`avatar_url`)
-        .eq('id', user?.id)
+        .eq(`id`, user?.id)
         .single();
-
-      if (data) {
-        setAvatarUrl(data.avatar_url);
-      }
-    } catch (error) {
-      //   console.error(error);
-    }
+      setAvatarUrl(data?.avatar_url);
+    };
+    getAvatar();
   }, [user, supabase]);
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
-
-  useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
 
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
@@ -57,8 +50,7 @@ const NavDesktop = ({ session }: { session?: Session | null }) => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
-    setAvatarUrl(null);
+    router.refresh();
   };
 
   return (
@@ -100,7 +92,7 @@ const NavDesktop = ({ session }: { session?: Session | null }) => {
                 leaveTo='transform scale-95 opacity-0'
               >
                 <Popover.Panel className='absolute right-0 z-20 flex w-56 flex-col gap-3 rounded-lg border border-blue-50 bg-white p-4'>
-                  <button className='hover:bg-white-200 flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white'>
+                  <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200'>
                     <Avatar.Root>
                       <Avatar.Image
                         className='h-6 rounded-full'

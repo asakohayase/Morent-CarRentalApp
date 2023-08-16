@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import * as Avatar from '@radix-ui/react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -9,44 +9,37 @@ import { User } from '@supabase/supabase-js';
 
 import { supabaseClientComponent } from '@/utils/supabase';
 import Button from './Button';
+import { useRouter } from 'next/navigation';
 
 const NavMobile = () => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((isOpen) => !isOpen);
   const supabase = supabaseClientComponent;
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
 
-  const getUser = useCallback(async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    setUser(user);
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
   }, [supabase]);
 
-  const getProfile = useCallback(async () => {
-    try {
+  useEffect(() => {
+    const getAvatar = async () => {
       const { data } = await supabase
         .from('profiles')
         .select(`avatar_url`)
-        .eq('id', user?.id)
+        .eq(`id`, user?.id)
         .single();
-
-      if (data) {
-        setAvatarUrl(data.avatar_url);
-      }
-    } catch (error) {
-      //   console.error(error);
-    }
+      setAvatarUrl(data?.avatar_url);
+    };
+    getAvatar();
   }, [user, supabase]);
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
-
-  useEffect(() => {
-    getProfile();
-  }, [user, getProfile]);
 
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
@@ -59,8 +52,7 @@ const NavMobile = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
-    setAvatarUrl(null);
+    router.refresh();
   };
 
   return (
@@ -158,7 +150,7 @@ const NavMobile = () => {
             </section>
             {avatarUrl ? (
               <>
-                <button className='active:bg-white-200 flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white'>
+                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
                   <Avatar.Root>
                     <Avatar.Image
                       className='h-6 rounded-full'
