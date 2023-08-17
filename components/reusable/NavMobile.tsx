@@ -48,14 +48,12 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: {
-        redirectTo: `http://${location.origin}/auth/callback`,
-      },
     });
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
     router.refresh();
   };
 
@@ -66,16 +64,13 @@ const NavMobile = ({ session }: { session: Session | null }) => {
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
             <Image src={'./Icons/sun.svg'} width={20} height={20} alt={'sun'} />
-            {avatarUrl && (
+            {(session || user) && (
               <Avatar.Root>
                 <Avatar.Image
                   className='h-7 rounded-full'
-                  src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                  src={avatarUrl || '/img/placeholder-avatar.jpg'}
                 />
-                <Avatar.Fallback
-                  className='h-7 rounded-full bg-slate-800'
-                  delayMs={600}
-                />
+                <Avatar.Fallback className='h-7 rounded-full bg-slate-800' />
               </Avatar.Root>
             )}
             <Image
@@ -152,18 +147,15 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                 </div>
               </ul>
             </section>
-            {avatarUrl ? (
+            {session || user ? (
               <>
                 <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
                   <Avatar.Root>
                     <Avatar.Image
                       className='h-6 rounded-full'
-                      src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                      src={avatarUrl || '/img/placeholder-avatar.jpg'}
                     />
-                    <Avatar.Fallback
-                      className='h-6 rounded-full bg-slate-800'
-                      delayMs={600}
-                    />
+                    <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
                   </Avatar.Root>
                   <span className='font-semibold text-blue-500'>
                     My Profile

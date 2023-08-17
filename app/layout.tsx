@@ -5,9 +5,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import Footer from '@/components/reusable/Footer';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/utils/database.types';
-import { cookies } from 'next/headers';
+import SessionProvider from '@/components/SessionProvider';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
@@ -21,17 +19,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createServerComponentClient<Database>({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
   return (
     <html lang='en'>
       <body className={`${plusJakartaSans.className} bg-white-200`}>
-        <NavBar session={session} />
-        {children}
-        <Footer />
+        <SessionProvider>
+          <NavBar />
+          {children}
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );

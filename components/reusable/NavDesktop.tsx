@@ -16,10 +16,13 @@ import { Popover, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
+  console.log(session);
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
+    session?.user?.user_metadata?.avatar_url,
+  );
 
   useEffect(() => {
     const getUser = async () => {
@@ -32,6 +35,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
   }, [supabase]);
 
   useEffect(() => {
+    if (avatarUrl) return;
     const getAvatar = async () => {
       const { data } = await supabase
         .from('profiles')
@@ -41,19 +45,17 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
       setAvatarUrl(data?.avatar_url);
     };
     getAvatar();
-  }, [user, supabase]);
+  }, [user, supabase, avatarUrl]);
 
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: {
-        redirectTo: `http://${location.origin}/auth/callback`,
-      },
     });
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
     router.refresh();
   };
 
@@ -73,7 +75,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
           <li className='hover:text-blue-500'>
             <Link href='/addcar'>Add Car</Link>
           </li>
-          {session ? (
+          {session || user ? (
             <Popover className='relative z-20'>
               <Popover.Button className='focus:outline-none'>
                 <Avatar.Root>
