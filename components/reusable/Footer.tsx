@@ -6,7 +6,7 @@ type Props = {}
 
 const Footer = (props: Props) => {
   return (
-	<footer className="mx-auto px-6 py-12 md:px-16 md:pt-20 lg:max-w-[1440px]">
+	<footer className="mx-auto mt-10 bg-white-0 p-6 md:mt-[60px] md:px-[60px] md:pb-[60px] md:pt-20 lg:max-w-[1536px]">
     <section className="flex w-full flex-col md:flex-row md:justify-between md:pb-[60px]">
         {/* Company Name */}
       <article className="inline-flex w-[216px] flex-col items-start justify-start gap-4 md:w-[292px]">
