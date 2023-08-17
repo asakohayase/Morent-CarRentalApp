@@ -9,7 +9,7 @@ import NavMobile from './NavMobile';
 
 const NavBar = ({ session }: { session: Session | null }) => {
   return (
-    <section>
+    <section className='sticky top-0 z-50'>
       <section className='hidden lg:block'>
         <NavDesktop session={session} />
       </section>

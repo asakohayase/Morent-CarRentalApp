@@ -16,7 +16,6 @@ import { Popover, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
-  console.log(session);
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
