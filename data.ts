@@ -38,6 +38,21 @@ export const minutes = [
 ];
 export const periods = ['AM', 'PM'];
 
+export const carDetails = {
+  carImage: '/img/darkcar.png',
+  smallCar: '/img/darkcarsm.svg',
+  view1: '/img/view1.png',
+  view2: '/img/view2.png',
+  title: 'Nissan GT - R',
+  description:
+    'NISMO has become the embodiment of Nissans outstanding performance, inspired by the most unforgiving proving ground, the race track.',
+  type: 'Sport',
+  capacity: '2 Person',
+  transmission: 'Manual',
+  gasoline: '70L',
+  price: '$80.00/',
+};
+
 export const carArray = [
   {
     title: 'Honda Civic',
