@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 const NavDesktop = ({ session }: { session: Session | null }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(session?.user);
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
     session?.user?.user_metadata?.avatar_url,
   );
@@ -49,6 +49,9 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
+      options: {
+        redirectTo: `http://${location.origin}/auth/callback`,
+      },
     });
   };
 
@@ -80,7 +83,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                 <Avatar.Root>
                   <Avatar.Image
                     className='h-10 rounded-full'
-                    src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                    src={avatarUrl!}
                   />
                   <Avatar.Fallback
                     className='h-10 rounded-full bg-slate-800'
