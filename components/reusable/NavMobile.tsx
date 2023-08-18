@@ -34,6 +34,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   }, [supabase]);
 
   useEffect(() => {
+    if (avatarUrl) return;
     const getAvatar = async () => {
       const { data } = await supabase
         .from('profiles')
@@ -43,7 +44,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
       setAvatarUrl(data?.avatar_url);
     };
     getAvatar();
-  }, [user, supabase]);
+  }, [user, supabase, avatarUrl]);
 
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
@@ -66,10 +67,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
             <Image src={'./Icons/sun.svg'} width={20} height={20} alt={'sun'} />
             {(session || user) && (
               <Avatar.Root>
-                <Avatar.Image
-                  className='h-7 rounded-full'
-                  src={avatarUrl || '/img/placeholder-avatar.jpg'}
-                />
+                <Avatar.Image className='h-7 rounded-full' src={avatarUrl!} />
                 <Avatar.Fallback className='h-7 rounded-full bg-slate-800' />
               </Avatar.Root>
             )}

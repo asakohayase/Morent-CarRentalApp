@@ -49,9 +49,6 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: {
-        redirectTo: `http://${location.origin}/auth/callback`,
-      },
     });
   };
 
