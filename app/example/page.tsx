@@ -1,7 +1,5 @@
-import CarDetailCard from '@/components/CarDetails/CarDetailCard';
 import Button from '@/components/reusable/Button';
 import PickUpDropOff from '@/components/reusable/PickUpDropOff';
-import { carDetails } from '@/data';
 
 import React from 'react';
 
@@ -10,7 +8,7 @@ type Props = {};
 const Page = (props: Props) => {
   return (
     <main className='padding-layout h-[1000px] w-[1054px]'>
-      {/* <div className='flex h-[600px] flex-col gap-2 '>
+      <div className='flex h-[600px] flex-col gap-2 '>
         <Button title={'Login'} href='#' style={'btn-login w-[116px]'} />
         <Button title={'Logout'} href='#' style={'btn-logout'} />
         <Button title={'More Info'} href='#' style={'btn-primary w-fit'} />
@@ -40,10 +38,6 @@ const Page = (props: Props) => {
         <Button title={'Edit Car'} href='#' style={'btn-edit w-fit'} />
 
         <Button title={''} href='#' style={'btn-search w-fit'} />
-      </div> */}
-
-      <div className='h-[688px] w-[360px] md:h-[540px] md:w-[1054px]'>
-        <CarDetailCard data={carDetails} />
       </div>
     </main>
   );
