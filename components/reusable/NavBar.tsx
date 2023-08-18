@@ -1,17 +1,23 @@
 'use client';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import React from 'react';
+
+import type { Session } from '@supabase/auth-helpers-nextjs';
+
 import NavDesktop from './NavDesktop';
 import NavMobile from './NavMobile';
 
-const NavBar = () => {
-  const md = useMediaQuery('md');
-  if (md) {
-    return <NavDesktop />;
-  } else {
-    return <NavMobile />;
-  }
+const NavBar = ({ session }: { session: Session | null }) => {
+  return (
+    <section className='sticky top-0 z-50'>
+      <section className='hidden lg:block'>
+        <NavDesktop session={session} />
+      </section>
+      <section className='block lg:hidden'>
+        <NavMobile session={session} />
+      </section>
+    </section>
+  );
 };
 
 export default NavBar;

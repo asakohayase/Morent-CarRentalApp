@@ -1,33 +1,80 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import * as Avatar from '@radix-ui/react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import Button from './Button';
+import { User } from '@supabase/supabase-js';
 
-const NavMobile = () => {
+import {
+  createClientComponentClient,
+  type Session,
+} from '@supabase/auth-helpers-nextjs';
+
+import Button from './Button';
+import { useRouter } from 'next/navigation';
+
+const NavMobile = ({ session }: { session: Session | null }) => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((isOpen) => !isOpen);
+  const supabase = createClientComponentClient();
+  const router = useRouter();
+  const [user, setUser] = useState<User | null | undefined>(session?.user);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
+    session?.user?.user_metadata?.avatar_url,
+  );
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
+  }, [supabase]);
+
+  useEffect(() => {
+    if (avatarUrl) return;
+    const getAvatar = async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select(`avatar_url`)
+        .eq(`id`, user?.id)
+        .single();
+      setAvatarUrl(data?.avatar_url);
+    };
+    getAvatar();
+  }, [user, supabase, avatarUrl]);
+
+  const handleOAuth = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    router.refresh();
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setUser(null);
+    router.refresh();
+  };
 
   return (
     <motion.div className='sticky top-0 z-50'>
       <nav className='padding-layout  mb-7 flex h-[92px] justify-between bg-white'>
         <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
-          <div className='flex w-[110px] justify-between'>
-            <Image
-              src={'./Icons/sun.svg'}
-              width={20}
-              height={20}
-              alt={'sun'}
-              className={'cursor-pointer'}
-            />
-            <Image
-              src={'./img/profileplaceholder.svg'}
-              width={28}
-              height={28}
-              alt={'placeholder'}
-              className={'cursor-pointer'}
-            />
+          <div className='flex w-[110px] items-center justify-end gap-4'>
+            <Image src={'./Icons/sun.svg'} width={20} height={20} alt={'sun'} />
+            {(session || user) && (
+              <Avatar.Root>
+                <Avatar.Image className='h-7 rounded-full' src={avatarUrl!} />
+                <Avatar.Fallback className='h-7 rounded-full bg-slate-800' />
+              </Avatar.Root>
+            )}
             <Image
               src={'./Icons/menu.svg'}
               width={24}
@@ -103,11 +150,37 @@ const NavMobile = () => {
                 </div>
               </ul>
             </section>
-            <Button
-              title={'Login'}
-              href='#'
-              style={'btn-login w-full hover:bg-blue-600 hover:text-white'}
-            />
+            {session || user ? (
+              <>
+                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
+                  <Avatar.Root>
+                    <Avatar.Image
+                      className='h-6 rounded-full'
+                      src={avatarUrl || '/img/placeholder-avatar.jpg'}
+                    />
+                    <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
+                  </Avatar.Root>
+                  <span className='font-semibold text-blue-500'>
+                    My Profile
+                  </span>
+                </button>
+                <Button
+                  title={'Logout'}
+                  href='#'
+                  style={
+                    'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
+                  }
+                  handleClick={handleLogout}
+                />
+              </>
+            ) : (
+              <Button
+                title={'Login'}
+                href='#'
+                style={'btn-login w-full hover:bg-blue-600 hover:text-white'}
+                handleClick={handleOAuth}
+              />
+            )}
           </motion.div>
         )}
       </AnimatePresence>
