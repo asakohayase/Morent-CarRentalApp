@@ -59,7 +59,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   };
 
   return (
-    <motion.div className='sticky top-0 z-10'>
+    <motion.div className='sticky top-0 z-50'>
       <nav className='padding-layout  mb-7 flex h-[92px] justify-between bg-white'>
         <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
@@ -77,6 +77,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               height={24}
               alt={'menu'}
               onClick={toggle}
+              className={'cursor-pointer'}
             />
           </div>
         </section>
@@ -84,7 +85,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
       <AnimatePresence mode='sync'>
         {open && (
           <motion.div
-            className='absolute left-[15px] top-7 flex h-[400px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 sm:left-[17px] sm:w-[96%]'
+            className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 sm:left-[17px] sm:w-[96%]'
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
@@ -103,45 +104,45 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                 height={24}
                 alt={'close'}
                 onClick={toggle}
+                className={'cursor-pointer'}
               />
             </section>
             <section className=' h-1/2 '>
               <ul className=' flex h-full flex-col justify-between'>
                 <div className='flex h-full flex-col justify-around'>
-                  <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                    <Image
-                      src={'./Icons/Home.svg'}
-                      width={18}
-                      height={18}
-                      alt={'home'}
-                      className={' fill-white'}
-                    />
-                    <Link href='/' className='pl-2 hover:text-white'>
-                      Home
-                    </Link>
-                  </li>
-                  <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                    <Image
-                      src={'./Icons/Search.svg'}
-                      width={18}
-                      height={18}
-                      alt={'home'}
-                    />
-                    <Link href='/search' className='pl-2 hover:text-white'>
-                      Search
-                    </Link>
-                  </li>
-                  <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                    <Image
-                      src={'./Icons/plus.svg'}
-                      width={18}
-                      height={18}
-                      alt={'home'}
-                    />
-                    <Link href='/addcar' className='pl-2 hover:text-white'>
-                      Add Car
-                    </Link>
-                  </li>
+                  <Link href='/'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Image
+                        src={'./Icons/Home.svg'}
+                        width={18}
+                        height={18}
+                        alt={'home'}
+                      />
+                      <h3 className='pl-2 hover:text-white'>Home</h3>
+                    </li>
+                  </Link>
+                  <Link href='search'>
+                    <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Image
+                        src={'./Icons/Search.svg'}
+                        width={18}
+                        height={18}
+                        alt={'home'}
+                      />
+                      <h3 className='pl-2 hover:text-white'>Search</h3>
+                    </li>
+                  </Link>
+                  <Link href='addcar'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Image
+                        src={'./Icons/plus.svg'}
+                        width={18}
+                        height={18}
+                        alt={'home'}
+                      />
+                      <h3 className='pl-2 hover:text-white'>Add Car</h3>
+                    </li>
+                  </Link>
                 </div>
               </ul>
             </section>

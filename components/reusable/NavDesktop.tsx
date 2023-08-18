@@ -59,7 +59,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
   };
 
   return (
-    <nav className='sticky top-0 z-10 mb-8 flex h-[100px] w-full items-center border-b border-b-slate-300/40 bg-white'>
+    <nav className='sticky top-0 z-40 flex h-[100px] w-full items-center border-b border-b-slate-300/40 bg-white'>
       <ul className='padding-layout flex w-full flex-row items-center justify-between '>
         <Link href='/'>
           <Image src={'/img/logo.svg'} width={148} height={44} alt={'logo'} />

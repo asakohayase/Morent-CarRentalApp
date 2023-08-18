@@ -7,7 +7,7 @@ type Props = {};
 
 const Page = (props: Props) => {
   return (
-    <main className='ml-5 mt-5 w-[300px]'>
+    <main className='padding-layout h-[1000px] w-[1054px]'>
       <div className='flex h-[600px] flex-col gap-2 '>
         <Button title={'Login'} href='#' style={'btn-login w-[116px]'} />
         <Button title={'Logout'} href='#' style={'btn-logout'} />

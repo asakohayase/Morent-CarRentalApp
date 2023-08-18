@@ -5,7 +5,7 @@ import Image from '@/node_modules/next/image';
 
 const page = () => {
   return (
-    <section className="padding-layout relative flex flex-col px-6 py-10 md:py-[30px]">
+    <section className="padding-layout relative flex flex-col bg-white-0 px-6 py-10 md:py-[30px]">
         <div className="flex flex-col md:flex-row-reverse md:justify-between">
             <div className="mb-5 flex h-[89px] w-[327px] items-center justify-center rounded bg-neutral-100 md:mb-0 md:mr-[38px] md:h-[49px] md:w-[122px]">
                 <Image 
