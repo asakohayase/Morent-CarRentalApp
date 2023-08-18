@@ -20,8 +20,8 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   const toggle = () => setOpen((isOpen) => !isOpen);
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
+  const [user, setUser] = useState<User | null | undefined>(session?.user);
+  const avatarUrl = user?.user_metadata.avatar_url;
 
   useEffect(() => {
     const getUser = async () => {
@@ -50,10 +50,12 @@ const NavMobile = ({ session }: { session: Session | null }) => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
     });
+    router.refresh();
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
     setUser(null);
     router.refresh();
   };

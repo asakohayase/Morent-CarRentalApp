@@ -4,12 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
-import { User } from '@supabase/supabase-js';
+import { Session, User } from '@supabase/supabase-js';
 
-import {
-  createClientComponentClient,
-  type Session,
-} from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
@@ -54,6 +51,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
     setUser(null);
     router.refresh();
   };
