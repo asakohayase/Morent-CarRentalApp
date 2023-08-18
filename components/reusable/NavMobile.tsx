@@ -21,7 +21,9 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null | undefined>(session?.user);
-  const avatarUrl = user?.user_metadata.avatar_url;
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
+    session?.user?.user_metadata?.avatar_url,
+  );
 
   useEffect(() => {
     const getUser = async () => {
