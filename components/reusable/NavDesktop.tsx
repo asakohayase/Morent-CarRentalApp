@@ -4,22 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
-import { User } from '@supabase/supabase-js';
+import { Session, User } from '@supabase/supabase-js';
 
 import {
   createClientComponentClient,
-  type Session,
 } from '@supabase/auth-helpers-nextjs';
 
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 
-const NavDesktop = ({ session }: { session: Session | null }) => {
+const NavDesktop = ({ session } : { session: Session | null }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
+  const [user, setUser] = useState<User | null | undefined>(session?.user);
+  const avatarUrl = user?.user_metadata.avatar_url;
 
   useEffect(() => {
     const getUser = async () => {
@@ -30,18 +29,6 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
     };
     getUser();
   }, [supabase]);
-
-  useEffect(() => {
-    const getAvatar = async () => {
-      const { data } = await supabase
-        .from('profiles')
-        .select(`avatar_url`)
-        .eq(`id`, user?.id)
-        .single();
-      setAvatarUrl(data?.avatar_url);
-    };
-    getAvatar();
-  }, [user, supabase]);
 
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
@@ -54,6 +41,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
     router.refresh();
   };
 
@@ -73,13 +61,13 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
           <li className='hover:text-blue-500'>
             <Link href='/addcar'>Add Car</Link>
           </li>
-          {session ? (
+          { session || user ? (
             <Popover className='relative z-20'>
               <Popover.Button className='focus:outline-none'>
                 <Avatar.Root>
                   <Avatar.Image
                     className='h-10 rounded-full'
-                    src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                    src={avatarUrl}
                   />
                   <Avatar.Fallback
                     className='h-10 rounded-full bg-slate-800'

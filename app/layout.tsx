@@ -29,9 +29,10 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={`${plusJakartaSans.className} bg-white-200`}>
-        <NavBar session={session} />
-        {children}
+          <NavBar session={session} />
+          {children}
         <Footer />
+
       </body>
     </html>
   );

@@ -20,9 +20,9 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   const toggle = () => setOpen((isOpen) => !isOpen);
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(null);
-
+  const [user, setUser] = useState<User | null | undefined>(session?.user);
+  const avatarUrl = user?.user_metadata.avatar_url;
+  
   useEffect(() => {
     const getUser = async () => {
       const {
@@ -33,18 +33,6 @@ const NavMobile = ({ session }: { session: Session | null }) => {
     getUser();
   }, [supabase]);
 
-  useEffect(() => {
-    const getAvatar = async () => {
-      const { data } = await supabase
-        .from('profiles')
-        .select(`avatar_url`)
-        .eq(`id`, user?.id)
-        .single();
-      setAvatarUrl(data?.avatar_url);
-    };
-    getAvatar();
-  }, [user, supabase]);
-
   const handleOAuth = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -52,10 +40,12 @@ const NavMobile = ({ session }: { session: Session | null }) => {
         redirectTo: `http://${location.origin}/auth/callback`,
       },
     });
+    router.refresh();
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
     router.refresh();
   };
 
