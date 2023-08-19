@@ -9,12 +9,13 @@ type Props = {
   title?: String;
   style: string;
   icon?: string;
+  handleClick?: () => {};
 };
 
-const Button = ({ title, style, href, icon }: Props) => {
+const Button = ({ title, style, href, icon, handleClick }: Props) => {
   return (
-    <Link href={href} scroll={false} className={style}>
-      {icon && <Image src={icon} alt="icon" width={18} height={18} priority />}
+    <Link href={href} scroll={false} className={style} onClick={handleClick}>
+      {icon && <Image src={icon} alt='icon' width={18} height={18} priority />}
       <span>{title}</span>
     </Link>
   );

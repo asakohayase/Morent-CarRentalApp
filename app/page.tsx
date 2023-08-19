@@ -3,7 +3,7 @@ import CarCard from '@/components/reusable/CarCard';
 import PickUpDropOff from '@/components/reusable/PickUpDropOff';
 import { carArray } from '@/data';
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className='padding-layout flex flex-col gap-8'>
       {/* Ads Section */}
