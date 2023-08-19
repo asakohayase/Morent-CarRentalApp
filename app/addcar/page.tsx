@@ -1,5 +1,4 @@
-import {AddCarForm} from '@/components/AddCar/AddCarForm'
-import React from 'react'
+import AddCarForm from '@/components/AddCar/AddCarForm'
 
 const page = () => {
   return (
