@@ -1,16 +1,15 @@
 "use client"
-
 import * as Form from '@radix-ui/react-form';
 import { formItems } from '@/constants/index';
 import Image from '@/node_modules/next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 
 const AddCarForm = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(null); 
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null); 
     const uploadImageToSupabase = async () => {
         if (selectedFile) {
             const supabase = createClientComponentClient();
@@ -33,8 +32,8 @@ const AddCarForm = () => {
         uploadImageToSupabase(); 
     };
 
-    const uploadImage = (e) => {
-        const file = e.target.files[0];
+    const uploadImage = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files && e.target.files[0];
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setSelectedFile(file); // Update the selected file
@@ -56,16 +55,15 @@ const AddCarForm = () => {
                             </Form.Message>
                         </div>
                         <Form.Control asChild>
-                            <p className="flex items-center">
-                                <textarea
+                            <input 
                                 className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 p-[10px] text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px]"
                                 placeholder={item.placeholder}
                                 required
-                                />
-                            </p>
-                        </Form.Control>
-                    </Form.Field>
+                            />
+                       </Form.Control>
+                    </Form.Field>         
                 ))}
+
             </section> 
 
             <h2 className="mt-6 text-sm font-semibold text-gray-900 md:mt-11">
@@ -76,7 +74,13 @@ const AddCarForm = () => {
                 <label htmlFor="dropzone-file" className="flex h-[184px] w-full cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-400 bg-white hover:bg-blue-50 md:rounded-[7px]">
                     <div className="flex flex-col items-center justify-center pt-5">
                         {previewUrl ? (
-                            <img src={previewUrl} alt="Preview" className="mb-2 w-full"/>
+                            <Image
+                             src={previewUrl} 
+                             alt="Preview" 
+                             className="mb-2 w-full"
+                             width={200}
+                             height={200}
+                            />
                         ) : (
                             <>
                                 <Image 
@@ -91,7 +95,7 @@ const AddCarForm = () => {
                         )}
                     </div>
                     <input id="dropzone-file" type="file" className="hidden" onChange={uploadImage}/>
-                    <Form.Field>
+                    <Form.Field name="dropzone">
                         <Form.Control 
                             type="file" 
                             accept="image/png, image/jpeg, image/gif" 
