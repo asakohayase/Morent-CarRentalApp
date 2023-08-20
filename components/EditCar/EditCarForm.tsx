@@ -11,7 +11,7 @@ export const EditCarForm = () => (
             {formItems.map((item, index) => ( 
                 <Form.Field key={index} className="grid gap-4" name={item.title}>
                     <div className="flex items-baseline">
-                        <Form.Label className="text-sm font-semibold text-gray-900">
+                        <Form.Label className="text-sm font-semibold text-gray-900 dark:text-white-0">
                             {item.title}
                         </Form.Label>
                         <Form.Message className="px-2 text-sm font-normal text-red-500" match="valueMissing">
@@ -21,7 +21,7 @@ export const EditCarForm = () => (
                     <Form.Control asChild>
                         <p className="flex items-center">
                             <textarea
-                            className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 p-[10px] text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px]"
+                            className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 p-[10px] text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800"
                             placeholder={item.placeholder}
                             required
                             />
@@ -31,12 +31,12 @@ export const EditCarForm = () => (
             ))}
         </section>
 
-        <h2 className="mt-6 text-sm font-semibold text-gray-900 md:mt-11">
+        <h2 className="mt-6 text-sm font-semibold text-gray-900 dark:text-white-0 md:mt-11">
             Upload Images
         </h2>
 
         <div className="mt-6 flex w-full items-center justify-center md:mt-5">
-            <label for="dropzone-file" className="flex h-[184px] w-full cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-400 bg-white hover:bg-blue-50 md:rounded-[7px]">
+            <label htmlFor="dropzone-file" className="flex h-[184px] w-full cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-400 bg-white hover:bg-blue-50 dark:bg-gray-850 md:rounded-[7px]">
                 <div className="flex flex-col items-center justify-center pt-5">
                     <Image 
                         src="/img/outline.svg"

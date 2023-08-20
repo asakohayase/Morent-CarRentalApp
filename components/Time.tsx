@@ -63,7 +63,7 @@ const TimePicker = ({ setSelectedTime, title }: Props) => {
         </div>
         <span className='font-semibold leading-5'>{title}</span>
       </label>
-      <div className='bg-white-200 rounded-10 relative flex justify-between gap-5 px-[18px] py-[14px]'>
+      <div className='relative flex justify-between gap-5 rounded-10 bg-white-200 px-[18px] py-[14px]'>
         <span className='truncate text-xs leading-5 text-gray-400 md:text-sm md:leading-7'>
           Select your time
         </span>

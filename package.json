@@ -39,12 +39,14 @@
     "react": "18.2.0",
     "react-datetime": "^3.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.4",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/next": "^9.0.0",
+    "@types/uuid": "^9.0.2",
     "supabase": "^1.83.7",
     "tailwind-scrollbar": "^3.0.5"
   }
