@@ -8,7 +8,7 @@ type Props = {}
 
 const Page = (props: Props) => {
   return (
-    <main className='padding-layout flex flex-col'>
+    <main className='padding-layout flex flex-col bg-gray-900 bg-white-200 dark:bg-gray-900'>
       <h1 className="mb-[24px] mt-6 text-xl font-bold text-gray-900 md:mb-[29px] md:mt-[68px]">My Profile</h1>
       {/* Profile Section */}
       <ProfileCard/>
