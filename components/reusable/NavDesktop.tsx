@@ -12,7 +12,6 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
-import Sun from './Sun';
 import ToggleTheme from './ToggleTheme';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
@@ -55,7 +54,6 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
     setUser(null);
     router.refresh();
   };

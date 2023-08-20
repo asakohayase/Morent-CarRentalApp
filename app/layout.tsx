@@ -35,7 +35,7 @@ export default async function RootLayout({
       >
         <Providers>
           <NavBar session={session} />
-          {children}
+          <section className='py-10'>{children}</section>
           <Footer />
         </Providers>
       </body>

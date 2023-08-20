@@ -28,19 +28,19 @@ export default async function Home() {
         <PickUpDropOff />
       </section>
       {/* Popular Car Section */}
-      <section className='sm: relative mt-3 flex flex-col gap-6'>
+      <section className='relative mt-16 flex flex-col gap-6 md:mt-3'>
         <h5 className='text-lg font-medium text-gray-600'>Popular Cars</h5>
         {/* <div className='absolute right-0 top-14 z-10 h-5/6 w-1/4 bg-gradient-to-tr from-transparent to-black/30 sm:hidden'></div> */}
-        <section className='scrollbar-hide relative flex justify-between overflow-x-auto  scroll-smooth'>
+        <section className='scrollbar-hide relative flex justify-between gap-6 overflow-x-auto scroll-smooth'>
           {carArray.slice(0, 4).map((item, index) => (
             <CarCard key={index} data={item} />
           ))}
         </section>
       </section>
       {/* Recommended Car Section */}
-      <section className='flex flex-col gap-6  pr-14'>
+      <section className='flex flex-col gap-6'>
         <h5 className='text-lg font-medium text-gray-600'>Recommended Cars</h5>
-        <section className='grid grid-cols-1 gap-x-12 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        <section className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {carArray.slice(0, 8).map((item, index) => (
             <CarCard key={index} data={item} />
           ))}

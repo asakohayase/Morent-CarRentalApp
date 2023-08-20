@@ -7,18 +7,26 @@ import { motion } from 'framer-motion';
 const lightVariant = {
   open: {
     opacity: 0,
+    scale: 0,
+    rotate: -360,
   },
   closed: {
     opacity: 1,
+    scale: 1,
+    rotate: 0,
   },
 };
 
 const darkVariant = {
   open: {
     opacity: 1,
+    scale: 1,
+    rotate: 0,
   },
   closed: {
     opacity: 0,
+    scale: 0,
+    rotate: 360,
   },
 };
 
@@ -31,8 +39,6 @@ const ToggleTheme = () => {
     setToggle(!toggle);
     setTheme(oppositeTheme);
   };
-
-  console.log(toggle);
 
   return (
     <>
