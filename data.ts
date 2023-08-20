@@ -1,11 +1,11 @@
 export const carCard = {
   title: 'CR-V',
   vehicleType: 'SUV',
-  gallons: '80L',
+  gallons: '80',
   image: '/img/car.png',
   transmission: 'Manual',
-  capacity: '6 People',
-  price: '$80.00/',
+  capacity: '6',
+  price: '80.00',
   id: 123
 };
 
