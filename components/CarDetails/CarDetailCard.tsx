@@ -34,20 +34,11 @@ const CarDetailCard = ({
   },
 }: Props) => {
   return (
-    <div className='relative flex h-full w-full  flex-col rounded-[10px] bg-white md:flex-row'>
-      <Image
-        src={'/Icons/close.svg'}
-        height={24}
-        width={24}
-        alt={'close'}
-        className={
-          'absolute right-4 top-[-22px] rounded-t-sm bg-white md:hidden'
-        }
-      />
-      <section className='flex flex-col  p-4'>
+    <div className='flex h-full w-full flex-col rounded-lg md:flex-row'>
+      <section className='flex h-full flex-col  bg-white p-6 dark:bg-slate-800 md:p-4'>
         <div
-          className='flex h-[250px] w-full items-end justify-center rounded-[10px] border border-slate-200  md:h-[360px] 
-md:w-[460px] md:items-center'
+          className='flex w-full items-end justify-center rounded-[10px] border border-slate-200 pt-40 dark:border-slate-400 md:h-[360px] md:w-[460px] 
+md:items-center md:pt-0'
         >
           <Image
             src={carImage}
@@ -87,20 +78,13 @@ md:w-[460px] md:items-center'
           />
         </div>
       </section>
-      <section className='flex h-full flex-col  justify-around p-6 md:p-10'>
+      <section className='flex  w-full flex-col justify-between gap-y-7 p-8  dark:bg-slate-800 md:justify-around md:px-10 md:py-6'>
         <section className='flex justify-between'>
-          <h1 className='md:h1-bold text-xl font-bold leading-7 text-gray-900'>
+          <h1 className='md:h1-bold text-xl font-bold leading-7 text-gray-900 dark:text-white'>
             {title}
           </h1>
-          <Image
-            src={'/Icons/close.svg'}
-            height={34}
-            width={34}
-            alt={'close'}
-            className={'hidden md:inline'}
-          />
         </section>
-        <p className='md:base-regular w-full text-xs font-normal leading-normal text-slate-600'>
+        <p className='md:base-regular w-full text-sm font-normal leading-normal text-slate-600 dark:text-neutral-100'>
           {description}
         </p>
         <section className=' flex w-full justify-between'>
@@ -109,7 +93,7 @@ md:w-[460px] md:items-center'
               <p className=' md:base-regular text-xs font-medium text-slate-400'>
                 Type Car{' '}
               </p>
-              <span className='md:base-medium text-xs font-semibold text-slate-600'>
+              <span className='md:base-medium text-xs font-semibold text-slate-600 dark:text-white'>
                 {type}
               </span>
             </div>
@@ -118,7 +102,7 @@ md:w-[460px] md:items-center'
               <p className='md:base-regular text-xs font-medium text-slate-400'>
                 Transm.{' '}
               </p>
-              <span className='md:base-medium text-xs font-semibold text-slate-600'>
+              <span className='md:base-medium text-xs font-semibold text-slate-600 dark:text-white'>
                 {transmission}
               </span>
             </div>
@@ -128,7 +112,7 @@ md:w-[460px] md:items-center'
               <p className='md:base-regular text-xs font-medium text-slate-400'>
                 Capacity{' '}
               </p>
-              <span className='md:base-medium text-xs font-semibold text-slate-600'>
+              <span className='md:base-medium text-xs font-semibold text-slate-600 dark:text-white'>
                 {capacity}
               </span>
             </div>
@@ -136,15 +120,15 @@ md:w-[460px] md:items-center'
               <p className='md:base-regular text-xs font-medium text-slate-400'>
                 Gasoline{' '}
               </p>
-              <span className='md:base-medium text-xs font-semibold text-slate-600'>
+              <span className='md:base-medium text-xs font-semibold text-slate-600 dark:text-white'>
                 {gasoline}
               </span>
             </div>
           </section>
         </section>
-        <section className='flex w-full items-center justify-between'>
+        <section className='flex  w-full items-center justify-between'>
           <p>
-            <span className='text-xl font-bold text-gray-900 md:text-[28px]'>
+            <span className='text-xl font-bold text-gray-900 dark:text-white md:text-[28px]'>
               {price}
             </span>
             <span className='ml-1 text-xs font-bold text-slate-400 md:text-sm'>

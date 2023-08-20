@@ -32,7 +32,6 @@ export default async function RootLayout({
           <NavBar session={session} />
           {children}
         <Footer />
-
       </body>
     </html>
   );
