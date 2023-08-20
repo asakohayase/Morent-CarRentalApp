@@ -1,13 +1,15 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import NavBar from '@/components/reusable/NavBar';
-import './globals.css';
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
-import Footer from '@/components/reusable/Footer';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/supabase';
 import { cookies } from 'next/headers';
+
+import './globals.css';
+import NavBar from '@/components/reusable/NavBar';
+import Footer from '@/components/reusable/Footer';
+import Providers from './providers';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
@@ -28,11 +30,14 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={`${plusJakartaSans.className} bg-white-200`}>
+      <body
+        className={`${plusJakartaSans.className} bg-white-200 dark:bg-black`}
+      >
+        <Providers>
           <NavBar session={session} />
           {children}
-        <Footer />
-
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

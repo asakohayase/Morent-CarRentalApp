@@ -5,14 +5,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
 import { Session, User } from '@supabase/supabase-js';
+import { useTheme } from 'next-themes';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
+import Sun from './Sun';
+import ToggleTheme from './ToggleTheme';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
+  const { theme, setTheme } = useTheme();
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null | undefined>(session?.user);
@@ -127,7 +131,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
             />
           )}
           <Image src={'/Icons/line.svg'} height={36} width={2} alt={'line'} />
-          <Image src={'/Icons/sun.svg'} height={20} width={20} alt={'line'} />
+          <ToggleTheme />
         </div>
       </ul>
     </nav>
