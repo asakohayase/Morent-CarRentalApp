@@ -12,11 +12,11 @@ interface Props {
   data: {
     title: string;
     vehicleType: string;
-    gallons: string;
+    gallons: number;
     image: string;
     transmission: string;
-    capacity: string;
-    price: string;
+    capacity: number;
+    price: number;
   };
 }
 
