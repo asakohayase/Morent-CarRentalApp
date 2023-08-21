@@ -11,6 +11,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
+import ToggleTheme from './ToggleTheme';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
   const supabase = createClientComponentClient();
@@ -51,7 +52,6 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
     setUser(null);
     router.refresh();
   };
@@ -144,7 +144,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
             />
           )}
           <Image src={'/Icons/line.svg'} height={36} width={2} alt={'line'} />
-          <Image src={'/Icons/sun.svg'} height={20} width={20} alt={'line'} />
+          <ToggleTheme />
         </div>
       </ul>
     </nav>
