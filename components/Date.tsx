@@ -22,16 +22,13 @@ const Date = ({ title }: Props) => {
           {title}
         </span>
       </label>
-      <div className='relative flex justify-between gap-5 rounded-10 bg-white-200 px-[10px] dark:bg-gray-800'>
+      <div className='rounded-10 bg-white-200 relative flex justify-between gap-5 px-[10px] dark:bg-gray-800'>
         <input
           type='date'
           name=''
           id=''
-          className='z-[2] cursor-pointer bg-transparent py-[14px] text-xs leading-5 text-gray-400 outline-none dark:text-white-200 md:text-sm md:leading-7'
+          className='dark:text-white-200 z-[2] cursor-pointer bg-transparent py-[14px] text-xs leading-5 text-gray-400 outline-none md:text-sm md:leading-7'
         />
-        {/* <span className='text-xs leading-5 text-gray-400 truncate dark:text-white-200 md:text-sm md:leading-7'>
-          Select your date
-        </span> */}
         <Image
           src={'/img/arrow.svg'}
           height={14}
