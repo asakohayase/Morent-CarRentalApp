@@ -9,7 +9,7 @@ const Date = ({ title }: Props) => {
   return (
     <div className='flex cursor-pointer flex-col gap-3'>
       <label htmlFor='' className='flex items-center gap-[6px]'>
-        <div className='relative h-[14px] w-[14px] md:h-4 md:w-4'>
+        <div className='relative h-[14px] w-[14px] shrink-0 md:h-4 md:w-4'>
           <Image
             src={'/img/date.svg'}
             fill
@@ -18,18 +18,24 @@ const Date = ({ title }: Props) => {
             className='object-cover'
           />
         </div>
-        <span className='font-semibold leading-5'>{title}</span>
-      </label>
-      <div className='bg-white-200 rounded-10 flex justify-between gap-5 px-[18px] py-[14px]'>
-        <span className='truncate text-xs leading-5 text-gray-400 md:text-sm md:leading-7'>
-          Select your date
+        <span className='truncate font-semibold leading-5 dark:text-white'>
+          {title}
         </span>
+      </label>
+      <div className='rounded-10 bg-white-200 relative flex justify-between gap-5 px-[10px] dark:bg-gray-800'>
+        <input
+          type='date'
+          name=''
+          id=''
+          className='dark:text-white-200 z-[2] cursor-pointer bg-transparent py-[14px] text-xs leading-5 text-gray-400 outline-none md:text-sm md:leading-7'
+        />
         <Image
           src={'/img/arrow.svg'}
           height={14}
           width={14}
           priority
           alt='Icon'
+          className='absolute right-3 top-1/2 z-[1] -translate-y-1/2'
         />
       </div>
     </div>
