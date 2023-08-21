@@ -5,12 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
 import { Session, User } from '@supabase/supabase-js';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
-import { useRouter } from 'next/navigation';
 import ToggleTheme from './ToggleTheme';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
@@ -56,21 +56,38 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
     router.refresh();
   };
 
+  const currentRoute = usePathname();
+
   return (
-    <nav className='sticky top-0 z-40 flex h-[100px] w-full items-center border-b border-b-slate-300/40 bg-white'>
+    <nav className='sticky top-0 z-40 flex h-[100px] w-full items-center border-b border-b-slate-300/40 bg-white dark:border-slate-800 dark:bg-gray-900'>
       <ul className='padding-layout flex w-full flex-row items-center justify-between '>
         <Link href='/'>
           <Image src={'/img/logo.svg'} width={148} height={44} alt={'logo'} />
         </Link>
         <div className='flex items-center justify-between gap-x-9 text-base font-medium text-slate-600'>
           <li className='hover:text-blue-500'>
-            <Link href='/'>Home</Link>
+            <Link
+              href='/'
+              className={currentRoute === '/' ? 'text-blue-500' : ''}
+            >
+              Home
+            </Link>
           </li>
           <li className='hover:text-blue-500'>
-            <Link href='/search'>Search</Link>
+            <Link
+              href='/search'
+              className={currentRoute === '/search' ? 'text-blue-500' : ''}
+            >
+              Search
+            </Link>
           </li>
           <li className='hover:text-blue-500'>
-            <Link href='/addcar'>Add Car</Link>
+            <Link
+              href='/addcar'
+              className={currentRoute === '/addcar' ? 'text-blue-500' : ''}
+            >
+              Add Car
+            </Link>
           </li>
           {session || user ? (
             <Popover className='relative z-20'>

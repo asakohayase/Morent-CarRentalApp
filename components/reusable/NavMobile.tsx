@@ -64,8 +64,8 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   };
 
   return (
-    <motion.div className='sticky top-0 z-50'>
-      <nav className='padding-layout  mb-7 flex h-[92px] justify-between bg-white'>
+    <motion.div className='sticky top-0 z-50 '>
+      <nav className='padding-layout  flex h-[92px] justify-between bg-white dark:bg-gray-900'>
         <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
@@ -90,7 +90,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
       <AnimatePresence mode='sync'>
         {open && (
           <motion.div
-            className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 sm:left-[17px] sm:w-[96%]'
+            className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 dark:bg-slate-800 sm:left-[17px] sm:w-[96%]'
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -100 }}
@@ -123,7 +123,9 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         height={18}
                         alt={'home'}
                       />
-                      <h3 className='pl-2 hover:text-white'>Home</h3>
+                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                        Home
+                      </h3>
                     </li>
                   </Link>
                   <Link href='search'>
@@ -134,7 +136,9 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         height={18}
                         alt={'home'}
                       />
-                      <h3 className='pl-2 hover:text-white'>Search</h3>
+                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                        Search
+                      </h3>
                     </li>
                   </Link>
                   <Link href='addcar'>
@@ -145,7 +149,9 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         height={18}
                         alt={'home'}
                       />
-                      <h3 className='pl-2 hover:text-white'>Add Car</h3>
+                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                        Add Car
+                      </h3>
                     </li>
                   </Link>
                 </div>
@@ -178,7 +184,9 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               <Button
                 title={'Login'}
                 href='#'
-                style={'btn-login w-full hover:bg-blue-600 hover:text-white'}
+                style={
+                  'btn-login w-full hover:bg-blue-600 hover:text-white dark:bg-slate-600 dark:border-0'
+                }
                 handleClick={handleOAuth}
               />
             )}

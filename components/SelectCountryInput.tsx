@@ -26,9 +26,9 @@ const SelectInput = ({ selected, setSelected }: Props) => {
         onClick={() => {
           setOpen((prev) => !prev);
         }}
-        className='bg-white-200 rounded-10 flex justify-between gap-5 px-[18px] py-[14px]'
+        className='flex justify-between gap-5 rounded-10 bg-white-200 px-[18px] py-[14px] dark:bg-gray-800'
       >
-        <span className='truncate text-xs leading-5 text-gray-400 md:text-sm md:leading-7'>
+        <span className='truncate text-xs leading-5 text-gray-400 dark:text-white-200 md:text-sm md:leading-7'>
           {selected || 'Location - Select your city'}
         </span>
         <Image
@@ -42,7 +42,7 @@ const SelectInput = ({ selected, setSelected }: Props) => {
       <ul
         className={`absolute mt-3 ${
           open ? 'max-h-56' : 'max-h-0'
-        } scrollbar-hide w-full overflow-y-auto rounded-b-[10px] bg-white drop-shadow-md`}
+        } scrollbar-hide w-full overflow-y-auto rounded-b-[10px] bg-white drop-shadow-md dark:bg-gray-800 dark:text-white-200`}
       >
         <input
           type='text'
@@ -51,7 +51,7 @@ const SelectInput = ({ selected, setSelected }: Props) => {
             setInput(e.target.value.toLocaleLowerCase());
           }}
           placeholder='Enter city name'
-          className='sticky top-0 w-full border-b-[1px] border-gray-100 p-2 outline-none drop-shadow-sm placeholder:text-sm placeholder:text-gray-300'
+          className='sticky top-0 w-full border-b-[1px] border-gray-100 p-2 text-sm outline-none drop-shadow-sm placeholder:text-sm placeholder:text-gray-300 dark:border-transparent dark:bg-gray-850 dark:drop-shadow-lg'
         />
         {states?.map((state: IState, i) => {
           if (!state?.name) {
@@ -64,7 +64,7 @@ const SelectInput = ({ selected, setSelected }: Props) => {
               className={`cursor-pointer p-2 text-sm  ${
                 state?.name?.toLowerCase() === selected?.toLowerCase()
                   ? 'bg-blue-500 text-white hover:bg-blue-500'
-                  : 'hover:bg-blue-500/10'
+                  : 'hover:bg-blue-500/10 dark:hover:bg-black'
               } ${
                 state?.name?.toLowerCase().startsWith(input)
                   ? 'block'
