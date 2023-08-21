@@ -14,6 +14,7 @@ import {
 
 import Button from './Button';
 import { useRouter } from 'next/navigation';
+import ToggleTheme from './ToggleTheme';
 
 const NavMobile = ({ session }: { session: Session | null }) => {
   const [open, setOpen] = useState(false);
@@ -68,7 +69,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
         <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
-            <Image src={'./Icons/sun.svg'} width={20} height={20} alt={'sun'} />
+            <ToggleTheme />
             {(session || user) && (
               <Avatar.Root>
                 <Avatar.Image className='h-7 rounded-full' src={avatarUrl!} />

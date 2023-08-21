@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as Avatar from '@radix-ui/react-avatar';
 import { Session, User } from '@supabase/supabase-js';
-import { useTheme } from 'next-themes';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
@@ -15,7 +14,6 @@ import { useRouter } from 'next/navigation';
 import ToggleTheme from './ToggleTheme';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
-  const { theme, setTheme } = useTheme();
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null | undefined>(session?.user);
