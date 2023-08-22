@@ -11,26 +11,26 @@ export interface Database {
     Tables: {
       car_images: {
         Row: {
-          file_name: string | null
+          car_id: string | null
+          image_id: string | null
           image_url: string | null
-          owner_id: number | null
         }
         Insert: {
-          file_name?: string | null
+          car_id?: string | null
+          image_id?: string | null
           image_url?: string | null
-          owner_id?: number | null
         }
         Update: {
-          file_name?: string | null
+          car_id?: string | null
+          image_id?: string | null
           image_url?: string | null
-          owner_id?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "fk_owner"
-            columns: ["owner_id"]
+            foreignKeyName: "car_images_car_id_fkey"
+            columns: ["car_id"]
             referencedRelation: "cars"
-            referencedColumns: ["owner_id"]
+            referencedColumns: ["car_id"]
           }
         ]
       }
@@ -38,47 +38,44 @@ export interface Database {
         Row: {
           booked_dates: string[] | null
           borrower_id: number | null
-          capacity: Database["public"]["Enums"]["capacity"] | null
-          car_id: number | null
-          car_images: string[] | null
+          capacity: Database["public"]["Enums"]["capacity"]
+          car_id: string
           car_title: string
-          car_type: Database["public"]["Enums"]["car_type"] | null
+          car_type: Database["public"]["Enums"]["car_type"]
           fuel_capacity: number
           location: string
-          owner_id: number
+          owner_id: string
           price: number
           short_description: string
-          transmission: Database["public"]["Enums"]["transmission"] | null
+          transmission: Database["public"]["Enums"]["transmission"]
         }
         Insert: {
           booked_dates?: string[] | null
           borrower_id?: number | null
-          capacity?: Database["public"]["Enums"]["capacity"] | null
-          car_id?: number | null
-          car_images?: string[] | null
+          capacity: Database["public"]["Enums"]["capacity"]
+          car_id?: string
           car_title: string
-          car_type?: Database["public"]["Enums"]["car_type"] | null
+          car_type: Database["public"]["Enums"]["car_type"]
           fuel_capacity: number
           location: string
-          owner_id: number
+          owner_id: string
           price: number
           short_description: string
-          transmission?: Database["public"]["Enums"]["transmission"] | null
+          transmission: Database["public"]["Enums"]["transmission"]
         }
         Update: {
           booked_dates?: string[] | null
           borrower_id?: number | null
-          capacity?: Database["public"]["Enums"]["capacity"] | null
-          car_id?: number | null
-          car_images?: string[] | null
+          capacity?: Database["public"]["Enums"]["capacity"]
+          car_id?: string
           car_title?: string
-          car_type?: Database["public"]["Enums"]["car_type"] | null
+          car_type?: Database["public"]["Enums"]["car_type"]
           fuel_capacity?: number
           location?: string
-          owner_id?: number
+          owner_id?: string
           price?: number
           short_description?: string
-          transmission?: Database["public"]["Enums"]["transmission"] | null
+          transmission?: Database["public"]["Enums"]["transmission"]
         }
         Relationships: []
       }
