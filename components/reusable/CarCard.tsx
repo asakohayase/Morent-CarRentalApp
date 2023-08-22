@@ -16,7 +16,7 @@ interface Props {
     image: string;
     transmission: string;
     capacity: number;
-    price: number
+    price: number;
     id: number;
   };
 }
@@ -25,7 +25,7 @@ const CarCard = ({
   data: { title, vehicleType, gallons, image, transmission, capacity, price },
 }: Props) => {
   return (
-    <article className='flex w-full flex-col justify-between gap-8 rounded-[10px] bg-white p-6 dark:bg-slate-800'>
+    <article className='flex w-full flex-col justify-between gap-8 rounded-[10px] bg-white p-6 transition-all hover:scale-105 dark:bg-slate-800'>
       <section className='flex items-center justify-between '>
         <div>
           <h1 className=' whitespace-nowrap text-base font-semibold text-gray-900 dark:text-white md:text-xl md:font-bold'>
@@ -44,14 +44,16 @@ const CarCard = ({
         />
       </section>
       <section className='flex justify-between gap-14 md:flex-col'>
-        <Image
-          src={image}
-          alt={title}
-          width={160}
-          height={64}
-          className='md:mt-8 md:h-[100px] md:w-[248px]'
-        />
-        <section className='flex flex-col justify-between md:flex-row'>
+        <div className='flex md:w-full md:items-center md:justify-center'>
+          <Image
+            src={image}
+            alt={title}
+            width={160}
+            height={64}
+            className='md:mt-8 md:h-[100px] md:w-[248px]'
+          />
+        </div>
+        <section className='flex flex-col justify-between md:flex-row md:items-center'>
           <div className='flex gap-2'>
             <Image
               src='/img/gas-station.svg'
@@ -94,7 +96,7 @@ const CarCard = ({
             </Dialog.Trigger>
             <Dialog.Portal>
               <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-              <Dialog.Content className='fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900 shadow  md:top-1/2 md:max-w-[1054px]'>
+              <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900 shadow  md:top-1/2 md:max-w-[1054px]'>
                 <CarDetailCard data={carDetails} />
                 <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white md:hidden'>
                   <Cross2Icon height={24} width={24} />
