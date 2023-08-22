@@ -33,6 +33,7 @@
     "eslint-plugin-tailwindcss": "^3.13.0",
     "framer-motion": "^10.15.1",
     "next": "13.4.13",
+    "next-themes": "^0.2.1",
     "postcss": "8.4.27",
     "prettier": "^3.0.1",
     "react": "18.2.0",
@@ -46,7 +47,6 @@
   "devDependencies": {
     "@types/next": "^9.0.0",
     "@types/uuid": "^9.0.2",
-    "supabase": "^1.83.7",
-    "tailwind-scrollbar": "^3.0.5"
+    "supabase": "^1.83.7"
   }
 }

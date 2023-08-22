@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+input[type='date'] {
+  position: relative;
+  width: 100%; /* Set the width to 100% */
+  box-sizing: border-box;
+}
+
+input[type='date']:after {
+  content: '';
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -12,6 +34,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
 @layer components {
   .padding-layout {
     @apply max-w-[1536px] mx-auto px-6 md:px-16;
