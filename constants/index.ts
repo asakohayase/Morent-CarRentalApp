@@ -35,7 +35,22 @@ export const footerLinks = [
     },
     {
       title: "Car Type",
-      placeholder: "Brand Name"
+      placeholder: "Brand Name",
+      options: [
+        "SUV",
+        "Crossover",
+        "Sedan",
+        "Truck",
+        "Wagon / Hatchback",
+        "Convertible",
+        "Luxury",
+        "Coupe",
+        "Electric",
+        "Hybrid",
+        "Van / Minivan",
+        "Sports Car",
+        "Other"
+      ]
     },
     {
       title: "Rent Price",
@@ -43,11 +58,13 @@ export const footerLinks = [
     },
     {
       title: "Capacity",
-      placeholder: "Capacity in persons"
+      placeholder: "Capacity in persons",
+      options: ["2", "4", "6", "8 or more"]
     },
     {
       title: "Transmission",
-      placeholder: "Car Type"
+      placeholder: "Car Type",
+      options: ["Manual", "Automatic", "CVT"]
     },
     {
       title: "Location",
