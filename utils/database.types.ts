@@ -77,7 +77,14 @@ export interface Database {
           short_description?: string
           transmission?: Database["public"]["Enums"]["transmission"]
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "cars_owner_id_fkey"
+            columns: ["owner_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       profiles: {
         Row: {
@@ -136,7 +143,6 @@ export interface Database {
         | "Van / Minivan"
         | "Sports Car"
         | "Other"
-      e_cartype: "Sedan" | "SUV"
       transmission: "Manual" | "Automatic" | "CVT"
     }
     CompositeTypes: {
