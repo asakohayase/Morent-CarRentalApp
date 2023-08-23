@@ -34,8 +34,8 @@ const CarDetailCard = ({
   },
 }: Props) => {
   return (
-    <div className='flex h-full w-full flex-col rounded-lg md:flex-row'>
-      <section className='flex h-full flex-col  bg-white p-6 dark:bg-slate-800 md:p-4'>
+    <div className='flex h-full w-full flex-col rounded-[10px]  bg-white md:flex-row'>
+      <section className='flex h-full flex-col  p-6 dark:bg-slate-800 md:p-4'>
         <div
           className='flex w-full items-end justify-center rounded-[10px] border border-slate-200 pt-40 dark:border-slate-400 md:h-[360px] md:w-[460px] 
 md:items-center md:pt-0'
@@ -45,7 +45,7 @@ md:items-center md:pt-0'
             alt={title}
             width={190}
             height={60}
-            className={'pb-5 md:w-[408px] md:pb-0'}
+            className={'pb-5  md:w-[408px] md:pb-0'}
           />
         </div>
         <div className='flex items-center justify-between  pt-6'>

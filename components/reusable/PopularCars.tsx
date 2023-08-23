@@ -24,7 +24,7 @@ const PopularCars = ({
   data: { title, vehicleType, gallons, image, transmission, capacity, price },
 }: Props) => {
   return (
-    <article className='flex w-full flex-col justify-between gap-y-8 rounded-[10px] bg-white p-7 dark:bg-slate-800 md:w-fit md:gap-8 md:p-6'>
+    <article className='flex w-full flex-col justify-between gap-y-8 rounded-[10px] bg-white p-7 dark:bg-slate-800 md:gap-8 md:p-6'>
       <section className='flex w-full items-center justify-between'>
         <div className='overflow-hidden'>
           <h1 className='line-clamp-1 text-base font-semibold text-gray-900 dark:text-white md:text-xl md:font-bold'>
@@ -42,15 +42,17 @@ const PopularCars = ({
           className='mb-4 md:mb-5 md:h-6 md:w-6'
         />
       </section>
-      <section className=''>
-        <Image
-          src={image}
-          alt={title}
-          width={160}
-          height={64}
-          className='md:mt-8 md:h-[100px] md:w-[248px]'
-        />
-        <section className='mt-8 flex flex-row justify-between'>
+      <section>
+        <div className='flex w-full items-center justify-center'>
+          <Image
+            src={image}
+            alt={title}
+            width={160}
+            height={64}
+            className='w-full bg-white md:mt-8 md:h-[100px] md:w-[248px]'
+          />
+        </div>
+        <section className='mt-8 flex flex-row items-center justify-between'>
           <div className='flex gap-2'>
             <Image
               src='/img/gas-station.svg'
