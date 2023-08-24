@@ -5,9 +5,11 @@ import Image from '@/node_modules/next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import React, { useState } from 'react';
+import SelectCountryInput from '../SelectCountryInput';
 
 
 const AddCarForm = () => {
+    const [selectedLocation, setSelectedLocation] = useState('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null); 
     const uploadImageToSupabase = async () => {
@@ -55,27 +57,35 @@ const AddCarForm = () => {
                             </Form.Message>
                         </div>
                         <Form.Control asChild>
-                            {item.options ? ( 
-                                <select
-                                className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 p-[10px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200"
-                                required
-                                defaultValue=""
-                                >
-                                <option value="" disabled>
-                                    {item.placeholder}
-                                </option>
-                                {item.options.map((option, index) => (
-                                    <option key={index} value={option}>
-                                    {option}
-                                    </option>
-                                ))}
-                                </select>
+                            {item.title === 'Location' ? (
+                                <SelectCountryInput selected={selectedLocation} setSelected={setSelectedLocation}/>
                             ) : (
-                                <input
-                                className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 p-[10px] text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:text-red-400 focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200"
-                                placeholder={item.placeholder}
-                                required
-                                />
+                                 item.options ? ( 
+                                     <div className='flex w-full'>
+                                        <div className='relative inline-flex h-14 w-full'>
+                                            <select
+                                            className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200"
+                                            required
+                                            defaultValue=""
+                                            >
+                                            <option value="" disabled>
+                                                {item.placeholder}
+                                            </option>
+                                            {item.options.map((option, index) => (
+                                                <option key={index} value={option}>
+                                                    {option}
+                                                </option>
+                                            ))}
+                                            </select> 
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <input
+                                    className="inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px]  text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 placeholder:text-gray-400 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200 dark:placeholder:text-white-200"
+                                    placeholder={item.placeholder}
+                                    required
+                                    />
+                                )
                             )}
                         </Form.Control>
                     </Form.Field>         
