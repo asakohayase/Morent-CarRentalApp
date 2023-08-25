@@ -6,7 +6,7 @@ export const carCard = {
   transmission: 'Manual',
   capacity: '6',
   price: '80.00',
-  id: 123
+  id: 123,
 };
 
 export const hours = [
@@ -50,9 +50,9 @@ export const carDetails = {
   type: 'Sport',
   capacity: '2 Person',
   transmission: 'Manual',
-  gasoline: '70L',
-  price: '$80.00/',
-  id: 124
+  gasoline: '70',
+  price: '$80.00',
+  id: 124,
 };
 
 export const carArray = [
@@ -64,7 +64,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 220,
-    id: 125
+    id: 125,
   },
   {
     title: 'Chevrolet Silverado',
@@ -74,7 +74,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 4,
     price: 380,
-    id: 126
+    id: 126,
   },
   {
     title: 'BMW X5',
@@ -84,7 +84,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 550,
-    id: 127
+    id: 127,
   },
   {
     title: 'Ford Mustang',
@@ -94,7 +94,7 @@ export const carArray = [
     transmission: 'Manual',
     capacity: 2,
     price: 400,
-    id: 128
+    id: 128,
   },
   {
     title: 'Nissan Leaf',
@@ -104,7 +104,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 320,
-    id: 129
+    id: 129,
   },
   {
     title: 'Jeep Wrangler',
@@ -114,7 +114,7 @@ export const carArray = [
     transmission: 'Manual',
     capacity: 4,
     price: 330,
-    id: 130
+    id: 130,
   },
   {
     title: 'Audi A4',
@@ -124,7 +124,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 420,
-    id: 131
+    id: 131,
   },
   {
     title: 'Lexus RX',
@@ -134,7 +134,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 500,
-    id: 132
+    id: 132,
   },
   {
     title: 'Ford Escape',
@@ -144,7 +144,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 270,
-    id: 133
+    id: 133,
   },
   {
     title: 'Subaru Outback',
@@ -154,7 +154,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 280,
-    id: 134
+    id: 134,
   },
   {
     title: 'Chevrolet Corvette',
@@ -164,7 +164,7 @@ export const carArray = [
     transmission: 'Manual',
     capacity: 2,
     price: 650,
-    id: 135
+    id: 135,
   },
   {
     title: 'Hyundai Sonata',
@@ -174,7 +174,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 230,
-    id: 136
+    id: 136,
   },
   {
     title: 'GMC Sierra',
@@ -184,7 +184,7 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 3,
     price: 400,
-    id: 137
+    id: 137,
   },
   {
     title: 'Volkswagen Golf',
@@ -194,6 +194,6 @@ export const carArray = [
     transmission: 'Automatic',
     capacity: 5,
     price: 210,
-    id: 138
+    id: 138,
   },
 ];
