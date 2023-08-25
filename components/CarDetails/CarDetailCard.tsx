@@ -22,6 +22,7 @@ interface Props {
     gasoline: string;
     price: string;
   };
+  children?: React.ReactNode;
 }
 
 const CarDetailCard = ({
@@ -38,12 +39,15 @@ const CarDetailCard = ({
     gasoline,
     price,
   },
+  children,
 }: Props) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedPickupTime, setSelectedPickupTime] = useState('');
   const [selectedDropoffTime, setSelectedDropoffTime] = useState('');
+
   return (
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
+      {children}
       <div className='flex h-full w-full flex-col rounded-[10px]  transition delay-150 ease-in-out md:flex-row'>
         <section className='flex h-full flex-col rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
           <div
@@ -207,6 +211,7 @@ md:items-center md:pt-0'
                           <Time
                             setSelectedTime={setSelectedPickupTime}
                             title={'Pick-Up Time'}
+                            selectedTime={selectedPickupTime}
                           />
                         </div>
                       </section>
@@ -218,6 +223,7 @@ md:items-center md:pt-0'
                           <Time
                             setSelectedTime={setSelectedDropoffTime}
                             title={'Drop-Off Time'}
+                            selectedTime={selectedDropoffTime}
                           />
                         </div>
                       </section>
