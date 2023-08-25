@@ -49,7 +49,7 @@ const PopularCars = ({
             alt={title}
             width={160}
             height={64}
-            className='w-full bg-white md:mt-8 md:h-[100px] md:w-[248px]'
+            className='w-full md:mt-8 md:h-[100px] md:w-[248px]'
           />
         </div>
         <section className='mt-8 flex flex-row items-center justify-between'>
@@ -106,13 +106,17 @@ const PopularCars = ({
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-            <Dialog.Content className='fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white text-gray-900 shadow md:top-1/2 md:max-w-[1054px]'>
+            <Dialog.Content className='fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2  rounded-[10px] text-gray-900 shadow md:top-1/2 md:max-w-[1054px]'>
               <CarDetailCard data={carDetails} />
-              <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white md:hidden'>
+              <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white dark:bg-slate-800 dark:text-white md:hidden'>
                 <Cross2Icon height={24} width={24} />
               </Dialog.Close>
               <Dialog.Close className='absolute right-8 top-[34px] hidden cursor-pointer md:inline'>
-                <Cross2Icon height={34} width={34} />
+                <Cross2Icon
+                  height={34}
+                  width={34}
+                  className='dark:text-white'
+                />
               </Dialog.Close>
             </Dialog.Content>
           </Dialog.Portal>

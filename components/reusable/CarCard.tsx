@@ -91,17 +91,17 @@ const CarCard = ({
             </span>
           </p>
           <Dialog.Root>
-            <Dialog.Trigger className='btn-primary w-fit hover:opacity-80'>
+            <Dialog.Trigger className='btn-primary ml-6 w-[100px] hover:opacity-80 md:w-fit'>
               More Info
             </Dialog.Trigger>
             <Dialog.Portal>
               <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-              <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900 shadow  md:top-1/2 md:max-w-[1054px]'>
+              <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow md:top-1/2 md:max-w-[1054px]'>
                 <CarDetailCard data={carDetails} />
-                <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white md:hidden'>
+                <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white dark:bg-slate-800 dark:text-white md:hidden'>
                   <Cross2Icon height={24} width={24} />
                 </Dialog.Close>
-                <Dialog.Close className='absolute right-8 top-[34px] hidden cursor-pointer md:inline'>
+                <Dialog.Close className='absolute right-8 top-[34px] hidden cursor-pointer dark:text-white md:inline'>
                   <Cross2Icon height={34} width={34} />
                 </Dialog.Close>
               </Dialog.Content>

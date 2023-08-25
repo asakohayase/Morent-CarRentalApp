@@ -14,10 +14,13 @@ const PickUpDropOff = (props: Props) => {
   // console.log(selectedPickupTime, selectedDropoffTime);
 
   return (
-    <form className='rounded-10 relative flex w-full flex-col justify-between gap-y-[22px] bg-white px-3 py-6 lg:flex-row lg:items-end lg:gap-x-4 lg:gap-y-0 lg:px-[36px] dark:bg-gray-850'>
+    <form className='relative flex w-full flex-col justify-between gap-y-[22px] rounded-10 bg-white px-3 py-6 dark:bg-gray-850 lg:flex-row lg:items-end lg:gap-x-4 lg:gap-y-0 lg:px-[36px]'>
       <div className='grid w-full grid-cols-1 gap-3 gap-y-[22px] lg:grid-cols-3'>
-        <div className='z-10 flex flex-col w-full gap-3 shrink-0'>
-          <label htmlFor='location' className='flex items-center gap-[6px] dark:text-white'>
+        <div className='z-10 flex w-full shrink-0 flex-col gap-3'>
+          <label
+            htmlFor='location'
+            className='flex items-center gap-[6px] dark:text-white'
+          >
             <div className='relative h-[14px] w-[14px] md:h-4 md:w-4'>
               <Image
                 src={'/img/location.svg'}
@@ -44,7 +47,7 @@ const PickUpDropOff = (props: Props) => {
       </div>
       <button
         type='submit'
-        className='rounded-10 absolute -bottom-20 left-0 flex h-12 w-full items-center justify-center gap-[6px] bg-blue-500 sm:relative sm:-bottom-0 lg:h-14 lg:w-[160px] lg:shrink-0'
+        className='absolute -bottom-20 left-0 flex h-12 w-full items-center justify-center gap-[6px] rounded-10 bg-blue-500 sm:relative sm:-bottom-0 lg:h-14 lg:w-[160px] lg:shrink-0'
       >
         <Image
           src={'/img/search.svg'}
