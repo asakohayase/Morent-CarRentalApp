@@ -12,13 +12,16 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
 import ToggleTheme from './ToggleTheme';
+import Login from './Login';
 
 const NavDesktop = ({ session }: { session: Session | null }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [user, setUser] = useState<User | null | undefined>(session?.user);
+  const [user, setUser] = useState<User | null | undefined>(
+    session ? session.user : undefined,
+  );
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
-    session?.user?.user_metadata?.avatar_url,
+    session ? session.user?.user_metadata?.avatar_url : undefined,
   );
 
   useEffect(() => {
@@ -28,31 +31,25 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
       } = await supabase.auth.getUser();
       setUser(user);
     };
-    getUser();
-  }, [supabase]);
+    if (!session?.user) getUser();
+  }, [supabase, session]);
 
   useEffect(() => {
-    if (avatarUrl) return;
     const getAvatar = async () => {
       const { data } = await supabase
         .from('profiles')
         .select(`avatar_url`)
         .eq(`id`, user?.id)
         .single();
-      setAvatarUrl(data?.avatar_url);
+      setAvatarUrl(data?.avatar_url ?? '/img/placeholder-avatar.jpg');
     };
-    getAvatar();
-  }, [user, supabase, avatarUrl]);
-
-  const handleOAuth = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-  };
+    if (session) getAvatar();
+  }, [user, supabase, avatarUrl, session]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    router.push('/');
     router.refresh();
   };
 
@@ -81,14 +78,16 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
               Search
             </Link>
           </li>
-          <li className='hover:text-blue-500'>
-            <Link
-              href='/addcar'
-              className={currentRoute === '/addcar' ? 'text-blue-500' : ''}
-            >
-              Add Car
-            </Link>
-          </li>
+          {session && (
+            <li className='hover:text-blue-500'>
+              <Link
+                href='/addcar'
+                className={currentRoute === '/addcar' ? 'text-blue-500' : ''}
+              >
+                Add Car
+              </Link>
+            </li>
+          )}
           {session || user ? (
             <Popover className='relative z-20'>
               <Popover.Button className='focus:outline-none'>
@@ -97,10 +96,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                     className='h-10 rounded-full'
                     src={avatarUrl!}
                   />
-                  <Avatar.Fallback
-                    className='h-10 rounded-full bg-slate-800'
-                    delayMs={600}
-                  />
+                  <Avatar.Fallback className='h-10 rounded-full bg-slate-800' />
                 </Avatar.Root>
               </Popover.Button>
               <Transition
@@ -111,24 +107,32 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                 leaveFrom='transform scale-100 opacity-100'
                 leaveTo='transform scale-95 opacity-0'
               >
-                <Popover.Panel className='absolute right-0 z-20 flex w-56 flex-col gap-3 rounded-lg border border-blue-50 bg-white p-4'>
-                  <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200'>
-                    <Avatar.Root>
-                      <Avatar.Image
-                        className='h-6 rounded-full'
-                        src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
-                      />
-                      <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
-                    </Avatar.Root>
-                    <span className='font-semibold text-blue-500'>
+                <Popover.Panel className='absolute right-0 z-20 flex w-56 flex-col gap-3 rounded-lg border border-blue-50 bg-white p-4 dark:border-dark-700 dark:bg-dark-900'>
+                  <a href='/profile' className='font-semibold text-blue-500'>
+                    <button className='flex h-10 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200 dark:border-dark-700 dark:bg-dark-900 hover:dark:bg-dark-850'>
+                      <Avatar.Root>
+                        <Avatar.Image
+                          className='h-6 rounded-full'
+                          src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                        />
+                        <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
+                      </Avatar.Root>
                       My Profile
-                    </span>
-                  </button>
+                    </button>
+                  </a>
+                  <a
+                    className='font-semibold text-blue-500'
+                    href='/auth/editprofile'
+                  >
+                    <button className='flex h-10 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200 dark:border-dark-700 dark:bg-dark-900 hover:dark:bg-dark-850'>
+                      Edit Profile
+                    </button>
+                  </a>
                   <Button
                     title={'Logout'}
                     href='#'
                     style={
-                      'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 text-white font-semibold hover:bg-red-700'
+                      'flex h-10 w-full items-center justify-center gap-2 rounded-md bg-red-400 text-white font-semibold hover:bg-red-700'
                     }
                     handleClick={handleLogout}
                   />
@@ -136,12 +140,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
               </Transition>
             </Popover>
           ) : (
-            <Button
-              title={'Login'}
-              href='#'
-              style={'btn-login w-[116px] hover:opacity-80'}
-              handleClick={handleOAuth}
-            />
+            <Login />
           )}
           <Image src={'/Icons/line.svg'} height={36} width={2} alt={'line'} />
           <ToggleTheme />
