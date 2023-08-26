@@ -220,13 +220,6 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
               </section>
             </figure>
             <section className='flex items-center gap-16'>
-              {/* <Avatar.Root className='relative -top-6 left-8 h-20 sm:h-32'>
-                <Avatar.Image
-                  className='h-full w-full rounded-full'
-                  src={profile?.avatar_url}
-                />
-                <Avatar.Fallback className='' />
-              </Avatar.Root> */}
               <figure className='relative -top-6 left-8 h-20 w-20 sm:h-32 sm:w-32'>
                 <Image
                   src={profile.avatar_url}
@@ -237,7 +230,7 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
                   className='rounded-full'
                 />
               </figure>
-              <section className='fixed h-20 w-20 rounded-full sm:h-32 sm:w-32'>
+              <section className='absolute h-20 w-20 rounded-full sm:h-32 sm:w-32'>
                 {/* Input for Avatar Image */}
                 <input
                   type='file'
@@ -259,8 +252,8 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
                   className='relative bottom-6 left-8 h-full w-full rounded-full font-semibold text-transparent transition ease-in-out hover:bg-black/60 hover:text-white'
                   onClick={() => avatarRef?.current?.click()}
                 >
-                  <div className='fixed'>
-                    <div className='relative -top-5 left-12 flex h-6 w-6 items-center justify-center rounded-full bg-white-200 sm:-top-16 sm:left-20 sm:h-10 sm:w-10'>
+                  <div className='relative'>
+                    <div className='relative bottom-3 left-12 flex h-6 w-6 items-center justify-center rounded-full bg-white-200 sm:bottom-9 sm:left-20 sm:h-10 sm:w-10'>
                       <figure className='relative h-4 w-4 rounded-full sm:h-6 sm:w-6'>
                         <Image
                           src='/img/AddPhoto.svg'
