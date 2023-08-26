@@ -1,7 +1,7 @@
 'use client';
 
 import * as Form from '@radix-ui/react-form';
-import { formItems } from '@/constants/index';
+import { formItems, FormData } from '@/constants/index';
 import Image from '@/node_modules/next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -9,31 +9,24 @@ import { User } from '@supabase/supabase-js';
 import React, { useState, useEffect } from 'react';
 import SelectCountryInput from '../SelectCountryInput';
 
+const initialFormData: FormData = {
+  car_title: null,
+  price: null,
+  location: null,
+  fuel_capacity: null,
+  short_description: null,
+  car_type: null,
+  transmission: null,
+  capacity: null,
+};
+
 const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [formData, setFormData] = useState<{
-    car_title: string | null;
-    price: number | null;
-    location: string | null;
-    fuel_capacity: number | null;
-    short_description: string | null;
-    car_type: string | null;
-    transmission: string | null;
-    capacity: string | null;
-  }>({
-    car_title: null,
-    price: null,
-    location: null,
-    fuel_capacity: null,
-    short_description: null,
-    car_type: null,
-    transmission: null,
-    capacity: null,
-  });
+  const [formData, setFormData] = useState<FormData>(initialFormData);
 
   useEffect(() => {
     const getUser = async () => {
@@ -49,6 +42,7 @@ const AddCarForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
+    console.log('Input change:', name, value);
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -75,6 +69,7 @@ const AddCarForm = () => {
   const handleRegisterCar = async () => {
     const carId = uuidv4();
     uploadImageToSupabase();
+    console.log('Form Data before inserting:', formData);
 
     const { data, error } = await supabase.from('cars').insert([
       {
@@ -104,8 +99,8 @@ const AddCarForm = () => {
   return (
     <Form.Root className='w-full'>
       <section className='grid w-full gap-8 md:grid-cols-2'>
-        {formItems.map((item, index) => (
-          <Form.Field key={index} className='grid gap-4' name={item.title}>
+        {formItems.map((item) => (
+          <Form.Field key={item.title} className='grid gap-4' name={item.title}>
             <div className='flex items-baseline'>
               <Form.Label className='text-sm font-semibold text-gray-900 dark:text-white-0'>
                 {item.title}
@@ -129,9 +124,8 @@ const AddCarForm = () => {
                     <select
                       className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200'
                       required
-                      defaultValue=''
                       name={item.name} // Add name attribute
-                      value={formData[item.name]} // Use form data value
+                      value={formData[item.name] || ''} // Use form data value
                       onChange={handleInputChange} // Use the common select change handler
                     >
                       <option value='' disabled>
@@ -150,7 +144,7 @@ const AddCarForm = () => {
                   className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px]  text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 placeholder:text-gray-400 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200 dark:placeholder:text-white-200'
                   name={item.name} // Add name attribute
                   placeholder={item.placeholder}
-                  value={formData[item.name]} // Use form data value
+                  value={formData[item.name] || ''} // Use form data value
                   onChange={handleInputChange} // Use the common input change handler
                   required
                 />
