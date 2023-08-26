@@ -55,6 +55,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
     await supabase.auth.signOut();
     setUser(null);
     router.push('/');
+    router.refresh();
   };
 
   return (
