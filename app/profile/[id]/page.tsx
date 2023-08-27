@@ -5,7 +5,7 @@ import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
 import { carType } from '@/constants/index';
 import React, { useEffect, useState } from 'react';
-import fetchCarsFromDatabase from '@/utils/fetchCars';
+import fetchCars from '@/utils/fetchCars';
 
 const ProfilePage = ({ params }: { params: { id: number } }) => {
   const [carData, setCarData] = useState<carType[]>([]);
@@ -13,7 +13,7 @@ const ProfilePage = ({ params }: { params: { id: number } }) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const cars = await fetchCarsFromDatabase();
+        const cars = await fetchCars();
         setCarData(cars);
       } catch (error) {
         console.error('Error fetching car data:', error);
