@@ -12,6 +12,8 @@ const ProfileCard = ({ id }: Props) => {
   const [profileData, setProfileData] = useState({
     full_name: '',
     avatar_url: '',
+    banner: '',
+    headline: '',
   });
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const ProfileCard = ({ id }: Props) => {
         if (id) {
           const { data, error } = await supabase
             .from('profiles')
-            .select('full_name, avatar_url')
+            .select('full_name, avatar_url, banner, headline')
             .eq('id', id)
             .single(); // Assuming each id is unique
 
@@ -40,7 +42,15 @@ const ProfileCard = ({ id }: Props) => {
 
   return (
     <section className='relative flex h-[301px] w-full rounded-[10px] bg-white dark:bg-gray-850'>
-      <div className='profileBanner h-[150px] w-full rounded-t-[10px] md:h-[182px]' />
+      <div
+        className='profileBanner h-[150px] w-full rounded-t-[10px] md:h-[182px]'
+        style={{
+          backgroundImage: `url(${profileData.banner})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
       <div className='absolute left-[13px] top-[115px] h-[70px] w-[70px] md:left-[31px] md:top-[119px] md:h-40 md:w-40'>
         <Image
           src={profileData.avatar_url}
@@ -63,7 +73,7 @@ const ProfileCard = ({ id }: Props) => {
           {profileData.full_name}
         </div>
         <div className='absolute left-0 top-[32px] text-sm font-normal text-gray-900 opacity-50 dark:text-blue-100'>
-          Agent
+          {profileData.headline}
         </div>
       </div>
       <div className='absolute right-2.5 top-[245px] inline-flex md:right-[50px] md:top-[220px]'>
