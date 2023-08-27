@@ -9,7 +9,7 @@ type Props = {
   title?: String;
   style: string;
   icon?: string;
-  handleClick?: () => {};
+  handleClick?: () => void;
 };
 
 const Button = ({ title, style, href, icon, handleClick }: Props) => {
