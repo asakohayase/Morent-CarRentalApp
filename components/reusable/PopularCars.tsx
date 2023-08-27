@@ -24,7 +24,7 @@ const PopularCars = ({
   data: { title, vehicleType, gallons, image, transmission, capacity, price },
 }: Props) => {
   return (
-    <article className='flex w-full flex-col justify-between gap-y-8 rounded-[10px] bg-white p-7 dark:bg-slate-800 md:w-fit md:gap-8 md:p-6'>
+    <article className='flex w-full flex-col justify-between gap-y-8 rounded-[10px] bg-white p-7 dark:bg-slate-800 md:gap-8 md:p-6'>
       <section className='flex w-full items-center justify-between'>
         <div className='overflow-hidden'>
           <h1 className='line-clamp-1 text-base font-semibold text-gray-900 dark:text-white md:text-xl md:font-bold'>
@@ -42,15 +42,17 @@ const PopularCars = ({
           className='mb-4 md:mb-5 md:h-6 md:w-6'
         />
       </section>
-      <section className=''>
-        <Image
-          src={image}
-          alt={title}
-          width={160}
-          height={64}
-          className='md:mt-8 md:h-[100px] md:w-[248px]'
-        />
-        <section className='mt-8 flex flex-row justify-between'>
+      <section>
+        <div className='flex w-full items-center justify-center'>
+          <Image
+            src={image}
+            alt={title}
+            width={160}
+            height={64}
+            className='w-full md:mt-8 md:h-[100px] md:w-[248px]'
+          />
+        </div>
+        <section className='mt-8 flex flex-row items-center justify-between'>
           <div className='flex gap-2'>
             <Image
               src='/img/gas-station.svg'
@@ -104,14 +106,15 @@ const PopularCars = ({
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-            <Dialog.Content className='fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white text-gray-900 shadow md:top-1/2 md:max-w-[1054px]'>
-              <CarDetailCard data={carDetails} />
-              <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white md:hidden'>
-                <Cross2Icon height={24} width={24} />
-              </Dialog.Close>
-              <Dialog.Close className='absolute right-8 top-[34px] hidden cursor-pointer md:inline'>
-                <Cross2Icon height={34} width={34} />
-              </Dialog.Close>
+            <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow md:top-1/2 md:max-w-[1054px]'>
+              <CarDetailCard data={carDetails}>
+                <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white dark:bg-slate-800 dark:text-white md:hidden'>
+                  <Cross2Icon height={24} width={24} />
+                </Dialog.Close>
+                <Dialog.Close className='absolute right-8 top-[34px] hidden cursor-pointer dark:text-white md:inline'>
+                  <Cross2Icon height={34} width={34} />
+                </Dialog.Close>
+              </CarDetailCard>
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>

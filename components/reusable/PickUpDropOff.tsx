@@ -12,12 +12,15 @@ const PickUpDropOff = (props: Props) => {
   const [selectedPickupTime, setSelectedPickupTime] = useState('');
   const [selectedDropoffTime, setSelectedDropoffTime] = useState('');
   // console.log(selectedPickupTime, selectedDropoffTime);
-  
+
   return (
     <form className='relative flex w-full flex-col justify-between gap-y-[22px] rounded-10 bg-white px-3 py-6 dark:bg-gray-850 lg:flex-row lg:items-end lg:gap-x-4 lg:gap-y-0 lg:px-[36px]'>
       <div className='grid w-full grid-cols-1 gap-3 gap-y-[22px] lg:grid-cols-3'>
         <div className='z-10 flex w-full shrink-0 flex-col gap-3'>
-          <label htmlFor='location' className='flex items-center gap-[6px] dark:text-white'>
+          <label
+            htmlFor='location'
+            className='flex items-center gap-[6px] dark:text-white'
+          >
             <div className='relative h-[14px] w-[14px] md:h-4 md:w-4'>
               <Image
                 src={'/img/location.svg'}
