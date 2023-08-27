@@ -112,18 +112,20 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                 leaveTo='transform scale-95 opacity-0'
               >
                 <Popover.Panel className='absolute right-0 z-20 flex w-56 flex-col gap-3 rounded-lg border border-blue-50 bg-white p-4'>
-                  <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200'>
-                    <Avatar.Root>
-                      <Avatar.Image
-                        className='h-6 rounded-full'
-                        src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
-                      />
-                      <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
-                    </Avatar.Root>
-                    <span className='font-semibold text-blue-500'>
-                      My Profile
-                    </span>
-                  </button>
+                  <Link href={`/profile/${user?.id || ''}`}>
+                    <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200'>
+                      <Avatar.Root>
+                        <Avatar.Image
+                          className='h-6 rounded-full'
+                          src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
+                        />
+                        <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
+                      </Avatar.Root>
+                      <span className='font-semibold text-blue-500'>
+                        My Profile
+                      </span>
+                    </button>
+                  </Link>
                   <Button
                     title={'Logout'}
                     href='#'
