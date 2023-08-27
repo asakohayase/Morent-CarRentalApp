@@ -97,3 +97,17 @@ export interface FormData {
   transmission: string | null;
   capacity: string | null;
 }
+
+export type carType = {
+  owner_id: number;
+  borrower_id: number;
+  car_id: number;
+  car_title: string;
+  car_type: string;
+  fuel_capacity: number;
+  images: string[];
+  transmission: string;
+  capacity: string;
+  price: number;
+  short_description?: string;
+};

@@ -10,29 +10,37 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 
 interface Props {
   data: {
-    title: string;
-    vehicleType: string;
-    gallons: number;
-    image: string;
+    car_title: string;
+    car_type: string;
+    fuel_capacity: number;
+    images: string[];
     transmission: string;
-    capacity: number;
+    capacity: string;
     price: number;
-    id: number;
+    car_id: number;
   };
 }
 
 const CarCard = ({
-  data: { title, vehicleType, gallons, image, transmission, capacity, price },
+  data: {
+    car_title,
+    car_type,
+    fuel_capacity,
+    images,
+    transmission,
+    capacity,
+    price,
+  },
 }: Props) => {
   return (
     <article className='flex w-full flex-col justify-between gap-8 rounded-[10px] bg-white p-6 transition-all hover:scale-105 dark:bg-slate-800'>
       <section className='flex items-center justify-between '>
         <div>
           <h1 className=' whitespace-nowrap text-base font-semibold text-gray-900 dark:text-white md:text-xl md:font-bold'>
-            {title}
+            {car_title}
           </h1>
           <p className='text-xs font-medium text-slate-400 md:text-sm md:font-bold'>
-            {vehicleType}
+            {car_type}
           </p>
         </div>
         <Image
@@ -46,8 +54,8 @@ const CarCard = ({
       <section className='flex justify-between gap-14 md:flex-col'>
         <div className='flex md:w-full md:items-center md:justify-center'>
           <Image
-            src={image}
-            alt={title}
+            src={images[0]}
+            alt={car_title}
             width={160}
             height={64}
             className='md:mt-8 md:h-[100px] md:w-[248px]'
@@ -61,7 +69,7 @@ const CarCard = ({
               width={16}
               height={16}
             />
-            <p className='dark:text-slate-400'>{gallons}</p>
+            <p className='dark:text-slate-400'>{fuel_capacity}</p>
           </div>
           <div className='flex gap-2'>
             <Image
