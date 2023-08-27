@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Image from '@/node_modules/next/image';
 import EditCarForm from '@/components/EditCar/EditCarForm';
