@@ -91,7 +91,6 @@ export const formItems = [
 export interface FormData {
   car_title: string | null;
   price: number | null;
-  location: string | null;
   fuel_capacity: number | null;
   short_description: string | null;
   car_type: string | null;

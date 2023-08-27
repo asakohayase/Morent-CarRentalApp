@@ -12,7 +12,6 @@ import SelectCountryInput from '../SelectCountryInput';
 const initialFormData: FormData = {
   car_title: null,
   price: null,
-  location: null,
   fuel_capacity: null,
   short_description: null,
   car_type: null,
@@ -24,7 +23,7 @@ const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
@@ -41,7 +40,8 @@ const AddCarForm = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const { name, value } = e.target;
+    e.preventDefault();
+    const { name, value } = e.currentTarget;
     console.log('Input change:', name, value);
     setFormData((prevData) => ({
       ...prevData,
@@ -49,39 +49,52 @@ const AddCarForm = () => {
     }));
   };
 
-  const uploadImageToSupabase = async () => {
-    if (selectedFile) {
+  const uploadImagesToSupabase = async () => {
+    if (selectedFiles) {
       const supabase = createClientComponentClient();
 
-      const { data, error } = await supabase.storage
-        .from('images')
-        .upload(user?.id + '/' + uuidv4(), selectedFile, {
-          cacheControl: '3600',
-        });
+      const imageUrls = [];
 
-      if (error) {
-        console.log(error);
+      for (const file of selectedFiles) {
+        const { data, error } = await supabase.storage
+          .from('images')
+          .upload(user?.id + '/' + uuidv4(), file, {
+            cacheControl: '3600',
+          });
+
+        if (error) {
+          console.log(error);
+        } else {
+          const {
+            data: { publicUrl },
+          } = supabase.storage.from('images').getPublicUrl(data.path);
+
+          imageUrls.push(publicUrl); // Collect public URLs in an array
+        }
       }
-      console.log(data);
+
+      return imageUrls;
     }
   };
 
   const handleRegisterCar = async () => {
     const carId = uuidv4();
-    uploadImageToSupabase();
-    console.log('Form Data before inserting:', formData);
+    const uploadedImageUrls = await uploadImagesToSupabase();
+
+    console.log(formData);
 
     const { data, error } = await supabase.from('cars').insert([
       {
         ...formData,
         car_id: carId,
         owner_id: user?.id,
-        location: setSelectedLocation,
+        location: selectedLocation,
+        images: uploadedImageUrls,
       },
     ]);
 
     if (error) {
-      console.error(error);
+      console.error('[ERROR] An Error Occured: ', error);
     } else {
       console.log(data);
     }
@@ -91,7 +104,7 @@ const AddCarForm = () => {
     const file = e.target.files && e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setSelectedFile(file); // Update the selected file
+      setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, file]); // Append the new file
       setPreviewUrl(imageUrl);
     }
   };
@@ -111,6 +124,12 @@ const AddCarForm = () => {
               >
                 Required
               </Form.Message>
+              <Form.Message
+                className='px-2 text-sm font-normal text-red-500'
+                match='typeMismatch'
+              >
+                Invalid Type
+              </Form.Message>
             </div>
             <Form.Control asChild>
               {item.title === 'Location' ? (
@@ -125,7 +144,7 @@ const AddCarForm = () => {
                       className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200'
                       required
                       name={item.name} // Add name attribute
-                      value={formData[item.name] || ''} // Use form data value
+                      value={formData[item.name as keyof FormData] ?? ''} // Use form data value
                       onChange={handleInputChange} // Use the common select change handler
                     >
                       <option value='' disabled>
@@ -144,7 +163,7 @@ const AddCarForm = () => {
                   className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px]  text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 placeholder:text-gray-400 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200 dark:placeholder:text-white-200'
                   name={item.name} // Add name attribute
                   placeholder={item.placeholder}
-                  value={formData[item.name] || ''} // Use form data value
+                  value={formData[item.name as keyof FormData] ?? ''} // Use form data value
                   onChange={handleInputChange} // Use the common input change handler
                   required
                 />
