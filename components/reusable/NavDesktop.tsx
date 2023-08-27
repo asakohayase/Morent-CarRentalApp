@@ -18,10 +18,10 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null | undefined>(
-    session ? session.user : undefined,
+    session?.user ?? undefined,
   );
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
-    session ? session.user?.user_metadata?.avatar_url : undefined,
+    session?.user?.user_metadata?.avatar_url ?? undefined,
   );
 
   useEffect(() => {

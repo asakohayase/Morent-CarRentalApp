@@ -186,7 +186,6 @@ const Login = () => {
                 });
 
                 if (error) {
-                  console.log(error);
                   setServerErrors({ email: true, password: true });
                 }
               }

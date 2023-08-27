@@ -60,6 +60,25 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
   const avatarRef = useRef<HTMLInputElement>(null);
   const bannerRef = useRef<HTMLInputElement>(null);
 
+  const handleFormChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    if (name === 'fullName') setFullName(value);
+    if (name === 'headline') setHeadline(value);
+  };
+
+  useEffect(() => {
+    const isNameChanged = fullName !== originalValues.fullName;
+    const isHeadlineChanged = originalValues.headline !== headLine;
+    setSaveEnabled(isNameChanged || isHeadlineChanged);
+    if (fullName && headLine) {
+      const isInputTooShort = fullName.length <= 3 || headLine.length <= 3;
+
+      setSaveEnabled(isNameChanged || isHeadlineChanged);
+
+      if (isInputTooShort) setSaveEnabled(false);
+    }
+  }, [fullName, headLine, originalValues.fullName, originalValues.headline]);
+
   return (
     profile && (
       <section className='flex flex-col gap-6'>
@@ -126,22 +145,11 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
                 <Form.Control asChild>
                   <input
                     className='h-10 rounded-lg bg-white-200 p-4 text-sm tracking-wider outline-none placeholder:text-sm placeholder:text-gray-400/70 dark:bg-dark-900/75 dark:text-blue-50'
-                    type='fullName'
+                    type='text'
                     maxLength={30}
-                    defaultValue={profile?.full_name}
-                    onChange={(element: React.FormEvent<HTMLInputElement>) => {
-                      setFullName(element.currentTarget.value);
-                      element.currentTarget.value !== originalValues.fullName ||
-                      originalValues.headline !== headLine
-                        ? setSaveEnabled(true)
-                        : setSaveEnabled(false);
-                      if (
-                        element.currentTarget.value.length <= 3 ||
-                        headLine!.length <= 3
-                      ) {
-                        setSaveEnabled(false);
-                      }
-                    }}
+                    value={fullName}
+                    onChange={handleFormChange}
+                    name='fullName'
                     required
                   />
                 </Form.Control>
@@ -151,22 +159,11 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
                 <Form.Control asChild>
                   <input
                     className='h-10 rounded-lg bg-white-200 p-4 text-sm tracking-wider outline-none placeholder:text-sm placeholder:text-gray-400/70 dark:bg-dark-900/75 dark:text-blue-50'
-                    type='headline'
-                    defaultValue={profile?.headline}
+                    type='text'
+                    value={headLine}
                     maxLength={30}
-                    onChange={(element: React.FormEvent<HTMLInputElement>) => {
-                      setHeadline(element.currentTarget.value);
-                      element.currentTarget.value !== originalValues.headline ||
-                      originalValues.fullName !== fullName
-                        ? setSaveEnabled(true)
-                        : setSaveEnabled(false);
-                      if (
-                        element.currentTarget.value.length <= 3 ||
-                        fullName!.length <= 3
-                      ) {
-                        setSaveEnabled(false);
-                      }
-                    }}
+                    onChange={handleFormChange}
+                    name='headline'
                     required
                   />
                 </Form.Control>
