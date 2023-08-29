@@ -81,14 +81,12 @@ const AddCarForm = () => {
     const uploadedImageUrls = await uploadImagesToSupabase();
     console.log(formData);
 
-    const { data, error } = await supabase.from('cars').insert([
-      {
-        ...formData,
-        owner_id: user?.id,
-        location: selectedLocation,
-        images: uploadedImageUrls,
-      },
-    ]);
+    const { data, error } = await supabase.from('cars').insert({
+      ...formData,
+      owner_id: user?.id,
+      location: selectedLocation,
+      images: uploadedImageUrls,
+    });
 
     if (error) {
       console.error('[ERROR] An Error Occured: ', error);
