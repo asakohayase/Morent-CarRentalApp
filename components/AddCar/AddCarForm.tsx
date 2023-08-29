@@ -8,6 +8,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 import React, { useState, useEffect } from 'react';
 import SelectCountryInput from '../SelectCountryInput';
+import { toast } from 'react-toastify';
 
 const initialFormData: FormData = {
   car_title: null,
@@ -78,24 +79,25 @@ const AddCarForm = () => {
   };
 
   const handleRegisterCar = async () => {
-    const carId = uuidv4();
     const uploadedImageUrls = await uploadImagesToSupabase();
-
     console.log(formData);
 
-    const { data, error } = await supabase.from('cars').insert([
-      {
-        ...formData,
-        car_id: carId,
-        owner_id: user?.id,
-        location: selectedLocation,
-        images: uploadedImageUrls,
-      },
-    ]);
+    const { data, error } = await supabase.from('cars').insert({
+      ...formData,
+      owner_id: user?.id,
+      location: selectedLocation,
+      images: uploadedImageUrls,
+    });
 
     if (error) {
+      toast.error('An error occurred during submission.', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       console.error('[ERROR] An Error Occured: ', error);
     } else {
+      toast.success('Submission successful!', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       console.log(data);
     }
   };
@@ -151,7 +153,7 @@ const AddCarForm = () => {
                         {item.placeholder}
                       </option>
                       {item.options.map((option, index) => (
-                        <option key={option} value={option}>
+                        <option key={index} value={option}>
                           {option}
                         </option>
                       ))}
