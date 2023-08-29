@@ -18,7 +18,7 @@ const Filter = ({ name, length = 10 }: Props) => {
             />
             <label
               htmlFor={`check${name}`}
-              className='dark:text-white-100 cursor-pointer text-base font-semibold capitalize leading-[22px] text-gray-700 lg:text-[20px] lg:leading-[30px]'
+              className='cursor-pointer text-base font-semibold capitalize leading-[22px] text-gray-700 dark:text-white-100 lg:text-[20px] lg:leading-[30px]'
             >
               {name}
               <span className='font-medium text-gray-400'> ({length})</span>

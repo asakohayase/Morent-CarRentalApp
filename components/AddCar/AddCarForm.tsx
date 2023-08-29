@@ -151,7 +151,7 @@ const AddCarForm = () => {
                         {item.placeholder}
                       </option>
                       {item.options.map((option, index) => (
-                        <option key={index} value={option}>
+                        <option key={option} value={option}>
                           {option}
                         </option>
                       ))}

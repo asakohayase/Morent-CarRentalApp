@@ -5,25 +5,36 @@ import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
 import { carType } from '@/constants/index';
 import React, { useEffect, useState } from 'react';
-import fetchCarsFromDatabase from '@/utils/fetchCars';
+import fetchRentedCars from '@/app/api/fetchRentedCars';
+import fetchMyCars from '@/app/api/fetchMyCars';
 
-const ProfilePage = ({ params }: { params: { id: number } }) => {
-  const [carData, setCarData] = useState<carType[]>([]);
+const ProfilePage = ({ params }: { params: { id: string } }) => {
+  const [rentedCarsData, setRentedCarsData] = useState<carType[]>([]);
+  const [myCarsData, setMyCarsData] = useState<carType[]>([]);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchRentedCarsData() {
       try {
-        const cars = await fetchCarsFromDatabase();
-        setCarData(cars);
+        const cars = await fetchRentedCars({ id: params.id });
+        setRentedCarsData(cars);
       } catch (error) {
         console.error('Error fetching car data:', error);
       }
     }
-    fetchData();
-  }, []);
+    fetchRentedCarsData();
+  }, [params.id]);
 
-  const rentedCars = carData.filter((car) => car.borrower_id === params.id);
-  const myCarsForRent = carData.filter((car) => car.owner_id === params.id);
+  useEffect(() => {
+    async function fetchMyCarsData() {
+      try {
+        const cars = await fetchMyCars({ id: params.id });
+        setMyCarsData(cars);
+      } catch (error) {
+        console.error('Error fetching car data:', error);
+      }
+    }
+    fetchMyCarsData();
+  }, [params.id]);
 
   const renderCarSection = (title: string, cars: carType[]) => (
     <section className='relative mt-10 flex flex-col gap-6'>
@@ -45,10 +56,10 @@ const ProfilePage = ({ params }: { params: { id: number } }) => {
       <ProfileCard id={params.id} />
 
       {/* Rented Car Section */}
-      {renderCarSection('Rented Cars', rentedCars)}
+      {renderCarSection('Rented Cars', rentedCarsData)}
 
       {/* My Cars for Rent Section */}
-      {renderCarSection('My Cars for Rent', myCarsForRent)}
+      {renderCarSection('My Cars for Rent', myCarsData)}
 
       <div className='my-12 flex justify-center md:my-16'>
         <Button
