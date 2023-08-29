@@ -54,7 +54,7 @@ const CarCard = ({
       <section className='flex justify-between gap-14 md:flex-col'>
         <div className='flex md:w-full md:items-center md:justify-center'>
           <Image
-            src={images[0]}
+            src={images && images.length > 0 ? images[0] : '/img/car.png'}
             alt={car_title}
             width={160}
             height={64}
