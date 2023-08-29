@@ -79,7 +79,6 @@ const AddCarForm = () => {
 
   const handleRegisterCar = async () => {
     const uploadedImageUrls = await uploadImagesToSupabase();
-    console.log(formData);
 
     const { data, error } = await supabase.from('cars').insert({
       ...formData,

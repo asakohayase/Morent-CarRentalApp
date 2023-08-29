@@ -18,7 +18,6 @@ const SelectInput = ({ selected, setSelected }: Props) => {
       setOpen(false);
       setInput('');
     }
-    console.log(selected);
   };
 
   return (
