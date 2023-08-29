@@ -155,7 +155,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               </ul>
             </section>
             {session || user ? (
-              <>
+              <Link href={`/profile/${user?.id || ''}`}>
                 <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200 dark:border-none dark:bg-dark-900'>
                   <Avatar.Root>
                     <Avatar.Image
@@ -184,7 +184,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   }
                   handleClick={handleLogout}
                 />
-              </>
+              </Link>
             ) : (
               <Login />
             )}

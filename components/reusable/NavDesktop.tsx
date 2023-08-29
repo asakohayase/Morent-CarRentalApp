@@ -108,7 +108,10 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                 leaveTo='transform scale-95 opacity-0'
               >
                 <Popover.Panel className='absolute right-0 z-20 flex w-56 flex-col gap-3 rounded-lg border border-blue-50 bg-white p-4 dark:border-dark-700 dark:bg-dark-900'>
-                  <a href='/profile' className='font-semibold text-blue-500'>
+                  <a
+                    href={`/profile/${user?.id || ''}`}
+                    className='font-semibold text-blue-500'
+                  >
                     <button className='flex h-10 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200 dark:border-dark-700 dark:bg-dark-900 hover:dark:bg-dark-850'>
                       <Avatar.Root>
                         <Avatar.Image
