@@ -1,15 +1,16 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import * as Form from '@radix-ui/react-form';
-import { formItems, FormData, carType } from '@/constants/index';
-import Image from '@/node_modules/next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
-import React, { useState, useEffect } from 'react';
+
+import { formItems, FormData, carType } from '@/constants/index';
 import SelectCountryInput from '../SelectCountryInput';
 import fetchCars from '@/utils/fetchCars';
-import Link from 'next/link';
 
 const initialFormData: FormData = {
   car_title: null,
@@ -28,7 +29,7 @@ interface Props {
 const EditCarForm = ({ carId }: Props) => {
   const supabase = createClientComponentClient();
   const [user, setUser] = useState<User | null>(null);
-  const [carData, setCarData] = useState<carType[]>([]);
+  const [carData, setCarData] = useState<carType>({});
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);

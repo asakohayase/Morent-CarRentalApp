@@ -1,10 +1,11 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
+
 import ProfileCard from '@/components/Profile/ProfileCard';
 import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
 import { carType } from '@/constants/index';
-import React, { useEffect, useState } from 'react';
 import fetchCars from '@/utils/fetchCars';
 
 const ProfilePage = ({ params }: { params: { id: number } }) => {

@@ -1,12 +1,13 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import * as Form from '@radix-ui/react-form';
-import { formItems, FormData } from '@/constants/index';
-import Image from '@/node_modules/next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
-import React, { useState, useEffect } from 'react';
+
+import { formItems, FormData } from '@/constants/index';
 import SelectCountryInput from '../SelectCountryInput';
 
 const initialFormData: FormData = {
