@@ -48,10 +48,10 @@ const CarDetailCard = ({
   return (
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
       {children}
-      <div className='flex h-full w-full flex-col rounded-[10px]  transition delay-150 ease-in-out md:flex-row'>
-        <section className='flex h-full flex-col rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
+      <div className='flex h-full w-full flex-col transition delay-150 ease-in-out md:flex-row'>
+        <section className='flex h-full w-full flex-col rounded-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
           <div
-            className='flex w-full items-end justify-center rounded-[10px] border border-slate-200 pt-40 dark:border-slate-400 md:h-[360px] md:w-[460px] 
+            className='flex w-full items-end justify-center rounded-[10px] border border-slate-200  pt-40 dark:border-slate-400 md:h-[360px] md:w-[465px] 
 md:items-center md:pt-0'
           >
             <Image
@@ -62,7 +62,7 @@ md:items-center md:pt-0'
               className={'pb-5  md:w-[408px] md:pb-0'}
             />
           </div>
-          <div className='flex items-center justify-between  pt-6'>
+          <div className='flex w-full justify-between pt-6'>
             <Image
               src={smallCar}
               alt={title}
@@ -93,7 +93,7 @@ md:items-center md:pt-0'
             <Dialog.Close />
           </div>
         </section>
-        <section className='flex w-full flex-col justify-between gap-10 rounded-r-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around md:px-10 md:py-6'>
+        <section className='flex w-full flex-col justify-between gap-10 rounded-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around md:px-10 md:py-6'>
           <section className='flex justify-between'>
             <h1 className='md:h1-bold text-xl font-bold leading-7 text-gray-900 dark:text-white'>
               {title}
@@ -156,10 +156,10 @@ md:items-center md:pt-0'
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-                <Dialog.Content className='fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow md:top-1/2 md:max-w-[500px]'>
+                <Dialog.Content className='fixed left-1/2  z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow md:top-1/2 md:max-w-[500px]'>
                   <motion.div
                     animate={{ scale: [1.2, 1] }}
-                    transition={{ times: [1, 1, 1] }}
+                    transition={{ times: [1] }}
                   >
                     <form className=' flex h-full flex-col justify-between gap-9 rounded-[10px] bg-white p-10 dark:bg-slate-800'>
                       <section className='flex w-full flex-col justify-between '>

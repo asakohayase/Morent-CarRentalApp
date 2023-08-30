@@ -6,6 +6,9 @@ import * as Avatar from '@radix-ui/react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
+import Plus from '@/public/Icons/plus.svg';
+import Home from '@/public/Icons/Home.svg';
+import Search from '@/public/Icons/Search.svg';
 
 import {
   createClientComponentClient,
@@ -15,18 +18,15 @@ import {
 import Button from './Button';
 import { useRouter } from 'next/navigation';
 import ToggleTheme from './ToggleTheme';
-import Login from './Login';
 
 const NavMobile = ({ session }: { session: Session | null }) => {
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen((isOpen) => !isOpen);
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const [user, setUser] = useState<User | null | undefined>(
-    session ? session.user : undefined,
-  );
-  const [avatarUrl, setAvatarUrl] = useState<string | null | string>(
-    session ? session.user?.user_metadata?.avatar_url : undefined,
+  const [user, setUser] = useState<User | null | undefined>(session?.user);
+  const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>(
+    session?.user?.user_metadata?.avatar_url,
   );
 
   useEffect(() => {
@@ -36,43 +36,51 @@ const NavMobile = ({ session }: { session: Session | null }) => {
       } = await supabase.auth.getUser();
       setUser(user);
     };
-    if (session?.user) getUser();
-  }, [supabase, session]);
+    getUser();
+  }, [supabase]);
 
   useEffect(() => {
+    if (avatarUrl) return;
     const getAvatar = async () => {
       const { data } = await supabase
         .from('profiles')
         .select(`avatar_url`)
         .eq(`id`, user?.id)
         .single();
-      setAvatarUrl(data?.avatar_url ?? '/img/placeholder-avatar.jpg');
+      setAvatarUrl(data?.avatar_url);
     };
-    if (session) getAvatar();
-  }, [user, supabase, avatarUrl, session]);
+    getAvatar();
+  }, [user, supabase, avatarUrl]);
+
+  const handleOAuth = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    router.refresh();
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    router.push('/');
+    setUser(null);
     router.refresh();
   };
 
   return (
     <motion.div className='sticky top-0 z-50 '>
       <nav className='padding-layout  flex h-[92px] justify-between bg-white dark:bg-gray-900'>
-        <Image src={'/img/logo.svg'} height={28} width={108} alt={'logo'} />
+        <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
             <ToggleTheme />
             {(session || user) && (
               <Avatar.Root>
                 <Avatar.Image className='h-7 rounded-full' src={avatarUrl!} />
-                <Avatar.Fallback className='h-7 w-7 rounded-full bg-gray-600' />
+                <Avatar.Fallback className='h-7 rounded-full bg-slate-800' />
               </Avatar.Root>
             )}
             <Image
-              src={'/Icons/menu.svg'}
+              src={'./Icons/menu.svg'}
               width={24}
               height={24}
               alt={'menu'}
@@ -93,13 +101,13 @@ const NavMobile = ({ session }: { session: Session | null }) => {
           >
             <section className='flex w-full items-center justify-between'>
               <Image
-                src={'/img/logo.svg'}
+                src={'./img/logo.svg'}
                 height={24}
                 width={87}
                 alt={'logo'}
               />
               <Image
-                src={'/Icons/close.svg'}
+                src={'./Icons/close.svg'}
                 width={24}
                 height={24}
                 alt={'close'}
@@ -112,11 +120,11 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                 <div className='flex h-full flex-col justify-around'>
                   <Link href='/'>
                     <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Image
-                        src={'/Icons/Home.svg'}
+                      <Home
                         width={18}
                         height={18}
                         alt={'home'}
+                        className='hover:fill-white dark:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Home
@@ -125,38 +133,36 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   </Link>
                   <Link href='search'>
                     <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Image
-                        src={'/Icons/Search.svg'}
+                      <Search
                         width={18}
                         height={18}
                         alt={'home'}
+                        className='hover:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Search
                       </h3>
                     </li>
                   </Link>
-                  {session && (
-                    <Link href='addcar'>
-                      <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                        <Image
-                          src={'/Icons/plus.svg'}
-                          width={18}
-                          height={18}
-                          alt={'home'}
-                        />
-                        <h3 className='pl-2 hover:text-white dark:text-white'>
-                          Add Car
-                        </h3>
-                      </li>
-                    </Link>
-                  )}
+                  <Link href='addcar'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Plus
+                        width={18}
+                        height={18}
+                        alt={'plus'}
+                        className='hover:fill-white'
+                      />
+                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                        Add Car
+                      </h3>
+                    </li>
+                  </Link>
                 </div>
               </ul>
             </section>
             {session || user ? (
-              <Link href={`/profile/${user?.id || ''}`}>
-                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200 dark:border-none dark:bg-dark-900'>
+              <>
+                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
                   <Avatar.Root>
                     <Avatar.Image
                       className='h-6 rounded-full'
@@ -168,14 +174,6 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                     My Profile
                   </span>
                 </button>
-                <a
-                  href='/auth/editprofile'
-                  className='font-semibold text-blue-500'
-                >
-                  <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200 dark:border-none dark:bg-dark-900'>
-                    Edit Profile
-                  </button>
-                </a>
                 <Button
                   title={'Logout'}
                   href='#'
@@ -184,9 +182,16 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   }
                   handleClick={handleLogout}
                 />
-              </Link>
+              </>
             ) : (
-              <Login />
+              <Button
+                title={'Login'}
+                href='#'
+                style={
+                  'btn-login w-full hover:bg-blue-600 hover:text-white dark:bg-slate-600 dark:border-0'
+                }
+                handleClick={handleOAuth}
+              />
             )}
           </motion.div>
         )}
@@ -196,3 +201,4 @@ const NavMobile = ({ session }: { session: Session | null }) => {
 };
 
 export default NavMobile;
+
