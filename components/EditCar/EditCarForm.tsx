@@ -22,6 +22,20 @@ const initialFormData: FormData = {
   capacity: null,
 };
 
+const initialCarData: carType = {
+  owner_id: 0,
+  borrower_id: 0,
+  car_id: 0,
+  car_title: '',
+  car_type: '',
+  fuel_capacity: 0,
+  images: [''],
+  transmission: '',
+  capacity: '',
+  price: 0,
+  short_description: '',
+};
+
 interface Props {
   carId: number;
 }
@@ -29,7 +43,7 @@ interface Props {
 const EditCarForm = ({ carId }: Props) => {
   const supabase = createClientComponentClient();
   const [user, setUser] = useState<User | null>(null);
-  const [carData, setCarData] = useState<carType>({});
+  const [carData, setCarData] = useState<carType>(initialCarData);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
