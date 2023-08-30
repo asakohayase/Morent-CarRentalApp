@@ -201,4 +201,3 @@ const NavMobile = ({ session }: { session: Session | null }) => {
 };
 
 export default NavMobile;
-

@@ -1,4 +1,3 @@
-
 'use client';
 
 import CarCard from '@/components/reusable/CarCard';
@@ -34,6 +33,8 @@ const Page = (props: Props) => {
           {cars?.map((car) => <CarCard key={car.car_id} data={car} />)}
         </section>
       </section>
+    </main>
+  );
 };
 
 export default Page;
