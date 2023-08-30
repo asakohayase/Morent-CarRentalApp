@@ -79,20 +79,14 @@ const AddCarForm = () => {
   };
 
   const handleRegisterCar = async () => {
-    const carId = uuidv4();
     const uploadedImageUrls = await uploadImagesToSupabase();
 
-    console.log(formData);
-
-    const { data, error } = await supabase.from('cars').insert([
-      {
-        ...formData,
-        car_id: carId,
-        owner_id: user?.id,
-        location: selectedLocation,
-        images: uploadedImageUrls,
-      },
-    ]);
+    const { data, error } = await supabase.from('cars').insert({
+      ...formData,
+      owner_id: user?.id,
+      location: selectedLocation,
+      images: uploadedImageUrls,
+    });
 
     if (error) {
       console.error('[ERROR] An Error Occured: ', error);
@@ -152,7 +146,7 @@ const AddCarForm = () => {
                         {item.placeholder}
                       </option>
                       {item.options.map((option, index) => (
-                        <option key={index} value={option}>
+                        <option key={option} value={option}>
                           {option}
                         </option>
                       ))}

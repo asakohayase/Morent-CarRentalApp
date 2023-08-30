@@ -5,7 +5,7 @@ import Button from '../reusable/Button';
 import Image from 'next/image';
 
 interface Props {
-  id: number;
+  id: string;
 }
 
 const ProfileCard = ({ id }: Props) => {
@@ -24,11 +24,10 @@ const ProfileCard = ({ id }: Props) => {
           const { data, error } = await supabase
             .from('profiles')
             .select('full_name, avatar_url, banner, headline')
-            .eq('id', id)
-            .single(); // Assuming each id is unique
+            .eq('id', id);
 
-          if (data) {
-            setProfileData(data);
+          if (data && data.length > 0) {
+            setProfileData(data[0]);
           } else if (error) {
             console.error('Error fetching profile data:', error);
           }

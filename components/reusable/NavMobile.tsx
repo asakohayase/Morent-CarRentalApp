@@ -6,6 +6,9 @@ import * as Avatar from '@radix-ui/react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
+import Plus from '@/public/Icons/plus.svg';
+import Home from '@/public/Icons/Home.svg';
+import Search from '@/public/Icons/Search.svg';
 
 import {
   createClientComponentClient,
@@ -117,11 +120,11 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                 <div className='flex h-full flex-col justify-around'>
                   <Link href='/'>
                     <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Image
-                        src={'./Icons/Home.svg'}
+                      <Home
                         width={18}
                         height={18}
                         alt={'home'}
+                        className='hover:fill-white dark:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Home
@@ -130,11 +133,11 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   </Link>
                   <Link href='search'>
                     <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Image
-                        src={'./Icons/Search.svg'}
+                      <Search
                         width={18}
                         height={18}
                         alt={'home'}
+                        className='hover:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Search
@@ -143,11 +146,11 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   </Link>
                   <Link href='addcar'>
                     <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Image
-                        src={'./Icons/plus.svg'}
+                      <Plus
                         width={18}
                         height={18}
-                        alt={'home'}
+                        alt={'plus'}
+                        className='hover:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Add Car
@@ -158,7 +161,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               </ul>
             </section>
             {session || user ? (
-              <Link href={`/profile/${user?.id || ''}`}>
+              <>
                 <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
                   <Avatar.Root>
                     <Avatar.Image
@@ -179,7 +182,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   }
                   handleClick={handleLogout}
                 />
-              </Link>
+              </>
             ) : (
               <Button
                 title={'Login'}
@@ -198,3 +201,4 @@ const NavMobile = ({ session }: { session: Session | null }) => {
 };
 
 export default NavMobile;
+
