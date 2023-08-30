@@ -41,7 +41,6 @@ const AddCarForm = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    e.preventDefault();
     const { name, value } = e.currentTarget;
     console.log('Input change:', name, value);
     setFormData((prevData) => ({
