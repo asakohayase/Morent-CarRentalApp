@@ -1,15 +1,15 @@
 import { Database } from './utils/database.types';
 
-export type carType = {
-  title: string;
-  vehicleType: string;
-  gallons: number;
-  image: string;
-  transmission: string;
-  capacity: number;
-  price: number;
-  id: number;
-};
+// export type carType = {
+//   title: string;
+//   vehicleType: string;
+//   gallons: number;
+//   image: string;
+//   transmission: string;
+//   capacity: number;
+//   price: number;
+//   id: number;
+// };
 
 export type Car = {
   booked_dates: string[] | null;

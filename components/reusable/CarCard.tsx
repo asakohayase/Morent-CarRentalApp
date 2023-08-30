@@ -8,13 +8,11 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { carDetails } from '@/data';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
+import { carType } from '@/constants';
 
 type Props = {
-  data: {
-    car: Car;
-  };
+  data: carType;
 };
 
 const CarCard = ({

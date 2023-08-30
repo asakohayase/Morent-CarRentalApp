@@ -1,41 +1,14 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-
 import ProfileCard from '@/components/Profile/ProfileCard';
 import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
 import { carType } from '@/constants/index';
-import fetchCars from '@/utils/fetchCars';
+import React from 'react';
+import fetchRentedCars from '@/app/api/fetchRentedCars';
 import fetchMyCars from '@/app/api/fetchMyCars';
 
-const ProfilePage = ({ params }: { params: { id: string } }) => {
-  const [rentedCarsData, setRentedCarsData] = useState<carType[]>([]);
-  const [myCarsData, setMyCarsData] = useState<carType[]>([]);
-
-  useEffect(() => {
-    async function fetchRentedCarsData() {
-      try {
-        const cars = await fetchCars();
-        setCarData(cars);
-      } catch (error) {
-        console.error('Error fetching car data:', error);
-      }
-    }
-    fetchRentedCarsData();
-  }, [params.id]);
-
-  useEffect(() => {
-    async function fetchMyCarsData() {
-      try {
-        const cars = await fetchMyCars({ id: params.id });
-        setMyCarsData(cars);
-      } catch (error) {
-        console.error('Error fetching car data:', error);
-      }
-    }
-    fetchMyCarsData();
-  }, [params.id]);
+const ProfilePage = async ({ params }: { params: { id: string } }) => {
+  const rentedCarsData = await fetchRentedCars({ id: params.id });
+  const myCarsData = await fetchMyCars({ id: params.id });
 
   const renderCarSection = (title: string, cars: carType[]) => (
     <section className='relative mt-10 flex flex-col gap-6'>
