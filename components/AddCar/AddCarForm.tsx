@@ -1,15 +1,16 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import * as Form from '@radix-ui/react-form';
-import { formItems, FormData } from '@/constants/index';
-import Image from '@/node_modules/next/image';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
-import React, { useState, useEffect } from 'react';
-import SelectCountryInput from '../SelectCountryInput';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+
+import { formItems, FormData } from '@/constants/index';
+import SelectInput from '../SelectCountryInput';
 
 const initialFormData: FormData = {
   car_title: null,
@@ -160,7 +161,7 @@ const AddCarForm = () => {
             </div>
             <Form.Control asChild>
               {item.title === 'Location' ? (
-                <SelectCountryInput
+                <SelectInput
                   selected={selectedLocation}
                   setSelected={setSelectedLocation}
                 />
