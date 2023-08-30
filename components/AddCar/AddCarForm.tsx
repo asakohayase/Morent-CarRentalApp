@@ -9,6 +9,7 @@ import { User } from '@supabase/supabase-js';
 import React, { useState, useEffect } from 'react';
 import SelectCountryInput from '../SelectCountryInput';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const initialFormData: FormData = {
   car_title: null,
@@ -22,6 +23,7 @@ const initialFormData: FormData = {
 
 const AddCarForm = () => {
   const supabase = createClientComponentClient();
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -78,7 +80,11 @@ const AddCarForm = () => {
     }
   };
 
-  const handleRegisterCar = async () => {
+  const handleRegisterCar = async (
+    element: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    element.preventDefault();
+
     const uploadedImageUrls = await uploadImagesToSupabase();
     console.log(formData);
 
@@ -92,14 +98,33 @@ const AddCarForm = () => {
     if (error) {
       toast.error('An error occurred during submission.', {
         position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
       });
       console.error('[ERROR] An Error Occured: ', error);
     } else {
       toast.success('Submission successful!', {
         position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
       });
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
       console.log(data);
     }
+
+    element.preventDefault();
   };
 
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
