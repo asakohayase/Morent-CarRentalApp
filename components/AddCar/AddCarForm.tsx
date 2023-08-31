@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import * as Form from '@radix-ui/react-form';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -11,6 +10,11 @@ import { User } from '@supabase/supabase-js';
 
 import { formItems, FormData } from '@/constants/index';
 import SelectInput from '../SelectCountryInput';
+import Toast from '../reusable/Toast';
+
+interface Props {
+  id: string;
+}
 
 const initialFormData: FormData = {
   car_title: null,
@@ -22,7 +26,7 @@ const initialFormData: FormData = {
   capacity: null,
 };
 
-const AddCarForm = () => {
+const AddCarForm = ({ id }: Props) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -46,7 +50,6 @@ const AddCarForm = () => {
   ) => {
     e.preventDefault();
     const { name, value } = e.currentTarget;
-    console.log('Input change:', name, value);
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -82,13 +85,11 @@ const AddCarForm = () => {
   };
 
   const handleRegisterCar = async (
-    element: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    element.preventDefault();
+    e.preventDefault();
 
     const uploadedImageUrls = await uploadImagesToSupabase();
-    console.log(formData);
-
     const { data, error } = await supabase.from('cars').insert({
       ...formData,
       owner_id: user?.id,
@@ -97,35 +98,15 @@ const AddCarForm = () => {
     });
 
     if (error) {
-      toast.error('An error occurred during submission.', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      Toast({ type: 'error', message: 'An error occurred during submission.' });
       console.error('[ERROR] An Error Occured: ', error);
     } else {
-      toast.success('Submission successful!', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      Toast({ type: 'success', message: 'Submission successful!' });
       setTimeout(() => {
         router.push('/');
       }, 2000);
       console.log(data);
     }
-
-    element.preventDefault();
   };
 
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
