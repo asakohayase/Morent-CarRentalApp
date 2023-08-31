@@ -159,8 +159,8 @@ const AddCarForm = ({ id }: Props) => {
                       <option value='' disabled>
                         {item.placeholder}
                       </option>
-                      {item.options.map((option, index) => (
-                        <option key={index} value={option}>
+                      {item.options.map((option) => (
+                        <option key={option} value={option}>
                           {option}
                         </option>
                       ))}
