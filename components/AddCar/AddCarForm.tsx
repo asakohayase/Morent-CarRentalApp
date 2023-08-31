@@ -89,23 +89,31 @@ const AddCarForm = ({ id }: Props) => {
   ) => {
     e.preventDefault();
 
-    const uploadedImageUrls = await uploadImagesToSupabase();
-    const { data, error } = await supabase.from('cars').insert({
-      ...formData,
-      owner_id: user?.id,
-      location: selectedLocation,
-      images: uploadedImageUrls,
-    });
+    try {
+      const uploadedImageUrls = await uploadImagesToSupabase();
+      const { data, error } = await supabase.from('cars').insert({
+        ...formData,
+        owner_id: user?.id,
+        location: selectedLocation,
+        images: uploadedImageUrls,
+      });
 
-    if (error) {
+      if (error) {
+        Toast({
+          type: 'error',
+          message: 'An error occurred during submission.',
+        });
+        console.error('[ERROR] An Error Occured: ', error);
+      } else {
+        Toast({ type: 'success', message: 'Submission successful!' });
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+        console.log(data);
+      }
+    } catch (uploadError) {
       Toast({ type: 'error', message: 'An error occurred during submission.' });
-      console.error('[ERROR] An Error Occured: ', error);
-    } else {
-      Toast({ type: 'success', message: 'Submission successful!' });
-      setTimeout(() => {
-        router.push('/');
-      }, 2000);
-      console.log(data);
+      console.error('[ERROR] An Error Occured: ', uploadError);
     }
   };
 
