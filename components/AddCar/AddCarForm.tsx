@@ -9,6 +9,7 @@ import { User } from '@supabase/supabase-js';
 
 import { formItems, FormData } from '@/constants/index';
 import SelectCountryInput from '../SelectCountryInput';
+import SelectOption from '../SelectOption';
 
 const initialFormData: FormData = {
   car_title: null,
@@ -24,6 +25,9 @@ const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedCarType, setSelectedCarType] = useState<string>('');
+  const [selectedCapacity, setSelectedCapacity] = useState<string>('');
+  const [selectedTransmission, setSelectedTransmission] = useState<string>('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -131,34 +135,37 @@ const AddCarForm = () => {
                   selected={selectedLocation}
                   setSelected={setSelectedLocation}
                 />
-              ) : item.options ? (
-                <div className='flex w-full'>
-                  <div className='relative inline-flex h-14 w-full'>
-                    <select
-                      className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200'
-                      required
-                      name={item.name} // Add name attribute
-                      value={formData[item.name as keyof FormData] ?? ''} // Use form data value
-                      onChange={handleInputChange} // Use the common select change handler
-                    >
-                      <option value='' disabled>
-                        {item.placeholder}
-                      </option>
-                      {item.options.map((option, index) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+              ) : item.title === 'Car Type' ? (
+                <SelectOption
+                  selected={selectedCarType}
+                  setSelected={setSelectedCarType}
+                  title={item.title}
+                  placeholder={item.placeholder}
+                  options={item.options}
+                />
+              ) : item.title === 'Transmission' ? (
+                <SelectOption
+                  selected={selectedTransmission}
+                  setSelected={setSelectedTransmission}
+                  title={item.title}
+                  placeholder={item.placeholder}
+                  options={item.options}
+                />
+              ) : item.title === 'Capacity' ? (
+                <SelectOption
+                  selected={selectedCapacity}
+                  setSelected={setSelectedCapacity}
+                  title={item.title}
+                  placeholder={item.placeholder}
+                  options={item.options}
+                />
               ) : (
                 <input
                   className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px]  text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 placeholder:text-gray-400 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200 dark:placeholder:text-white-200'
-                  name={item.name} // Add name attribute
+                  name={item.name}
                   placeholder={item.placeholder}
-                  value={formData[item.name as keyof FormData] ?? ''} // Use form data value
-                  onChange={handleInputChange} // Use the common input change handler
+                  value={formData[item.name as keyof FormData] ?? ''}
+                  onChange={handleInputChange}
                   required
                 />
               )}

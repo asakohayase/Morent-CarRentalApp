@@ -63,7 +63,7 @@ export const formItems = [
     name: 'capacity',
     title: 'Capacity',
     placeholder: 'Capacity in persons',
-    options: ['2', '4', '6', '8 or more'],
+    options: [2, 4, 6, 8],
   },
   {
     name: 'transmission',
@@ -95,7 +95,7 @@ export interface FormData {
   short_description: string | null;
   car_type: string | null;
   transmission: string | null;
-  capacity: string | null;
+  capacity: number | null;
   [key: string]: string | number | null;
 }
 
@@ -108,7 +108,7 @@ export type carType = {
   fuel_capacity: number;
   images: string[];
   transmission: string;
-  capacity: string;
+  capacity: number;
   price: number;
   short_description: string;
   [key: string]: string | number | string[];

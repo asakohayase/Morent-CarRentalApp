@@ -1,17 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        host: '**',
       },
     ],
   },
 };
 
 module.exports = {
-  webpack(config) {
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
@@ -22,8 +23,5 @@ module.exports = {
   images: {
     domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
   },
-  nextConfig,
-  images: {
-    domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
-  },
+  ...nextConfig,
 };
