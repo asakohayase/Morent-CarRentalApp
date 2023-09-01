@@ -63,7 +63,7 @@ export const formItems = [
     name: 'capacity',
     title: 'Capacity',
     placeholder: 'Capacity in persons',
-    options: [2, 4, 6, 8],
+    options: ['2', '4', '6', '8 or more'],
   },
   {
     name: 'transmission',

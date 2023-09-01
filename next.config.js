@@ -1,27 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
     remotePatterns: [
       {
         protocol: 'https',
-        host: '**',
+        hostname: '**',
       },
     ],
+    domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
   },
 };
 
-module.exports = {
-  webpack: (config) => {
+const config = {
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
-
     return config;
   },
-  images: {
-    domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
-  },
+};
+
+module.exports = {
   ...nextConfig,
+  ...config,
 };

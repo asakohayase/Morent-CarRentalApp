@@ -7,7 +7,7 @@ type Props = {
   setSelected: Dispatch<SetStateAction<string>>;
   title: string | null;
   placeholder: string;
-  options: string[] | number[] | undefined;
+  options: string[] | undefined;
 };
 
 const SelectOption = ({
@@ -20,9 +20,9 @@ const SelectOption = ({
   const [input, setInput] = useState('');
   const [open, setOpen] = useState(false);
 
-  const handleClick = (option: string | number) => {
+  const handleClick = (option: string) => {
     if (option !== selected) {
-      setSelected(option.toString());
+      setSelected(option.toLowerCase());
       setOpen(false);
       setInput('');
     }
@@ -50,7 +50,7 @@ const SelectOption = ({
       <ul
         className={`absolute mt-3 ${
           open ? 'max-h-56' : 'max-h-0'
-        } scrollbar-hide w-full overflow-y-auto rounded-b-[10px] bg-white drop-shadow-md dark:bg-gray-800 dark:text-white-200`}
+        } scrollbar-hide z-10 w-full overflow-y-auto rounded-b-[10px] bg-white drop-shadow-md dark:bg-gray-800 dark:text-white-200`}
       >
         <input
           type='text'
@@ -62,15 +62,10 @@ const SelectOption = ({
           className='sticky top-0 w-full border-b-[1px] border-gray-100 p-2 text-sm outline-none drop-shadow-sm placeholder:text-sm placeholder:text-gray-300 dark:border-transparent dark:bg-gray-850 dark:drop-shadow-lg'
         />
         {options?.map((option) => {
-          const isSelected =
-            typeof selected === 'number'
-              ? option === selected
-              : typeof selected === 'string' && option === selected;
-
-          const startsWithInput =
-            typeof option === 'string' &&
-            option.toLowerCase().startsWith(input.toLowerCase());
-
+          const isSelected = option === selected;
+          const startsWithInput = option
+            .toLowerCase()
+            .startsWith(input.toLowerCase());
           return (
             <li
               onClick={() => handleClick(option)}
