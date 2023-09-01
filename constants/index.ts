@@ -99,9 +99,9 @@ export interface FormData {
 }
 
 export type carType = {
-  owner_id: number;
-  borrower_id: number;
-  car_id: number;
+  owner_id: string;
+  borrower_id: string;
+  car_id: string;
   car_title: string;
   car_type: string;
   fuel_capacity: number;

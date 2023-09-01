@@ -24,6 +24,7 @@ export type Car = {
   price: number;
   short_description: string;
   transmission: Database['public']['Enums']['transmission'];
+<<<<<<< HEAD
   images: string[];
 };
 
@@ -42,4 +43,12 @@ export type GeoResponse = {
   org: string;
   as: string;
   query: string;
+=======
+  images: string[] | null;
+};
+
+export type ToastProps = {
+  type: 'success' | 'error';
+  message: string;
+>>>>>>> main
 };
