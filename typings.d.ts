@@ -26,3 +26,8 @@ export type Car = {
   short_description: string;
   transmission: Database['public']['Enums']['transmission'];
 };
+
+export type ToastProps = {
+  type: 'success' | 'error';
+  message: string;
+};
