@@ -1,14 +1,20 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import * as Form from '@radix-ui/react-form';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
 import { formItems, FormData } from '@/constants/index';
-import SelectCountryInput from '../SelectCountryInput';
+import SelectInput from '../SelectCountryInput';
+import Toast from '../reusable/Toast';
+
+interface Props {
+  id: string;
+}
 
 const initialFormData: FormData = {
   car_title: null,
@@ -20,8 +26,9 @@ const initialFormData: FormData = {
   capacity: null,
 };
 
-const AddCarForm = () => {
+const AddCarForm = ({ id }: Props) => {
   const supabase = createClientComponentClient();
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -42,7 +49,6 @@ const AddCarForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.currentTarget;
-    console.log('Input change:', name, value);
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -77,20 +83,36 @@ const AddCarForm = () => {
     }
   };
 
-  const handleRegisterCar = async () => {
-    const uploadedImageUrls = await uploadImagesToSupabase();
+  const handleRegisterCar = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
 
-    const { data, error } = await supabase.from('cars').insert({
-      ...formData,
-      owner_id: user?.id,
-      location: selectedLocation,
-      images: uploadedImageUrls,
-    });
+    try {
+      const uploadedImageUrls = await uploadImagesToSupabase();
+      const { data, error } = await supabase.from('cars').insert({
+        ...formData,
+        owner_id: user?.id,
+        location: selectedLocation,
+        images: uploadedImageUrls,
+      });
 
-    if (error) {
-      console.error('[ERROR] An Error Occured: ', error);
-    } else {
-      console.log(data);
+      if (error) {
+        Toast({
+          type: 'error',
+          message: 'An error occurred during submission.',
+        });
+        console.error('[ERROR] An Error Occured: ', error);
+      } else {
+        Toast({ type: 'success', message: 'Submission successful!' });
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+        console.log(data);
+      }
+    } catch (uploadError) {
+      Toast({ type: 'error', message: 'An error occurred during submission.' });
+      console.error('[ERROR] An Error Occured: ', uploadError);
     }
   };
 
@@ -127,7 +149,7 @@ const AddCarForm = () => {
             </div>
             <Form.Control asChild>
               {item.title === 'Location' ? (
-                <SelectCountryInput
+                <SelectInput
                   selected={selectedLocation}
                   setSelected={setSelectedLocation}
                 />
@@ -144,7 +166,7 @@ const AddCarForm = () => {
                       <option value='' disabled>
                         {item.placeholder}
                       </option>
-                      {item.options.map((option, index) => (
+                      {item.options.map((option) => (
                         <option key={option} value={option}>
                           {option}
                         </option>
