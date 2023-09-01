@@ -5,29 +5,21 @@ import React from 'react';
 import Image from 'next/image';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { carDetails } from '@/data';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
 
-type Props = {
-  data: {
-    car: Car;
-  };
-};
-
-const CarCard = ({
-  data: {
+const CarCard = ({ data }: { data: Car }) => {
+  const {
     car_title,
     car_type,
-    fuel_capacity,
-    images,
-    transmission,
     capacity,
+    images,
+    fuel_capacity,
+    transmission,
     price,
-  },
-}: Props) => {
+  } = data;
   return (
     <article className='flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white p-4 transition-all hover:scale-105 dark:bg-slate-800  lg:p-6'>
       <section className='flex items-center justify-between'>
@@ -111,7 +103,7 @@ const CarCard = ({
             <Dialog.Portal>
               <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
               <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900 shadow dark:bg-slate-800 md:top-1/2 md:max-w-[1054px]'>
-                <CarDetailCard data={carDetails}>
+                <CarDetailCard data={data}>
                   <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white dark:bg-slate-800 dark:text-white md:hidden'>
                     <Cross2Icon height={24} width={24} />
                   </Dialog.Close>
