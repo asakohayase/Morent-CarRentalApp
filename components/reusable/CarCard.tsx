@@ -55,7 +55,7 @@ const CarCard = ({
         <div className='flex md:w-full md:items-center md:justify-center'>
           <Image
             src={images && images.length > 0 ? images[0] : '/img/car.png'}
-            alt={car_title}
+            alt={car_title || 'Car image'}
             width={160}
             height={64}
             className='md:mt-8 md:h-[100px] md:w-[248px]'
