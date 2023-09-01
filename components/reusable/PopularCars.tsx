@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import * as Dialog from '@radix-ui/react-dialog';
@@ -11,23 +11,20 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
 
-type Props = {
-  data: {
-    car: Car;
-  };
-};
-
-const PopularCars = ({
-  data: {
+const PopularCars = ({ data }: { data: Car }) => {
+  const {
     car_title,
     car_type,
     fuel_capacity,
-    images,
-    transmission,
     capacity,
+    transmission,
+    images,
     price,
-  },
-}: Props) => {
+  } = data;
+  const [btnFill, setBtnFill] = useState('fill-white');
+  const handleFavorite = () => {
+    setBtnFill(btnFill === 'fill-white' ? 'fill-red-500' : 'fill-white');
+  };
   return (
     <article className='flex w-full flex-col justify-between gap-4 rounded-[10px] bg-white px-7 py-4 dark:bg-slate-800 sm:gap-9 sm:p-4 lg:p-6'>
       <section className='flex w-full items-center justify-between'>
@@ -39,10 +36,13 @@ const PopularCars = ({
             {car_type}
           </p>
         </div>
-        <Heart
-          alt='heart'
-          className='mb-3 h-fit shrink-0 hover:border-0  hover:fill-red-500 md:h-6 md:w-6'
-        />
+        <button>
+          <Heart
+            alt='heart'
+            className={`${btnFill} mb-3 h-fit shrink-0 hover:border-0 hover:fill-red-500 md:h-6 md:w-6`}
+            onClick={handleFavorite}
+          />
+        </button>
       </section>
       <section className='flex flex-col justify-between gap-3 text-sm text-gray-400 sm:gap-14'>
         <div className='flex w-full items-center justify-center'>
@@ -109,8 +109,8 @@ const PopularCars = ({
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-            <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow dark:bg-slate-800 md:top-1/2 md:max-w-[1054px]'>
-              <CarDetailCard data={carDetails}>
+            <Dialog.Content className=' fixed left-1/2 top-[50%] z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900 shadow dark:bg-slate-800 md:top-1/2 md:max-w-[1054px]'>
+              <CarDetailCard data={data}>
                 <Dialog.Close className='absolute right-4 top-[-20px] cursor-pointer rounded-t-sm bg-white dark:bg-slate-800 dark:text-white md:hidden'>
                   <Cross2Icon height={24} width={24} />
                 </Dialog.Close>
