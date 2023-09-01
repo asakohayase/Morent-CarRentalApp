@@ -99,13 +99,15 @@ const NavMobile = ({ session }: { session: Session | null }) => {
             exit={{ opacity: 0, y: -100 }}
             transition={{ duration: 0.3 }}
           >
-            <section className='flex w-full items-center justify-between'>
-              <Image
-                src={'./img/logo.svg'}
-                height={24}
-                width={87}
-                alt={'logo'}
-              />
+            <section className=' z-40 flex w-full items-center justify-between pt-5'>
+              <Link href='/' className='cursor-pointer'>
+                <Image
+                  src={'./img/logo.svg'}
+                  height={24}
+                  width={87}
+                  alt={'logo'}
+                />
+              </Link>
               <Image
                 src={'./Icons/close.svg'}
                 width={24}
@@ -115,7 +117,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                 className={'cursor-pointer'}
               />
             </section>
-            <section className=' h-1/2 '>
+            <section className='h-1/2 '>
               <ul className=' flex h-full flex-col justify-between'>
                 <div className='flex h-full flex-col justify-around'>
                   <Link href='/'>
@@ -124,20 +126,21 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         width={18}
                         height={18}
                         alt={'home'}
-                        className='hover:fill-white dark:fill-white'
+                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
                       />
-                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                      <h3 className='pl-2  hover:text-white dark:text-white'>
                         Home
                       </h3>
                     </li>
                   </Link>
+
                   <Link href='search'>
-                    <li className='flex h-[50px] items-center rounded   pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
                       <Search
                         width={18}
                         height={18}
                         alt={'home'}
-                        className='hover:fill-white'
+                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Search
@@ -150,7 +153,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         width={18}
                         height={18}
                         alt={'plus'}
-                        className='hover:fill-white'
+                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
                       />
                       <h3 className='pl-2 hover:text-white dark:text-white'>
                         Add Car

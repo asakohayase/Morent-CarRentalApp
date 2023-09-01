@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from 'react';
 import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -7,100 +8,76 @@ import Time from '@/components/Time';
 import SelectCountryInput from '../SelectCountryInput';
 import Button from '../reusable/Button';
 import { Cross2Icon } from '@radix-ui/react-icons';
-
-interface Props {
-  data: {
-    carImage: string;
-    smallCar: string;
-    view1: string;
-    view2: string;
-    title: string;
-    description: string;
-    type: string;
-    capacity: string;
-    transmission: string;
-    gasoline: string;
-    price: string;
-  };
-  children?: React.ReactNode;
-}
+import { title } from 'process';
+import { Car } from '@/typings';
 
 const CarDetailCard = ({
-  data: {
-    carImage,
-    smallCar,
-    view1,
-    view2,
-    title,
-    description,
-    type,
-    capacity,
-    transmission,
-    gasoline,
-    price,
-  },
+  data,
   children,
-}: Props) => {
+}: {
+  data: Car;
+  children?: React.ReactNode;
+}) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedPickupTime, setSelectedPickupTime] = useState('');
   const [selectedDropoffTime, setSelectedDropoffTime] = useState('');
+  const {
+    car_title,
+    car_type,
+    fuel_capacity,
+    capacity,
+    transmission,
+    images,
+    price,
+    short_description,
+  } = data;
 
   return (
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
       {children}
       <div className='flex h-full w-full flex-col transition delay-150 ease-in-out md:flex-row'>
-        <section className='flex h-full w-full flex-col rounded-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
+        <section className='flex h-full w-full flex-col gap-3 rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
           <div
-            className='flex w-full items-end justify-center rounded-[10px] border border-slate-200  pt-40 dark:border-slate-400 md:h-[360px] md:w-[465px] 
+            className='relative flex h-[327px] w-full rounded-[10px] border border-slate-200  dark:border-slate-400 md:h-[360px]  
 md:items-center md:pt-0'
           >
             <Image
-              src={carImage}
+              src={images && images.length > 0 ? images[0] : '/img/car.png'}
               alt={title}
-              width={190}
-              height={60}
-              className={'pb-5  md:w-[408px] md:pb-0'}
+              fill
+              priority
+              className={
+                'mx-auto min-w-[190px] max-w-[190px] object-contain pt-[200px]  md:max-w-[408px] md:py-0'
+              }
             />
           </div>
-          <div className='flex w-full justify-between pt-6'>
-            <Image
-              src={smallCar}
-              alt={title}
-              width={116}
-              height={36}
-              className={
-                'h-[80px] w-[96px] rounded-[10px] border-blue-600 px-2 hover:border md:h-[124px] md:w-[144px]'
-              }
-            />
-            <Image
-              src={view1}
-              alt='view1'
-              width={96}
-              height={64}
-              className={
-                'rounded-[10px] border-blue-600 hover:border md:h-[124] md:w-[144px]'
-              }
-            />
-            <Image
-              src={view2}
-              alt='view1'
-              width={96}
-              height={64}
-              className={
-                'rounded-[10px] border-blue-600 object-cover hover:border md:h-[124] md:w-[144px]'
-              }
-            />
-            <Dialog.Close />
+          <div className='flex w-full gap-3'>
+            {images?.map((image) => (
+              <div
+                className='relative h-24 w-full flex-1 rounded-lg'
+                key={image}
+              >
+                <Image
+                  src={image}
+                  alt={'image'}
+                  fill
+                  priority
+                  className={
+                    'rounded-[10px] border-blue-600 object-contain hover:border md:h-[124] md:w-[144px]'
+                  }
+                />
+              </div>
+            ))}
           </div>
         </section>
-        <section className='flex w-full flex-col justify-between gap-10 rounded-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around md:px-10 md:py-6'>
+        <section className='flex w-full flex-col justify-between gap-10 rounded-r-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around  md:px-10 md:py-6'>
           <section className='flex justify-between'>
             <h1 className='md:h1-bold text-xl font-bold leading-7 text-gray-900 dark:text-white'>
-              {title}
+              {car_title}
             </h1>
           </section>
           <p className='md:base-regular w-full text-sm font-normal leading-normal text-slate-600 dark:text-neutral-100'>
-            {description}
+            {short_description}
           </p>
           <section className=' flex w-full justify-between'>
             <section className='w-1/2'>
@@ -109,7 +86,7 @@ md:items-center md:pt-0'
                   Type Car{' '}
                 </p>
                 <span className='md:base-medium text-xs font-semibold text-slate-600 dark:text-white'>
-                  {type}
+                  {car_type}
                 </span>
               </div>
 
@@ -136,7 +113,7 @@ md:items-center md:pt-0'
                   Gasoline{' '}
                 </p>
                 <span className='md:base-medium text-xs font-semibold text-slate-600 dark:text-white'>
-                  {gasoline} L
+                  {fuel_capacity} L
                 </span>
               </div>
             </section>
