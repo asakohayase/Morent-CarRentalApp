@@ -8,8 +8,8 @@ import Time from '@/components/Time';
 import SelectCountryInput from '../SelectCountryInput';
 import Button from '../reusable/Button';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { title } from 'process';
 import { Car } from '@/typings';
+import CarImages from './CarImages';
 
 const CarDetailCard = ({
   data,
@@ -27,7 +27,6 @@ const CarDetailCard = ({
     fuel_capacity,
     capacity,
     transmission,
-    images,
     price,
     short_description,
   } = data;
@@ -37,38 +36,7 @@ const CarDetailCard = ({
       {children}
       <div className='flex h-full w-full flex-col transition delay-150 ease-in-out md:flex-row'>
         <section className='flex h-full w-full flex-col gap-3 rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
-          <div
-            className='relative flex h-[327px] w-full rounded-[10px] border border-slate-200  dark:border-slate-400 md:h-[360px]  
-md:items-center md:pt-0'
-          >
-            <Image
-              src={images && images.length > 0 ? images[0] : '/img/car.png'}
-              alt={title}
-              fill
-              priority
-              className={
-                'mx-auto min-w-[190px] max-w-[190px] object-contain pt-[200px]  md:max-w-[408px] md:py-0'
-              }
-            />
-          </div>
-          <div className='flex w-full gap-3'>
-            {images?.map((image) => (
-              <div
-                className='relative h-24 w-full flex-1 rounded-lg'
-                key={image}
-              >
-                <Image
-                  src={image}
-                  alt={'image'}
-                  fill
-                  priority
-                  className={
-                    'rounded-[10px] border-blue-600 object-contain hover:border md:h-[124] md:w-[144px]'
-                  }
-                />
-              </div>
-            ))}
-          </div>
+          <CarImages data={data} />
         </section>
         <section className='flex w-full flex-col justify-between gap-10 rounded-r-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around  md:px-10 md:py-6'>
           <section className='flex justify-between'>
