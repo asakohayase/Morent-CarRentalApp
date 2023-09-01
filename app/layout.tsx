@@ -5,6 +5,8 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/supabase';
 import { cookies } from 'next/headers';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './globals.css';
 import NavBar from '@/components/reusable/NavBar';
@@ -37,6 +39,7 @@ export default async function RootLayout({
           <NavBar session={session} />
           <section className='py-10'>{children}</section>
           <Footer />
+          <ToastContainer />
         </Providers>
       </body>
     </html>
