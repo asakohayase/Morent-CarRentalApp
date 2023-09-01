@@ -46,7 +46,6 @@ const AddCarForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.currentTarget;
-    console.log('Input change:', name, value);
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -83,14 +82,20 @@ const AddCarForm = () => {
 
   const handleRegisterCar = async () => {
     const uploadedImageUrls = await uploadImagesToSupabase();
+    const location = selectedLocation;
+    const carType = selectedCarType;
+    const capacity = selectedCapacity;
+    const transmission = selectedTransmission;
 
     const { data, error } = await supabase.from('cars').insert({
       ...formData,
       owner_id: user?.id,
-      location: selectedLocation,
+      location,
+      car_type: carType,
+      capacity,
+      transmission,
       images: uploadedImageUrls,
     });
-
     if (error) {
       console.error('[ERROR] An Error Occured: ', error);
     } else {
@@ -188,9 +193,10 @@ const AddCarForm = () => {
               <Image
                 src={previewUrl}
                 alt='Preview'
-                className='mb-2 w-full'
+                className='mb-2'
                 width={200}
                 height={200}
+                priority
               />
             ) : (
               <>
@@ -199,6 +205,7 @@ const AddCarForm = () => {
                   alt='Upload'
                   height={28}
                   width={29}
+                  priority
                 />
 
                 <p className='mt-2.5 text-sm font-medium leading-7 text-blue-500 md:text-[14.91px] md:leading-[29.81px]'>

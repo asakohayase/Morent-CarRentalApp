@@ -22,7 +22,7 @@ const SelectOption = ({
 
   const handleClick = (option: string) => {
     if (option !== selected) {
-      setSelected(option.toLowerCase());
+      setSelected(option);
       setOpen(false);
       setInput('');
     }
