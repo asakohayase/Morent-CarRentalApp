@@ -17,7 +17,7 @@ interface Props {
     transmission: string;
     capacity: string;
     price: number;
-    car_id: number;
+    car_id: string;
   };
 }
 

@@ -51,7 +51,7 @@ export interface Database {
         };
         Insert: {
           booked_dates?: string[] | null;
-          borrower_id?: number | null;
+          borrower_id?: string | null;
           capacity: Database['public']['Enums']['capacity'];
           car_id?: string;
           car_title: string;
@@ -65,7 +65,7 @@ export interface Database {
         };
         Update: {
           booked_dates?: string[] | null;
-          borrower_id?: number | null;
+          borrower_id?: string | null;
           capacity?: Database['public']['Enums']['capacity'];
           car_id?: string;
           car_title?: string;
