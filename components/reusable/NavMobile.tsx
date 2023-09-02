@@ -126,7 +126,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         width={18}
                         height={18}
                         alt={'home'}
-                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
+                        className='fill-[#3D5278] hover:fill-white focus:fill-white dark:fill-white'
                       />
                       <h3 className='pl-2  hover:text-white dark:text-white'>
                         Home
