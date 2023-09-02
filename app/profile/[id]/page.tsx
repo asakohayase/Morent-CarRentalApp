@@ -1,8 +1,9 @@
+import React from 'react';
+
 import ProfileCard from '@/components/Profile/ProfileCard';
 import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
 import { carType } from '@/constants/index';
-import React from 'react';
 import fetchRentedCars from '@/app/api/fetchRentedCars';
 import fetchMyCars from '@/app/api/fetchMyCars';
 
