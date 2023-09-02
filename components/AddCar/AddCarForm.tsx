@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import * as Form from '@radix-ui/react-form';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -11,11 +12,6 @@ import { formItems, FormData } from '@/constants/index';
 import SelectOption from '../SelectOption';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
-import { useRouter } from 'next/router';
-
-interface Props {
-  id: string;
-}
 
 const initialFormData: FormData = {
   car_title: null,
@@ -27,7 +23,7 @@ const initialFormData: FormData = {
   capacity: null,
 };
 
-const AddCarForm = ({ id }: Props) => {
+const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
