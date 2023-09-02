@@ -8,23 +8,23 @@ export type carType = {
   transmission: string;
   capacity: number;
   price: number;
-  id: number;
+  id: string;
 };
 
 export type Car = {
-  booked_dates: string[] | null;
+  booked_dates: string[];
   borrower_id: number | null;
   capacity: Database['public']['Enums']['capacity'];
   car_id: string;
   car_title: string;
   car_type: Database['public']['Enums']['car_type'];
   fuel_capacity: number;
+  images: string[] | null;
   location: string;
   owner_id: string;
   price: number;
   short_description: string;
   transmission: Database['public']['Enums']['transmission'];
-  images: string[] | null;
 };
 
 export type ToastProps = {

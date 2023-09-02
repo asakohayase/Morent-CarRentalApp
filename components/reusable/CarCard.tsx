@@ -17,10 +17,10 @@ const CarCard = ({ data }: { data: Car }) => {
     car_id,
     car_title,
     car_type,
-    fuel_capacity,
     capacity,
-    transmission,
     images,
+    fuel_capacity,
+    transmission,
     price,
   } = data;
 
@@ -47,7 +47,6 @@ const CarCard = ({ data }: { data: Car }) => {
 
     setBtnFill(btnFill === 'fill-none' ? 'fill-red-500' : 'fill-none');
   };
-
   return (
     <article className='flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white p-4 transition-all hover:scale-105 dark:bg-slate-800  lg:p-6'>
       <section className='flex items-center justify-between'>

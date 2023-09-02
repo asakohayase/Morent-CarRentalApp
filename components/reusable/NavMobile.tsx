@@ -69,7 +69,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   return (
     <motion.div className='sticky top-0 z-50 '>
       <nav className='padding-layout  flex h-[92px] justify-between bg-white dark:bg-gray-900'>
-        <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
+        <Image src={'/img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
             <ToggleTheme />
@@ -92,115 +92,114 @@ const NavMobile = ({ session }: { session: Session | null }) => {
       </nav>
       <AnimatePresence mode='sync'>
         {open && (
-          <>
-            <section className='absolute top-0 h-[100vh] w-full bg-stone-500/25 dark:bg-gray-900/60'>
-              <motion.div
-                className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 dark:bg-slate-800 sm:left-[17px] sm:w-[96%]'
-                initial={{ opacity: 0, y: -100 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -100 }}
-                transition={{ duration: 0.3 }}
-              >
-                <section className=' z-40 flex w-full items-center justify-between pt-5'>
-                  <Link href='/' className='cursor-pointer'>
-                    <Image
-                      src={'./img/logo.svg'}
-                      height={24}
-                      width={87}
-                      alt={'logo'}
-                    />
-                  </Link>
-                  <Image
-                    src={'/Icons/close.svg'}
-                    width={24}
-                    height={24}
-                    alt={'close'}
-                    onClick={toggle}
-                    className={'cursor-pointer'}
-                  />
-                </section>
-                <section className='h-1/2 '>
-                  <ul className=' flex h-full flex-col justify-between'>
-                    <div className='flex h-full flex-col justify-around'>
-                      <Link href='/'>
-                        <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                          <Home
-                            width={18}
-                            height={18}
-                            alt={'home'}
-                            className='fill-[#3D5278] hover:fill-white focus:fill-white dark:fill-white'
-                          />
-                          <h3 className='pl-2  hover:text-white dark:text-white'>
-                            Home
-                          </h3>
-                        </li>
-                      </Link>
-
-                      <Link href='search'>
-                        <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                          <Search
-                            width={18}
-                            height={18}
-                            alt={'home'}
-                            className='fill-[#3D5278] hover:fill-white dark:fill-white'
-                          />
-                          <h3 className='pl-2 hover:text-white dark:text-white'>
-                            Search
-                          </h3>
-                        </li>
-                      </Link>
-                      <Link href='addcar'>
-                        <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                          <Plus
-                            width={18}
-                            height={18}
-                            alt={'plus'}
-                            className='fill-[#3D5278] hover:fill-white dark:fill-white'
-                          />
-                          <h3 className='pl-2 hover:text-white dark:text-white'>
-                            Add Car
-                          </h3>
-                        </li>
-                      </Link>
-                    </div>
-                  </ul>
-                </section>
-                {session || user ? (
-                  <>
-                    <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
-                      <Avatar.Root>
-                        <Avatar.Image
-                          className='h-6 rounded-full'
-                          src={avatarUrl || '/img/placeholder-avatar.jpg'}
-                        />
-                        <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
-                      </Avatar.Root>
-                      <span className='font-semibold text-blue-500'>
-                        My Profile
-                      </span>
-                    </button>
-                    <Button
-                      title={'Logout'}
-                      href='#'
-                      style={
-                        'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
-                      }
-                      handleClick={handleLogout}
-                    />
-                  </>
-                ) : (
-                  <Button
-                    title={'Login'}
-                    href='#'
-                    style={
-                      'btn-login w-full hover:bg-blue-600 hover:text-white dark:bg-slate-600 dark:border-0'
-                    }
-                    handleClick={handleOAuth}
-                  />
-                )}
-              </motion.div>
+          <motion.div
+            className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 dark:bg-slate-800 sm:left-[17px] sm:w-[96%]'
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.3 }}
+          >
+            <section className=' z-40 flex w-full items-center justify-between pt-5'>
+              <Link href='/' className='cursor-pointer'>
+                <Image
+                  src={'./img/logo.svg'}
+                  height={24}
+                  width={87}
+                  alt={'logo'}
+                />
+              </Link>
+              <Image
+                src={'/Icons/close.svg'}
+                width={24}
+                height={24}
+                alt={'close'}
+                onClick={toggle}
+                className={'cursor-pointer'}
+              />
             </section>
-          </>
+            <section className='h-1/2 '>
+              <ul className=' flex h-full flex-col justify-between'>
+                <div className='flex h-full flex-col justify-around'>
+                  <Link href='/'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Home
+                        width={18}
+                        height={18}
+                        alt={'home'}
+                        className='fill-[#3D5278] hover:fill-white focus:fill-white dark:fill-white'
+                      />
+                      <h3 className='pl-2  hover:text-white dark:text-white'>
+                        Home
+                      </h3>
+                    </li>
+                  </Link>
+
+                  <Link href='search'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Search
+                        width={18}
+                        height={18}
+                        alt={'home'}
+                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
+                      />
+                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                        Search
+                      </h3>
+                    </li>
+                  </Link>
+                  <Link href='addcar'>
+                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                      <Plus
+                        width={18}
+                        height={18}
+                        alt={'plus'}
+                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
+                      />
+                      <h3 className='pl-2 hover:text-white dark:text-white'>
+                        Add Car
+                      </h3>
+                    </li>
+                  </Link>
+                </div>
+              </ul>
+            </section>
+            {session || user ? (
+              <Link
+                href={`/profile/${user?.id || ''}`}
+                className='flex flex-col gap-4'
+              >
+                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200 dark:border-none dark:bg-gray-700'>
+                  <Avatar.Root>
+                    <Avatar.Image
+                      className='h-6 rounded-full'
+                      src={avatarUrl || '/img/placeholder-avatar.jpg'}
+                    />
+                    <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
+                  </Avatar.Root>
+                  <span className='font-semibold text-blue-300'>
+                    My Profile
+                  </span>
+                </button>
+                <Button
+                  title={'Logout'}
+                  href='#'
+                  style={
+                    'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
+                  }
+                  handleClick={handleLogout}
+                />
+              </Link>
+            ) : (
+              <Button
+                title={'Login'}
+                href='#'
+                style={
+                  'btn-login w-full hover:bg-blue-600 hover:text-white dark:bg-slate-600 dark:border-0'
+                }
+                handleClick={handleOAuth}
+              />
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.div>
