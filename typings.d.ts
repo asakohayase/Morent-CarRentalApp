@@ -8,7 +8,7 @@ export type carType = {
   transmission: string;
   capacity: number;
   price: number;
-  id: number;
+  id: string;
 };
 
 export type Car = {
