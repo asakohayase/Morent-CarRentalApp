@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { carDetails } from '@/data';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
@@ -21,9 +20,9 @@ const PopularCars = ({ data }: { data: Car }) => {
     images,
     price,
   } = data;
-  const [btnFill, setBtnFill] = useState('fill-white');
+  const [btnFill, setBtnFill] = useState('fill-none');
   const handleFavorite = () => {
-    setBtnFill(btnFill === 'fill-white' ? 'fill-red-500' : 'fill-white');
+    setBtnFill(btnFill === 'fill-none' ? 'fill-red-500' : 'fill-none');
   };
   return (
     <article className='flex w-full flex-col justify-between gap-4 rounded-[10px] bg-white px-7 py-4 dark:bg-slate-800 sm:gap-9 sm:p-4 lg:p-6'>

@@ -1,15 +1,16 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion } from 'framer-motion';
 import Date from '@/components/Date';
 import Time from '@/components/Time';
 import SelectCountryInput from '../SelectCountryInput';
-import Button from '../reusable/Button';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
 import CarImages from './CarImages';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
 
 const CarDetailCard = ({
   data,
@@ -21,6 +22,8 @@ const CarDetailCard = ({
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedPickupTime, setSelectedPickupTime] = useState('');
   const [selectedDropoffTime, setSelectedDropoffTime] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const supabase = createClientComponentClient();
   const {
     car_title,
     car_type,
@@ -30,6 +33,31 @@ const CarDetailCard = ({
     price,
     short_description,
   } = data;
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user ?? null);
+    };
+    getUser();
+  }, [supabase]);
+
+  const handleRentCar = async () => {
+    if (user) {
+      const supabase = createClientComponentClient();
+      const { data: borrower_id, error } = await supabase
+        .from('cars')
+        .insert(data);
+
+      if (error) {
+        console.error('Error inserting data:', error.message);
+      } else {
+        console.log('Data inserted successfully:', borrower_id);
+      }
+    }
+  };
 
   return (
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
@@ -172,13 +200,15 @@ const CarDetailCard = ({
                           />
                         </div>
                       </section>
-                      <Button
-                        href='#'
-                        style={
-                          ' btn-rent w-full hover:opacity-80 rounded-[10px]'
+                      <button
+                        className={
+                          'flex w-full items-center justify-center gap-2 rounded-[10px] bg-blue-600 px-8 py-[13px] text-base font-bold text-white hover:opacity-80 md:px-9 md:py-4'
                         }
                         title={'Rent Now'}
-                      />
+                        onClick={handleRentCar}
+                      >
+                        Rent Now
+                      </button>
                     </form>
                   </motion.div>
                 </Dialog.Content>

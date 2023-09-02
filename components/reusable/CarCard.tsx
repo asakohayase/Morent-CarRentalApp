@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import * as Dialog from '@radix-ui/react-dialog';
@@ -9,9 +9,12 @@ import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
 
 const CarCard = ({ data }: { data: Car }) => {
   const {
+    car_id,
     car_title,
     car_type,
     fuel_capacity,
@@ -20,9 +23,26 @@ const CarCard = ({ data }: { data: Car }) => {
     images,
     price,
   } = data;
-  const [btnFill, setBtnFill] = useState('fill-white');
-  const handleFavorite = () => {
-    setBtnFill(btnFill === 'fill-white' ? 'fill-red-500' : 'fill-white');
+
+  const [user, setUser] = useState<User | null>(null);
+  const [btnFill, setBtnFill] = useState(
+    car_id === user?.id ? 'fill-red-500' : 'fill-none',
+  );
+  const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user ?? null);
+    };
+    getUser();
+  }, [supabase]);
+
+  const handleFavorite = async () => {
+    const { error } = await supabase.from('profiles').insert({ btnFill });
+    setBtnFill(btnFill === 'fill-none' ? 'fill-red-500' : 'fill-none');
   };
 
   return (
