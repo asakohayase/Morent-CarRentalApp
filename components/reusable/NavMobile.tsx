@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import Image from 'next/image';
 import * as Avatar from '@radix-ui/react-avatar';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -92,111 +92,115 @@ const NavMobile = ({ session }: { session: Session | null }) => {
       </nav>
       <AnimatePresence mode='sync'>
         {open && (
-          <motion.div
-            className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 dark:bg-slate-800 sm:left-[17px] sm:w-[96%]'
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ duration: 0.3 }}
-          >
-            <section className=' z-40 flex w-full items-center justify-between pt-5'>
-              <Link href='/' className='cursor-pointer'>
-                <Image
-                  src={'./img/logo.svg'}
-                  height={24}
-                  width={87}
-                  alt={'logo'}
-                />
-              </Link>
-              <Image
-                src={'./Icons/close.svg'}
-                width={24}
-                height={24}
-                alt={'close'}
-                onClick={toggle}
-                className={'cursor-pointer'}
-              />
-            </section>
-            <section className='h-1/2 '>
-              <ul className=' flex h-full flex-col justify-between'>
-                <div className='flex h-full flex-col justify-around'>
-                  <Link href='/'>
-                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Home
-                        width={18}
-                        height={18}
-                        alt={'home'}
-                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
-                      />
-                      <h3 className='pl-2  hover:text-white dark:text-white'>
-                        Home
-                      </h3>
-                    </li>
-                  </Link>
-
-                  <Link href='search'>
-                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Search
-                        width={18}
-                        height={18}
-                        alt={'home'}
-                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
-                      />
-                      <h3 className='pl-2 hover:text-white dark:text-white'>
-                        Search
-                      </h3>
-                    </li>
-                  </Link>
-                  <Link href='addcar'>
-                    <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
-                      <Plus
-                        width={18}
-                        height={18}
-                        alt={'plus'}
-                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
-                      />
-                      <h3 className='pl-2 hover:text-white dark:text-white'>
-                        Add Car
-                      </h3>
-                    </li>
-                  </Link>
-                </div>
-              </ul>
-            </section>
-            {session || user ? (
-              <>
-                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
-                  <Avatar.Root>
-                    <Avatar.Image
-                      className='h-6 rounded-full'
-                      src={avatarUrl || '/img/placeholder-avatar.jpg'}
+          <>
+            <section className='absolute top-0 h-[100vh] w-full bg-stone-500/25 dark:bg-gray-900/60'>
+              <motion.div
+                className='absolute left-[15px] top-7 z-50 flex h-[500px] w-[93%] flex-col justify-around rounded-[10px] bg-slate-50 px-6 dark:bg-slate-800 sm:left-[17px] sm:w-[96%]'
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -100 }}
+                transition={{ duration: 0.3 }}
+              >
+                <section className=' z-40 flex w-full items-center justify-between pt-5'>
+                  <Link href='/' className='cursor-pointer'>
+                    <Image
+                      src={'./img/logo.svg'}
+                      height={24}
+                      width={87}
+                      alt={'logo'}
                     />
-                    <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
-                  </Avatar.Root>
-                  <span className='font-semibold text-blue-500'>
-                    My Profile
-                  </span>
-                </button>
-                <Button
-                  title={'Logout'}
-                  href='#'
-                  style={
-                    'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
-                  }
-                  handleClick={handleLogout}
-                />
-              </>
-            ) : (
-              <Button
-                title={'Login'}
-                href='#'
-                style={
-                  'btn-login w-full hover:bg-blue-600 hover:text-white dark:bg-slate-600 dark:border-0'
-                }
-                handleClick={handleOAuth}
-              />
-            )}
-          </motion.div>
+                  </Link>
+                  <Image
+                    src={'/Icons/close.svg'}
+                    width={24}
+                    height={24}
+                    alt={'close'}
+                    onClick={toggle}
+                    className={'cursor-pointer'}
+                  />
+                </section>
+                <section className='h-1/2 '>
+                  <ul className=' flex h-full flex-col justify-between'>
+                    <div className='flex h-full flex-col justify-around'>
+                      <Link href='/'>
+                        <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                          <Home
+                            width={18}
+                            height={18}
+                            alt={'home'}
+                            className='fill-[#3D5278] hover:fill-white focus:fill-white dark:fill-white'
+                          />
+                          <h3 className='pl-2  hover:text-white dark:text-white'>
+                            Home
+                          </h3>
+                        </li>
+                      </Link>
+
+                      <Link href='search'>
+                        <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                          <Search
+                            width={18}
+                            height={18}
+                            alt={'home'}
+                            className='fill-[#3D5278] hover:fill-white dark:fill-white'
+                          />
+                          <h3 className='pl-2 hover:text-white dark:text-white'>
+                            Search
+                          </h3>
+                        </li>
+                      </Link>
+                      <Link href='addcar'>
+                        <li className='flex h-[50px] items-center rounded pl-3 text-sm font-medium text-slate-600 hover:bg-blue-600 hover:text-white'>
+                          <Plus
+                            width={18}
+                            height={18}
+                            alt={'plus'}
+                            className='fill-[#3D5278] hover:fill-white dark:fill-white'
+                          />
+                          <h3 className='pl-2 hover:text-white dark:text-white'>
+                            Add Car
+                          </h3>
+                        </li>
+                      </Link>
+                    </div>
+                  </ul>
+                </section>
+                {session || user ? (
+                  <>
+                    <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
+                      <Avatar.Root>
+                        <Avatar.Image
+                          className='h-6 rounded-full'
+                          src={avatarUrl || '/img/placeholder-avatar.jpg'}
+                        />
+                        <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
+                      </Avatar.Root>
+                      <span className='font-semibold text-blue-500'>
+                        My Profile
+                      </span>
+                    </button>
+                    <Button
+                      title={'Logout'}
+                      href='#'
+                      style={
+                        'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
+                      }
+                      handleClick={handleLogout}
+                    />
+                  </>
+                ) : (
+                  <Button
+                    title={'Login'}
+                    href='#'
+                    style={
+                      'btn-login w-full hover:bg-blue-600 hover:text-white dark:bg-slate-600 dark:border-0'
+                    }
+                    handleClick={handleOAuth}
+                  />
+                )}
+              </motion.div>
+            </section>
+          </>
         )}
       </AnimatePresence>
     </motion.div>

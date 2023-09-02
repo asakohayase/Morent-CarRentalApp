@@ -11,10 +11,7 @@ import { Car } from '@/typings';
 import CarImages from './CarImages';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
-
-type Props = {
-  car_id: string;
-};
+import Toast from '../reusable/Toast';
 
 const CarDetailCard = ({
   data,
@@ -36,6 +33,7 @@ const CarDetailCard = ({
     transmission,
     price,
     short_description,
+    car_id,
   } = data;
 
   useEffect(() => {
@@ -48,53 +46,28 @@ const CarDetailCard = ({
     getUser();
   }, [supabase]);
 
-  // const handleRentCar = async ({ car_id }: Props) => {
-  //   if (user) {
-  //     const supabase = createClientComponentClient();
-  //     const { data, error } = await supabase
-  //       .from('cars')
-  //       .upsert({
-  //         borrower_id: user?.id,
-  //         booked_dates: selectedDate,
-  //       })
-  //       .eq('car_id', car_id);
-
-  //     if (error) {
-  //       console.error('Error inserting data:', error.message);
-  //     } else {
-  //       console.log('Data inserted successfully:', data);
-  //     }
-  //   }
-  // };
-  const handleRentCar = async ({ car_id }: Props) => {
+  const handleRentCar = async () => {
     if (user) {
       const supabase = createClientComponentClient();
-      const { data: carData, error: carError } = await supabase
+      const { error: carError } = await supabase
         .from('cars')
-        .select('*')
+        .update([
+          {
+            booked_dates: selectedDate,
+            borrower_id: user?.id,
+          },
+        ])
         .eq('car_id', car_id)
         .single();
 
       if (carError) {
         console.error('Error selecting car data:', carError.message);
       } else {
-        if (carData) {
-          const { data: insertData, error: insertError } = await supabase
-            .from('cars')
-            .upsert([
-              {
-                booked_dates: selectedDate,
-                borrower_id: user?.id,
-              },
-            ]);
-
-          if (insertError) {
-            console.error('Error inserting borrower_id:', insertError.message);
-          } else {
-            console.log('Borrower_id inserted successfully:', insertData);
-          }
+        if (carError) {
+          console.error('Error inserting borrower_id:');
         } else {
-          console.error('car_id not found.');
+          console.log('Borrower_id inserted successfully:');
+          Toast({ type: 'success', message: 'Submission successful!' });
         }
       }
     }
