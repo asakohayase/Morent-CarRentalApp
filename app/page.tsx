@@ -41,7 +41,7 @@ export default async function Home() {
         <h5 className='text-lg font-medium text-gray-600'>Recommended Cars</h5>
         <section className='grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {cars
-            ?.map((car, index) => <CarCard key={car.car_id} data={car} />)
+            ?.map((car) => <CarCard key={car.car_id} data={car} />)
             .slice(0, 8)}
         </section>
       </section>
