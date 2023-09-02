@@ -41,9 +41,11 @@ const CarCard = ({ data }: { data: Car }) => {
   }, [supabase]);
 
   const handleFavorite = async () => {
-    const { data: btnFill } = await supabase
+    const { data: liked_cars } = await supabase
       .from('profiles')
-      .upsert({ liked_cars: car_id });
+      .insert({ liked_cars: car_id });
+
+    setBtnFill(btnFill === 'fill-none' ? 'fill-red-500' : 'fill-none');
   };
 
   return (

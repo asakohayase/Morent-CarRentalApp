@@ -46,17 +46,15 @@ const CarDetailCard = ({
     getUser();
   }, [supabase]);
 
-  const handleRentCar = async () => {
+  const handleRentCar = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     if (user) {
-      const supabase = createClientComponentClient();
       const { error: carError } = await supabase
         .from('cars')
-        .update([
-          {
-            booked_dates: selectedDate,
-            borrower_id: user?.id,
-          },
-        ])
+        .update({
+          booked_dates: selectedDate,
+          borrower_id: user?.id,
+        })
         .eq('car_id', car_id)
         .single();
 
@@ -70,6 +68,7 @@ const CarDetailCard = ({
           Toast({ type: 'success', message: 'Submission successful!' });
         }
       }
+      console.log(data);
     }
   };
 
@@ -77,7 +76,7 @@ const CarDetailCard = ({
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
       {children}
       <div className='flex h-full w-full flex-col transition delay-150 ease-in-out md:flex-row'>
-        <section className='flex h-full w-full flex-col gap-3 rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
+        <section className='scrollbar-hide relative flex h-full w-full flex-col gap-3 overflow-x-auto scroll-smooth rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
           <CarImages data={data} />
         </section>
         <section className='flex w-full flex-col justify-between gap-10 rounded-r-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around  md:px-10 md:py-6'>
@@ -143,7 +142,7 @@ const CarDetailCard = ({
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-                <Dialog.Content className='fixed left-1/2  z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow md:top-1/2 md:max-w-[500px]'>
+                <Dialog.Content className='fixed left-1/2 top-1/2 z-50 w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900  shadow md:left-1/2 md:top-1/2 md:w-[95%] md:max-w-[500px]'>
                   <motion.div
                     animate={{ scale: [1.2, 1] }}
                     transition={{ times: [1] }}
