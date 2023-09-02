@@ -115,7 +115,7 @@ const PopularCars = ({ data }: { data: Car }) => {
             </span>
           </p>
           <Dialog.Root>
-            <Dialog.Trigger className='btn-primary ml-2  w-[100px] hover:opacity-80 md:ml-6 md:w-fit'>
+            <Dialog.Trigger className='btn-primary ml-6 w-[100px] hover:opacity-80 md:w-fit'>
               More Info
             </Dialog.Trigger>
             <Dialog.Portal>
