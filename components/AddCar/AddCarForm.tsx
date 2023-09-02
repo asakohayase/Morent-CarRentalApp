@@ -8,8 +8,14 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
 import { formItems, FormData } from '@/constants/index';
-import SelectCountryInput from '../SelectCountryInput';
 import SelectOption from '../SelectOption';
+import SelectInput from '../SelectCountryInput';
+import Toast from '../reusable/Toast';
+import { useRouter } from 'next/router';
+
+interface Props {
+  id: string;
+}
 
 const initialFormData: FormData = {
   car_title: null,
@@ -21,8 +27,9 @@ const initialFormData: FormData = {
   capacity: null,
 };
 
-const AddCarForm = () => {
+const AddCarForm = ({ id }: Props) => {
   const supabase = createClientComponentClient();
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedCarType, setSelectedCarType] = useState<string>('');
@@ -80,26 +87,43 @@ const AddCarForm = () => {
     }
   };
 
-  const handleRegisterCar = async () => {
-    const uploadedImageUrls = await uploadImagesToSupabase();
-    const location = selectedLocation;
-    const carType = selectedCarType;
-    const capacity = selectedCapacity;
-    const transmission = selectedTransmission;
+  const handleRegisterCar = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
 
-    const { data, error } = await supabase.from('cars').insert({
-      ...formData,
-      owner_id: user?.id,
-      location,
-      car_type: carType,
-      capacity,
-      transmission,
-      images: uploadedImageUrls,
-    });
-    if (error) {
-      console.error('[ERROR] An Error Occured: ', error);
-    } else {
-      console.log(data);
+    try {
+      const uploadedImageUrls = await uploadImagesToSupabase();
+      const location = selectedLocation;
+      const carType = selectedCarType;
+      const capacity = selectedCapacity;
+      const transmission = selectedTransmission;
+
+      const { data, error } = await supabase.from('cars').insert({
+        ...formData,
+        owner_id: user?.id,
+        location,
+        car_type: carType,
+        capacity,
+        transmission,
+        images: uploadedImageUrls,
+      });
+      if (error) {
+        Toast({
+          type: 'error',
+          message: 'An error occurred during submission.',
+        });
+        console.error('[ERROR] An Error Occured: ', error);
+      } else {
+        Toast({ type: 'success', message: 'Submission successful!' });
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+        console.log(data);
+      }
+    } catch (uploadError) {
+      Toast({ type: 'error', message: 'An error occurred during submission.' });
+      console.error('[ERROR] An Error Occured: ', uploadError);
     }
   };
 
@@ -136,7 +160,7 @@ const AddCarForm = () => {
             </div>
             <Form.Control asChild>
               {item.title === 'Location' ? (
-                <SelectCountryInput
+                <SelectInput
                   selected={selectedLocation}
                   setSelected={setSelectedLocation}
                 />
