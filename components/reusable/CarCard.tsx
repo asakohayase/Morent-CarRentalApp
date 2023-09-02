@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import * as Dialog from '@radix-ui/react-dialog';
@@ -20,6 +20,10 @@ const CarCard = ({ data }: { data: Car }) => {
     transmission,
     price,
   } = data;
+  const [btnFill, setBtnFill] = useState('fill-white');
+  const handleFavorite = () => {
+    setBtnFill(btnFill === 'fill-white' ? 'fill-red-500' : 'fill-white');
+  };
   return (
     <article className='flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white p-4 transition-all hover:scale-105 dark:bg-slate-800  lg:p-6'>
       <section className='flex items-center justify-between'>
@@ -31,10 +35,13 @@ const CarCard = ({ data }: { data: Car }) => {
             {car_type}
           </p>
         </div>
-        <Heart
-          alt='heart'
-          className='mb-3 h-fit shrink-0 hover:border-0  hover:fill-red-500 md:h-6 md:w-6'
-        />
+        <button>
+          <Heart
+            alt='heart'
+            className={`${btnFill} mb-3 h-fit shrink-0 hover:border-0 hover:fill-red-500 md:h-6 md:w-6`}
+            onClick={handleFavorite}
+          />
+        </button>
       </section>
       <section className='flex flex-row justify-between gap-8 text-sm text-gray-400 sm:gap-14 md:flex-col'>
         <div className='flex w-full md:items-center md:justify-center'>
