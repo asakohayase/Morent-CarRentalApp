@@ -44,6 +44,7 @@ export interface Database {
           car_type: Database['public']['Enums']['car_type'];
           fuel_capacity: number;
           location: string;
+          images: string[] | null;
           owner_id: string;
           price: number;
           short_description: string;
@@ -58,6 +59,7 @@ export interface Database {
           car_type: Database['public']['Enums']['car_type'];
           fuel_capacity: number;
           location: string;
+          images: string[] | null;
           owner_id: string;
           price: number;
           short_description: string;
@@ -72,6 +74,7 @@ export interface Database {
           car_type?: Database['public']['Enums']['car_type'];
           fuel_capacity?: number;
           location?: string;
+          images: string[] | null;
           owner_id?: string;
           price?: number;
           short_description?: string;
