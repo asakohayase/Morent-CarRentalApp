@@ -1,10 +1,16 @@
 import AdCard from '@/components/Homepage/AdCard';
 import CarCard from '@/components/reusable/CarCard';
 import PickUpDropOff from '@/components/reusable/PickUpDropOff';
-import PopularCars from '@/components/reusable/PopularCars';
-import { carArray } from '@/data';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { Database } from '@/utils/database.types';
+import PopularCarSection from '@/components/PopularCarSection';
 
 export default async function Home() {
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const { data: cars } = await supabase.from('cars').select('*');
+
   return (
     <main className='padding-layout my-12 flex flex-col gap-8'>
       {/* Ads Section */}
@@ -29,22 +35,22 @@ export default async function Home() {
         <PickUpDropOff />
       </section>
       {/* Popular Car Section */}
-      <section className='relative mt-16 flex flex-col gap-6 sm:mt-3'>
-        <h5 className='text-lg font-medium text-gray-600'>Popular Cars</h5>
-        <section className='scrollbar-hide relative flex gap-8 overflow-x-auto scroll-smooth'>
-          {carArray.slice(0, 4).map((item, index) => (
-            <PopularCars key={index} data={item} />
-          ))}
-        </section>
-      </section>
+      <PopularCarSection cars={cars} />
       {/* Recommended Car Section */}
       <section className='flex flex-col gap-6'>
         <h5 className='text-lg font-medium text-gray-600'>Recommended Cars</h5>
         <section className='grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {carArray.slice(0, 8).map((item, index) => (
-            <CarCard key={index} data={item} />
-          ))}
+          {cars
+            ?.map((car) => <CarCard key={car.car_id} data={car} />)
+            .slice(0, 8)}
         </section>
+      </section>
+      <section className='mx-auto w-full lg:w-60'>
+        <Link href='/search'>
+          <button className='w-full rounded-lg bg-blue-600 px-8 py-3 font-semibold text-white'>
+            Show More Cars
+          </button>
+        </Link>
       </section>
     </main>
   );
