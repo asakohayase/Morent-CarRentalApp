@@ -12,6 +12,10 @@ import CarImages from './CarImages';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
+type Props = {
+  car_id: string;
+};
+
 const CarDetailCard = ({
   data,
   children,
@@ -44,17 +48,54 @@ const CarDetailCard = ({
     getUser();
   }, [supabase]);
 
-  const handleRentCar = async () => {
+  // const handleRentCar = async ({ car_id }: Props) => {
+  //   if (user) {
+  //     const supabase = createClientComponentClient();
+  //     const { data, error } = await supabase
+  //       .from('cars')
+  //       .upsert({
+  //         borrower_id: user?.id,
+  //         booked_dates: selectedDate,
+  //       })
+  //       .eq('car_id', car_id);
+
+  //     if (error) {
+  //       console.error('Error inserting data:', error.message);
+  //     } else {
+  //       console.log('Data inserted successfully:', data);
+  //     }
+  //   }
+  // };
+  const handleRentCar = async ({ car_id }: Props) => {
     if (user) {
       const supabase = createClientComponentClient();
-      const { data: borrower_id, error } = await supabase
+      const { data: carData, error: carError } = await supabase
         .from('cars')
-        .insert(data);
+        .select('*')
+        .eq('car_id', car_id)
+        .single();
 
-      if (error) {
-        console.error('Error inserting data:', error.message);
+      if (carError) {
+        console.error('Error selecting car data:', carError.message);
       } else {
-        console.log('Data inserted successfully:', borrower_id);
+        if (carData) {
+          const { data: insertData, error: insertError } = await supabase
+            .from('cars')
+            .upsert([
+              {
+                booked_dates: selectedDate,
+                borrower_id: user?.id,
+              },
+            ]);
+
+          if (insertError) {
+            console.error('Error inserting borrower_id:', insertError.message);
+          } else {
+            console.log('Borrower_id inserted successfully:', insertData);
+          }
+        } else {
+          console.error('car_id not found.');
+        }
       }
     }
   };
