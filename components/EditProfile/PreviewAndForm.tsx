@@ -262,7 +262,7 @@ const PreviewAndForm = ({ session }: { session: Session | null }) => {
                       </figure>
                     </div>
                   </div>
-                  Change Avatar
+                  <span className='relative lg:-top-4'>Change Avatar</span>
                 </button>
               </section>
               <hgroup>

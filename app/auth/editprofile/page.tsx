@@ -12,7 +12,7 @@ const Page = async (props: Props) => {
     data: { session },
   } = await supabase.auth.getSession();
   return (
-    <main className='padding-layout flex flex-col gap-8'>
+    <main className='padding-layout py-12 lg:pb-60'>
       <PreviewAndForm session={session} />
     </main>
   );

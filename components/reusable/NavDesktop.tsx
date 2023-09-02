@@ -93,7 +93,7 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
               <Popover.Button className='focus:outline-none'>
                 <Avatar.Root>
                   <Avatar.Image
-                    className='h-10 rounded-full'
+                    className='h-10 w-10 rounded-full object-cover'
                     src={avatarUrl!}
                   />
                   <Avatar.Fallback className='h-10 rounded-full bg-slate-800' />
@@ -115,22 +115,22 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                     <button className='flex h-10 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200 dark:border-dark-700 dark:bg-dark-900 hover:dark:bg-dark-850'>
                       <Avatar.Root>
                         <Avatar.Image
-                          className='h-6 rounded-full'
+                          className='h-6 w-6 rounded-full object-cover'
                           src={avatarUrl ?? '/img/placeholder-avatar.jpg'}
                         />
-                        <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
+                        <Avatar.Fallback className='h-6 w-6 rounded-full bg-slate-800' />
                       </Avatar.Root>
                       My Profile
                     </button>
                   </a>
-                  <a
+                  <Link
                     className='font-semibold text-blue-500'
                     href='/auth/editprofile'
                   >
                     <button className='flex h-10 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white hover:bg-white-200 dark:border-dark-700 dark:bg-dark-900 hover:dark:bg-dark-850'>
                       Edit Profile
                     </button>
-                  </a>
+                  </Link>
                   <Button
                     title={'Logout'}
                     href='#'
