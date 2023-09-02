@@ -4,7 +4,6 @@ import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion } from 'framer-motion';
 import Date from '@/components/Date';
-import Time from '@/components/Time';
 import SelectCountryInput from '../SelectCountryInput';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
@@ -20,9 +19,8 @@ const CarDetailCard = ({
   data: Car;
   children?: React.ReactNode;
 }) => {
+  const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-  const [selectedPickupTime, setSelectedPickupTime] = useState('');
-  const [selectedDropoffTime, setSelectedDropoffTime] = useState('');
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClientComponentClient();
   const {
@@ -52,7 +50,7 @@ const CarDetailCard = ({
       const { error: carError } = await supabase
         .from('cars')
         .update({
-          booked_dates: selectedDate,
+          booked_dates: '9 / 9 / 2021',
           borrower_id: user?.id,
         })
         .eq('car_id', car_id)
@@ -185,32 +183,18 @@ const CarDetailCard = ({
                           </span>
                         </label>
                         <SelectCountryInput
-                          selected={selectedDate}
-                          setSelected={setSelectedDate}
+                          selected={selectedLocation}
+                          setSelected={setSelectedLocation}
                         />
                       </div>
-                      <section className='flex w-full justify-between gap-x-3'>
-                        <div className='w-full '>
+                      <section className='flex w-full justify-between'>
+                        <div className='w-[100%]'>
                           <Date title={'Pick-Up Date'} />
-                        </div>
-                        <div className='w-full'>
-                          <Time
-                            setSelectedTime={setSelectedPickupTime}
-                            title={'Pick-Up Time'}
-                            selectedTime={selectedPickupTime}
-                          />
                         </div>
                       </section>
                       <section className='flex w-full justify-between gap-x-3'>
-                        <div className='w-full '>
+                        <div className='w-[100%] '>
                           <Date title={'Drop-Off Date'} />
-                        </div>
-                        <div className='w-full'>
-                          <Time
-                            setSelectedTime={setSelectedDropoffTime}
-                            title={'Drop-Off Time'}
-                            selectedTime={selectedDropoffTime}
-                          />
                         </div>
                       </section>
                       <button
