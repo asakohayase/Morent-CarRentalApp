@@ -1,14 +1,5 @@
 /** @type {import('next').NextConfig} */
-
-module.exports = {
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    return config;
-  },
+const nextConfig = {
   images: {
     remotePatterns: [
       {
@@ -16,5 +7,21 @@ module.exports = {
         hostname: '**',
       },
     ],
+    domains: ['zxcskcblupyveqqyaiel.supabase.co', 'lh3.googleusercontent.com'],
   },
+};
+
+const config = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
+  },
+};
+
+module.exports = {
+  ...nextConfig,
+  ...config,
 };

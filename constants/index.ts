@@ -96,6 +96,7 @@ export interface FormData {
   car_type: string | null;
   transmission: string | null;
   capacity: string | null;
+  [key: string]: string | number | null;
 }
 
 export type carType = {
@@ -109,5 +110,6 @@ export type carType = {
   transmission: string;
   capacity: string;
   price: number;
-  short_description?: string;
+  short_description: string;
+  [key: string]: string | number | string[];
 };

@@ -1,6 +1,6 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-async function fetchCarsFromDatabase() {
+async function fetchCars() {
   const supabase = createClientComponentClient();
   try {
     const { data, error } = await supabase.from('cars').select('*');
@@ -14,4 +14,4 @@ async function fetchCarsFromDatabase() {
   }
 }
 
-export default fetchCarsFromDatabase;
+export default fetchCars;

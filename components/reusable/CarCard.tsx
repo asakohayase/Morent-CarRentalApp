@@ -7,8 +7,8 @@ import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
+import { Car } from '@/typings';
 
 const CarCard = ({ data }: { data: Car }) => {
   const {
