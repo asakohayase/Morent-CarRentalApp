@@ -23,20 +23,18 @@ const PickUpDropOff = ({ results, loading }: Props) => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     if (loading) loading(true);
-    // if (!selectedLocation || !selectedPickupDate || !selectedDropoffDate) {
-    //   alert('Fields Location, Pick Up Date or Drop Off Date is empty');
-    //   return;
-    // }
+    if (!selectedLocation || !selectedPickupDate || !selectedDropoffDate) {
+      alert('Fields Location, Pick Up Date or Drop Off Date is empty');
+      return;
+    }
     try {
-      console.log(selectedLocation);
       const { data: cars } = await supabase
         .from('cars')
         .select('*')
         .eq('location', selectedLocation);
-      // .ilike('location', `%${selectedLocation}%`);
       // .contains('booked_dates', [selectedPickupDate]);
+      // .ilike('location', `%${selectedLocation}%`);
       results(cars);
-      console.log('car results : ', cars);
     } catch (error) {
       console.log('Failed to fetch cars:', error);
     }

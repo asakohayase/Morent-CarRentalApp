@@ -8,6 +8,7 @@ import { Car } from '@/typings';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import Empty from '@/components/Search/Empty';
 
 type Props = {};
 
@@ -18,9 +19,8 @@ const Page = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [filteredCars, setFilteredCars] = useState<Car[] | null>([]);
   const [searchResult, setSearchResult] = useState<Car[] | null>([]);
-  const [carsToDisplay, setCarsToDisplay] = useState<Car[] | null>(cars);
+  const [carsToDisplay, setCarsToDisplay] = useState<Car[] | null>([]);
   const [visible, setVisible] = useState(6);
-  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
     if (searchResult && searchResult.length > 0) {
@@ -39,39 +39,16 @@ const Page = (props: Props) => {
     };
 
     getCars();
-    setLoading(false);
   }, [supabase, searchResult]);
 
   useEffect(() => {
     if (filteredCars) setCarsToDisplay(filteredCars);
-    // if (filteredCars && filteredCars.length > 0) {
-    //   setCarsToDisplay(filteredCars);
-    // }
-  }, [filteredCars]);
-
-  // useEffect(() => {
-  //   if (
-  //     searchResult &&
-  //     searchResult.length === 0 &&
-  //     filteredCars &&
-  //     filteredCars.length === 0
-  //   ) {
-  //     setCarsToDisplay(cars);
-  //   }
-  // }, [cars, filteredCars, searchResult]);
-  useEffect(() => {
-    if (filteredCars && filteredCars.length === 0) {
-      setIsEmpty(true);
-    }
   }, [filteredCars]);
 
   const handleMore = () => {
     setVisible((prev) => prev + 6);
   };
 
-  // console.log('from SearchResults', searchResult);
-  // console.log('from  filteredCars', filteredCars);
-  // console.log('from carsToDisplay', carsToDisplay);
   return (
     <main className='bg-gradient-to-r from-white from-55% to-white-200 dark:bg-gradient-to-r dark:from-gray-900 dark:to-[#1E2430] dark:to-75%'>
       <div className='mx-auto flex flex-col bg-white-100 dark:bg-[#1E2430] lg:max-w-[1536px] lg:flex-row lg:gap-8'>
@@ -125,21 +102,23 @@ const Page = (props: Props) => {
           </section>
         </aside>
 
-        <section className='relative mt-20 flex flex-1 flex-col place-items-start gap-10 p-6 md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
+        <section className='relative mt-20 flex w-full flex-1 flex-col place-items-start gap-10 p-6 md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
           <PickUpDropOff results={setSearchResult} loading={setLoading} />
           <section className='mt-20 grid w-full shrink-0 grid-cols-1 gap-5 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
-            {(loading === true && !isEmpty) ||
-            (carsToDisplay?.length === 0 && !isEmpty) ? (
-              <Loader />
+            {loading === true || carsToDisplay?.length === 0 ? (
+              loading && loading === true ? (
+                <Loader />
+              ) : (
+                <Empty />
+              )
             ) : (
               <>
-                {/* {carsToDisplay && !isEmpty ? }} */}
                 {carsToDisplay && carsToDisplay.length > 0 ? (
                   carsToDisplay
                     .slice(0, visible)
                     .map((car, i) => <CarCard key={i} data={car} />)
                 ) : (
-                  <p>Empty!</p>
+                  <Empty />
                 )}
               </>
             )}

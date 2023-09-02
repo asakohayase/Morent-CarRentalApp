@@ -13,8 +13,6 @@ export default function Filter({ setFilteredCars, cars, loading }: Props) {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedCapacities, setSelectedCapacities] = useState<string[]>([]);
 
-  // const selectedPriceRange = { min: 20, max: 200 };
-
   const [selectedPrice, setSelectedPrice] = useState(20);
 
   const carTypes = [
@@ -31,66 +29,22 @@ export default function Filter({ setFilteredCars, cars, loading }: Props) {
   function handleTypeChange(e: React.ChangeEvent<HTMLInputElement>) {
     const type = e.target.value;
     if (e.target.checked) {
-      // selectedTypes.add(type);
       setSelectedTypes([...selectedTypes, type]);
     } else {
-      // selectedTypes.delete(type);
       setSelectedTypes([...selectedTypes.filter((nType) => nType !== type)]);
     }
-    // applyFilters();
   }
-  // function handlePriceChange(e: React.ChangeEvent<HTMLInputElement>) {
-  //   e.preventDefault();
-  //   e.currentTarget.value = e.target.value;
-  //   const priceValue = Number(e.currentTarget.value);
-  //   setSelectedPrice(priceValue);
-  //   // applyFilters();
-  // }
 
   function handleCapacityChange(e: React.ChangeEvent<HTMLInputElement>) {
     const capacity = e.target.value;
-    // console.log(selectedCapacities);
     if (e.target.checked) {
       setSelectedCapacities([...selectedCapacities, capacity]);
-      // selectedCapacities.add(capacity);
-      // setSelectedCapacities([...capacities, capacity]);
-      // selectedCapacities.push(capacity);
     } else {
-      // // selectedCapacities.reduce
-      // // selectedCapacities.delete(capacity);
-      // console.log(...capacities.filter((newCap) => newCap !== capacity));
-      // setSelectedCapacities([
-      //   ...capacities.filter((newCap) => newCap !== capacity),
-      // ]);
       setSelectedCapacities([
         ...selectedCapacities.filter((cap) => cap !== capacity),
       ]);
     }
-    // applyFilters();
   }
-
-  // function applyFilters() {
-  //   if (loading) {
-  //     loading(true);
-  //   }
-  //   setFilteredCars(
-  //     cars.filter((car) => {
-  //       console.log(selectedPrice);
-
-  //       return (
-  //         (selectedTypes.size === 0 || selectedTypes.has(car.car_type)) &&
-  //         (selectedCapacities.size === 0 ||
-  //           selectedCapacities.has(car.capacity)) &&
-  //         car.price <= selectedPrice
-  //       );
-  //     }),
-  //   );
-  //   setTimeout(() => {
-  //     if (loading) {
-  //       loading(false);
-  //     }
-  //   }, 300);
-  // }
 
   useEffect(() => {
     if (loading) {
