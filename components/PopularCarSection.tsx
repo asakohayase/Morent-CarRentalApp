@@ -9,7 +9,7 @@ const PopularCarSection = ({ cars }: { cars: Car[] | null }) => {
       <section className='scrollbar-hide flex gap-8 overflow-x-auto scroll-smooth 2xl:block 2xl:columns-4 '>
         {cars
           ?.slice(0, 4)
-          .map((car, index) => <PopularCars key={car.car_id} data={car} />)}
+          .map((car) => <PopularCars key={car.car_id} data={car} />)}
       </section>
     </section>
   );
