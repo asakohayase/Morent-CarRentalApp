@@ -23,9 +23,9 @@ const initialFormData: FormData = {
 };
 
 const initialCarData: carType = {
-  owner_id: 0,
-  borrower_id: 0,
-  car_id: 0,
+  owner_id: '',
+  borrower_id: '',
+  car_id: '',
   car_title: '',
   car_type: '',
   fuel_capacity: 0,
