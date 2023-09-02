@@ -31,13 +31,13 @@ export default async function RootLayout({
   } = await supabase.auth.getSession();
 
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={`${plusJakartaSans.className} bg-white-200 dark:bg-gray-900`}
       >
         <Providers>
           <NavBar session={session} />
-          <section className='py-10'>{children}</section>
+          {children}
           <Footer />
           <ToastContainer />
         </Providers>
