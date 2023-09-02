@@ -9,31 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      car_images: {
-        Row: {
-          car_id: string | null;
-          image_id: string | null;
-          image_url: string | null;
-        };
-        Insert: {
-          car_id?: string | null;
-          image_id?: string | null;
-          image_url?: string | null;
-        };
-        Update: {
-          car_id?: string | null;
-          image_id?: string | null;
-          image_url?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'car_images_car_id_fkey';
-            columns: ['car_id'];
-            referencedRelation: 'cars';
-            referencedColumns: ['car_id'];
-          },
-        ];
-      };
       cars: {
         Row: {
           booked_dates: string[] | null;
@@ -43,6 +18,7 @@ export interface Database {
           car_title: string;
           car_type: Database['public']['Enums']['car_type'];
           fuel_capacity: number;
+          images: string[] | null;
           location: string;
           images: string[] | null;
           owner_id: string;
@@ -58,6 +34,7 @@ export interface Database {
           car_title: string;
           car_type: Database['public']['Enums']['car_type'];
           fuel_capacity: number;
+          images?: string[] | null;
           location: string;
           images: string[] | null;
           owner_id: string;
@@ -73,6 +50,7 @@ export interface Database {
           car_title?: string;
           car_type?: Database['public']['Enums']['car_type'];
           fuel_capacity?: number;
+          images?: string[] | null;
           location?: string;
           images: string[] | null;
           owner_id?: string;
@@ -91,28 +69,31 @@ export interface Database {
       };
       profiles: {
         Row: {
-          avatar_url: string | null;
-          full_name: string | null;
+          avatar_url: string;
+          banner: string;
+          full_name: string;
+          headline: string | null;
           id: string;
           updated_at: string | null;
           username: string | null;
-          website: string | null;
         };
         Insert: {
-          avatar_url?: string | null;
-          full_name?: string | null;
+          avatar_url?: string;
+          banner?: string;
+          full_name?: string;
+          headline?: string | null;
           id: string;
           updated_at?: string | null;
           username?: string | null;
-          website?: string | null;
         };
         Update: {
-          avatar_url?: string | null;
-          full_name?: string | null;
+          avatar_url?: string;
+          banner?: string;
+          full_name?: string;
+          headline?: string | null;
           id?: string;
           updated_at?: string | null;
           username?: string | null;
-          website?: string | null;
         };
         Relationships: [
           {
