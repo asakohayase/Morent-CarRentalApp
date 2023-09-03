@@ -105,7 +105,7 @@ export default function Filter({ setFilteredCars, cars, setLoading }: Props) {
       </section>
       <section className='flex flex-col gap-7'>
         <h1 className='text-xs font-semibold uppercase leading-[18px] tracking-[0.2rem] text-blue-100 lg:block'>
-          Price {selectedPrice}
+          Price
         </h1>
 
         <div className=''>
@@ -121,6 +121,7 @@ export default function Filter({ setFilteredCars, cars, setLoading }: Props) {
             }}
             className='w-full lg:w-[90%]'
           />
+        <p className='mt-3 text-gray-700 font-semibold text-[20px]'>Max.${selectedPrice}.00</p>
         </div>
       </section>
     </section>

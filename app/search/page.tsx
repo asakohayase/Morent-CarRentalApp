@@ -108,9 +108,9 @@ const Page = (props: Props) => {
           </section>
         </aside>
 
-        <section className='relative mt-20 flex w-full flex-1 flex-col place-items-start gap-10 p-6 md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
+        <section className='relative flex flex-col flex-1 w-full gap-10 p-6 mt-20 place-items-start md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
           <PickUpDropOff results={setSearchResult} loading={setLoading} />
-          <section className='mt-20 grid w-full shrink-0 grid-cols-1 gap-5 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
+          <section className='grid w-full grid-cols-1 gap-5 mt-20 shrink-0 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
             {loading ? (
               <Loader />
             ) : (
@@ -126,7 +126,7 @@ const Page = (props: Props) => {
             )}
           </section>
 
-          {carsToDisplay && carsToDisplay?.length > 6 && (
+          {carsToDisplay && carsToDisplay?.length > 6 || carsToDisplay && carsToDisplay?.length + 1 < carsToDisplay?.length && (
             <button
               onClick={handleMore}
               className={`${
