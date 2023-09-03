@@ -93,9 +93,6 @@ export interface FormData {
   price: number | null;
   fuel_capacity: number | null;
   short_description: string | null;
-  car_type: string | null;
-  transmission: string | null;
-  capacity: number | null;
   [key: string]: string | number | null;
 }
 

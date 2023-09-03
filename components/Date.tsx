@@ -3,12 +3,15 @@ import React from 'react';
 
 type Props = {
   title: string;
+  dateValueChange: React.Dispatch<React.SetStateAction<string>>;
+  dateValue: string;
 };
 
-const Date = ({ title }: Props) => {
+const Date = ({ title, dateValueChange, dateValue }: Props) => {
+  const name = title.split(' ').join('').toLocaleLowerCase();
   return (
     <div className='flex cursor-pointer flex-col gap-3'>
-      <label htmlFor='' className='flex items-center gap-[6px]'>
+      <label className='flex items-center gap-[6px]'>
         <div className='relative h-[14px] w-[14px] shrink-0 md:h-4 md:w-4'>
           <Image
             src={'/img/date.svg'}
@@ -22,12 +25,15 @@ const Date = ({ title }: Props) => {
           {title}
         </span>
       </label>
-      <div className='rounded-10 bg-white-200 relative flex justify-between gap-5 px-[10px] dark:bg-gray-800'>
+      <div className='relative flex justify-between gap-5 rounded-10 bg-white-200 px-[10px] dark:bg-gray-800'>
         <input
           type='date'
-          name=''
-          id=''
-          className='dark:text-white-200 z-[2] cursor-pointer bg-transparent py-[14px] text-xs leading-5 text-gray-400 outline-none md:text-sm md:leading-7'
+          name={name}
+          value={dateValue}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            dateValueChange(e.target.value);
+          }}
+          className='z-[2] cursor-pointer bg-transparent py-[13px] text-xs leading-5 text-gray-400 outline-none dark:text-white-200 md:text-sm md:leading-7'
         />
         <Image
           src={'/img/arrow.svg'}
