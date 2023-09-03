@@ -49,10 +49,6 @@ const Page = (props: Props) => {
     setVisible((prev) => prev + 6);
   };
 
-  console.log('from filtered cars', filteredCars);
-  console.log('from carToDisplay', carsToDisplay);
-  console.log('from searchResults', searchResult);
-
   return (
     <main className='bg-gradient-to-r from-white from-55% to-white-200 dark:bg-gradient-to-r dark:from-gray-900 dark:to-[#1E2430] dark:to-75%'>
       <div className='mx-auto flex flex-col bg-white-100 dark:bg-[#1E2430] lg:max-w-[1536px] lg:flex-row lg:gap-8'>

@@ -33,7 +33,6 @@ const PickUpDropOff = ({ results, loading }: Props) => {
         .select('*')
         .eq('location', selectedLocation);
       // .contains('booked_dates', [selectedPickupDate]);
-      // .ilike('location', `%${selectedLocation}%`);
       results(cars);
     } catch (error) {
       console.log('Failed to fetch cars:', error);
