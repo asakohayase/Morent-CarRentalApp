@@ -13,7 +13,7 @@ import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
 
 interface Props {
-  id: string;
+  id?: string;
 }
 
 const initialFormData: FormData = {
@@ -155,7 +155,7 @@ const AddCarForm = ({ id }: Props) => {
                 />
               ) : item.options ? (
                 <div className='flex w-full'>
-                  <div className='relative inline-flex h-14 w-full'>
+                  <div className='relative inline-flex w-full h-14'>
                     <select
                       className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200'
                       required
@@ -193,7 +193,7 @@ const AddCarForm = ({ id }: Props) => {
         Upload Images
       </h2>
 
-      <div className='mt-6 flex w-full items-center justify-center md:mt-5'>
+      <div className='flex items-center justify-center w-full mt-6 md:mt-5'>
         <label
           htmlFor='dropzone-file'
           className='flex h-[184px] w-full cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-400 bg-white hover:bg-blue-50 dark:bg-gray-850 md:rounded-[7px]'
@@ -203,7 +203,7 @@ const AddCarForm = ({ id }: Props) => {
               <Image
                 src={previewUrl}
                 alt='Preview'
-                className='mb-2 w-full'
+                className='w-full mb-2'
                 width={200}
                 height={200}
               />
