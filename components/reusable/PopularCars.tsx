@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { InView } from 'react-intersection-observer';
 
@@ -10,8 +10,18 @@ import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
 
 const PopularCars = ({ data }: { data: Car }) => {
+  const carId = data.car_id;
+
+  const [user, setUser] = useState<User | null>(null);
+  const [btnFill, setBtnFill] = useState('fill-none');
+  const [likedCars, setLikedCars] = useState<string[]>([]);
+  const isLiked =
+    localStorage.getItem('btnFill') === 'fill-none' || 'fill-red-500';
+  const supabase = createClientComponentClient();
   const [inView, setInView] = useState(false);
   const {
     car_title,
@@ -22,10 +32,72 @@ const PopularCars = ({ data }: { data: Car }) => {
     transmission,
     price,
   } = data;
-  const [btnFill, setBtnFill] = useState('fill-none');
-  const handleFavorite = () => {
-    setBtnFill(btnFill === 'fill-none' ? 'fill-red-500' : 'fill-none');
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user ?? null);
+    };
+    getUser();
+  }, [supabase]);
+
+  const handleLikedCars = async () => {
+    if (!user) {
+      return;
+    }
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('liked_cars')
+      .eq('id', user?.id)
+      .single();
+
+    if (error) {
+      console.error('Error fetching profile data:', error);
+      return;
+    }
+    const isCarLiked = data.liked_cars.includes(carId);
+
+    if (isCarLiked) {
+      setBtnFill('fill-red-500');
+
+      setLikedCars(data.liked_cars.filter((id: string) => id !== carId));
+
+      const updatedLikedCars = data.liked_cars.filter(
+        (likedCarId: string) => likedCarId !== carId,
+      );
+      const { error } = await supabase
+        .from('profiles')
+        .update({ liked_cars: updatedLikedCars })
+        .eq('id', user?.id);
+
+      if (error) {
+        console.error('Error updating liked cars:', error);
+      }
+    } else {
+      setBtnFill('fill-none');
+      setLikedCars([...likedCars, carId]);
+      const updatedLikedCars = [...likedCars, carId];
+      const { error } = await supabase
+        .from('profiles')
+        .update({ liked_cars: updatedLikedCars })
+        .eq('id', user?.id);
+
+      if (error) {
+        console.error('Error updating liked cars:', error);
+      }
+    }
   };
+
+  useEffect(() => {
+    handleLikedCars();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('btnFill', `{$btnFill}`);
+  }, [isLiked]);
+
   return (
     <InView
       onChange={(inView) => setInView(inView)}
@@ -51,7 +123,7 @@ const PopularCars = ({ data }: { data: Car }) => {
             <Heart
               alt='heart'
               className={`${btnFill} mb-3 h-fit shrink-0 hover:border-0 hover:fill-red-500 md:h-6 md:w-6`}
-              onClick={handleFavorite}
+              onClick={handleLikedCars}
             />
           </button>
         </section>
@@ -67,7 +139,7 @@ const PopularCars = ({ data }: { data: Car }) => {
             </div>
           </div>
 
-          <section className='mr-5 flex w-fit shrink-0 flex-row items-center justify-between gap-2 sm:w-full  sm:gap-2 md:mr-0 md:flex-wrap'>
+          <section className='mr-5 flex  w-full shrink-0 flex-row items-center justify-between gap-2 sm:w-full  sm:gap-2 md:mr-0 md:flex-wrap'>
             <div className='flex shrink-0 items-center gap-0.5 md:gap-2'>
               <div className='relative h-[12px] w-[12px] md:h-6 md:w-6'>
                 <Image

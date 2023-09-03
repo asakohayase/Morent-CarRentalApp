@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion } from 'framer-motion';
-import Date from '@/components/Date';
+import DateComp from '@/components/DateComp';
 import SelectCountryInput from '../SelectCountryInput';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
@@ -20,9 +20,21 @@ const CarDetailCard = ({
   children?: React.ReactNode;
 }) => {
   const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedPickupDate, setSelectedPickupDate] = useState('');
+  const [selectedDropoffDate, setSelectedDropoffDate] = useState('');
   const [user, setUser] = useState<User | null>(null);
   const supabase = createClientComponentClient();
+
+  const bookedDates = data.booked_dates;
+
+  const getDate = () => {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+    return `${month}/${date}}`;
+  };
+  const currentDate = getDate();
+
   const {
     car_title,
     car_type,
@@ -32,6 +44,7 @@ const CarDetailCard = ({
     price,
     short_description,
     car_id,
+    borrower_id,
   } = data;
 
   useEffect(() => {
@@ -47,26 +60,26 @@ const CarDetailCard = ({
   const handleRentCar = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (user) {
-      const { error: carError } = await supabase
+      const { data: car, error } = await supabase
         .from('cars')
         .update({
-          booked_dates: '9 / 9 / 2021',
-          borrower_id: user?.id,
+          booked_dates: [selectedPickupDate, selectedDropoffDate],
+          borrower_id: [...borrower_id, user?.id],
         })
         .eq('car_id', car_id)
         .single();
 
-      if (carError) {
-        console.error('Error selecting car data:', carError.message);
+      if (error) {
+        console.error('Error selecting car data:', error.message);
       } else {
-        if (carError) {
+        if (error) {
           console.error('Error inserting borrower_id:');
         } else {
           console.log('Borrower_id inserted successfully:');
-          Toast({ type: 'success', message: 'Submission successful!' });
+          Toast({ type: 'success', message: 'Success!' });
         }
       }
-      console.log(data);
+      console.log(car);
     }
   };
 
@@ -135,9 +148,31 @@ const CarDetailCard = ({
               </span>
             </p>
             <Dialog.Root>
-              <Dialog.Trigger className='btn-primary ml-6 w-[148px] hover:opacity-80 md:w-fit'>
-                Rent Now
-              </Dialog.Trigger>
+              {bookedDates.includes(currentDate) ? (
+                <Dialog.Trigger
+                  className='btn-primary ml-6 w-[148px] bg-slate-400 text-neutral-100  dark:bg-gray-600/70 dark:text-slate-400 md:w-fit'
+                  disabled
+                >
+                  Unavailable
+                </Dialog.Trigger>
+              ) : (
+                <Dialog.Trigger className='btn-primary ml-6 w-[148px] hover:opacity-80 md:w-fit'>
+                  Rent Now
+                </Dialog.Trigger>
+              )}
+              {/* {bookedDates !== currentDate ? (
+                <Dialog.Trigger className='btn-primary ml-6 w-[148px] hover:opacity-80 md:w-fit'>
+                  Rent Now
+                </Dialog.Trigger>
+              ) : (
+                <Dialog.Trigger
+                  className='btn-primary ml-6 w-[148px] bg-slate-400 text-neutral-100  dark:bg-gray-600/70 dark:text-slate-400 md:w-fit'
+                  disabled
+                >
+                  Unavailable
+                </Dialog.Trigger>
+              )} */}
+
               <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
                 <Dialog.Content className='fixed left-1/2 top-1/2 z-50 w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900  shadow md:left-1/2 md:top-1/2 md:w-[95%] md:max-w-[500px]'>
@@ -189,14 +224,23 @@ const CarDetailCard = ({
                       </div>
                       <section className='flex w-full justify-between'>
                         <div className='w-[100%]'>
-                          <Date title={'Pick-Up Date'} />
+                          <DateComp
+                            title={'Pick-Up Date'}
+                            dateValueChange={setSelectedPickupDate}
+                            dateValue={selectedPickupDate}
+                          />
                         </div>
                       </section>
                       <section className='flex w-full justify-between gap-x-3'>
                         <div className='w-[100%] '>
-                          <Date title={'Drop-Off Date'} />
+                          <DateComp
+                            title={'Drop-Off Date'}
+                            dateValueChange={setSelectedDropoffDate}
+                            dateValue={selectedDropoffDate}
+                          />
                         </div>
                       </section>
+
                       <button
                         className={
                           'flex w-full items-center justify-center gap-2 rounded-[10px] bg-blue-600 px-8 py-[13px] text-base font-bold text-white hover:opacity-80 md:px-9 md:py-4'

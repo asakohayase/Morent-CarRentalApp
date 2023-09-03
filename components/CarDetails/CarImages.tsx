@@ -21,16 +21,19 @@ md:items-center md:pt-0'
           }
         />
       </div>
-      <div className='flex w-full gap-3'>
+      <div className='flex w-full flex-row justify-between gap-3 '>
         {images?.map((image) => (
-          <div className='relative h-24 w-full flex-1 rounded-lg' key={image}>
+          <div
+            className='relative h-24 w-[30%] rounded-lg border  border-blue-600 transition duration-150  ease-in-out active:scale-95 active:border '
+            key={image}
+          >
             <Image
               src={image}
               alt={'car_title'}
               fill
               priority
               className={
-                'rounded-[10px] border-blue-600 object-contain hover:border md:h-[124] md:w-[144px]'
+                'rounded-[10px] border-4 border-white  object-contain dark:border-slate-800 md:h-[124] md:w-[144px]'
               }
             />
           </div>

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import SelectCountryInput from '@/components/SelectCountryInput';
 import Time from '@/components/Time';
-import Date from '@/components/Date';
+import Date from '@/components/DateComp';
 
 type Props = {};
 
