@@ -48,7 +48,6 @@ const AddCarForm = ({ id }: Props) => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    e.preventDefault();
     const { name, value } = e.currentTarget;
     setFormData((prevData) => ({
       ...prevData,

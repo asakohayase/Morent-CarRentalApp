@@ -69,7 +69,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   return (
     <motion.div className='sticky top-0 z-50 '>
       <nav className='padding-layout  flex h-[92px] justify-between bg-white dark:bg-gray-900'>
-        <Image src={'./img/logo.svg'} height={28} width={108} alt={'logo'} />
+        <Image src={'/img/logo.svg'} height={28} width={108} alt={'logo'} />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
             <ToggleTheme />
@@ -109,7 +109,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                 />
               </Link>
               <Image
-                src={'./Icons/close.svg'}
+                src={'/Icons/close.svg'}
                 width={24}
                 height={24}
                 alt={'close'}
@@ -126,7 +126,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                         width={18}
                         height={18}
                         alt={'home'}
-                        className='fill-[#3D5278] hover:fill-white dark:fill-white'
+                        className='fill-[#3D5278] hover:fill-white focus:fill-white dark:fill-white'
                       />
                       <h3 className='pl-2  hover:text-white dark:text-white'>
                         Home
@@ -164,8 +164,11 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               </ul>
             </section>
             {session || user ? (
-              <>
-                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200'>
+              <Link
+                href={`/profile/${user?.id || ''}`}
+                className='flex flex-col gap-4'
+              >
+                <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white active:bg-white-200 dark:border-none dark:bg-gray-700'>
                   <Avatar.Root>
                     <Avatar.Image
                       className='h-6 rounded-full'
@@ -173,7 +176,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                     />
                     <Avatar.Fallback className='h-6 rounded-full bg-slate-800' />
                   </Avatar.Root>
-                  <span className='font-semibold text-blue-500'>
+                  <span className='font-semibold text-blue-300'>
                     My Profile
                   </span>
                 </button>
@@ -185,7 +188,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                   }
                   handleClick={handleLogout}
                 />
-              </>
+              </Link>
             ) : (
               <Button
                 title={'Login'}

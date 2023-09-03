@@ -7,24 +7,23 @@ import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
+import { Car } from '@/typings';
 
 const CarCard = ({ data }: { data: Car }) => {
   const {
     car_title,
     car_type,
-    fuel_capacity,
     capacity,
-    transmission,
     images,
+    fuel_capacity,
+    transmission,
     price,
   } = data;
   const [btnFill, setBtnFill] = useState('fill-white');
   const handleFavorite = () => {
     setBtnFill(btnFill === 'fill-white' ? 'fill-red-500' : 'fill-white');
   };
-
   return (
     <article className='flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white p-4 transition-all hover:scale-105 dark:bg-slate-800  lg:p-6'>
       <section className='flex items-center justify-between'>
