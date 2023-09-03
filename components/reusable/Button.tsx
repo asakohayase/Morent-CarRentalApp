@@ -2,14 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 type Props = {
   href: string | { pathname: string; query: { query: string } };
   title?: String;
   style: string;
   icon?: string;
-  handleClick?: () => void;
+  handleClick?: () => {};
+  children?: ReactNode;
 };
 
 const Button = ({ title, style, href, icon, handleClick }: Props) => {

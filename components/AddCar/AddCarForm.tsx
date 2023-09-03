@@ -12,6 +12,10 @@ import { formItems, FormData } from '@/constants/index';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
 
+interface Props {
+  id?: string;
+}
+
 const initialFormData: FormData = {
   car_title: null,
   price: null,
@@ -44,7 +48,6 @@ const AddCarForm = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    e.preventDefault();
     const { name, value } = e.currentTarget;
     setFormData((prevData) => ({
       ...prevData,

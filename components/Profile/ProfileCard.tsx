@@ -42,7 +42,7 @@ const ProfileCard = ({ id }: Props) => {
   return (
     <section className='relative flex h-[301px] w-full rounded-[10px] bg-white dark:bg-gray-850'>
       <div
-        className='profileBanner h-[150px] w-full rounded-t-[10px] md:h-[182px]'
+        className='h-[150px] w-full rounded-t-[10px] md:h-[182px]'
         style={{
           backgroundImage: `url(${profileData.banner})`,
           backgroundSize: 'cover',
@@ -59,14 +59,6 @@ const ProfileCard = ({ id }: Props) => {
           className='rounded-full object-cover'
         />
       </div>
-
-      <div className='absolute right-[10px] top-[114px] md:right-[57px] md:top-[119px]'>
-        <div className='flex h-[26px] w-[68px] items-center justify-center rounded-[5px] bg-white bg-opacity-40 md:h-10 md:w-[105px]'>
-          <span className='text-[10px] font-normal text-white md:text-sm md:font-medium'>
-            Edit Cover
-          </span>
-        </div>
-      </div>
       <div className='absolute left-[13px] top-[195px] h-[50px] w-[250px] md:left-[223px] md:top-[213px]'>
         <div className='absolute left-0 top-0 text-xl font-bold text-gray-900 dark:text-white-0'>
           {profileData.full_name}
@@ -76,7 +68,11 @@ const ProfileCard = ({ id }: Props) => {
         </div>
       </div>
       <div className='absolute right-2.5 top-[245px] inline-flex md:right-[50px] md:top-[220px]'>
-        <Button href='/' title='Edit Profile' style='btn-edit-profile' />
+        <Button
+          href='/auth/editprofile'
+          title='Edit Profile'
+          style='btn-edit-profile'
+        />
       </div>
     </section>
   );

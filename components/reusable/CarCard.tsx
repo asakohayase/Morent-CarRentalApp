@@ -7,8 +7,8 @@ import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
+import { Car } from '@/typings';
 
 const CarCard = ({ data }: { data: Car }) => {
   const {
@@ -20,15 +20,15 @@ const CarCard = ({ data }: { data: Car }) => {
     transmission,
     price,
   } = data;
-  const [btnFill, setBtnFill] = useState('fill-white');
+  const [btnFill, setBtnFill] = useState('fill-transparent');
   const handleFavorite = () => {
-    setBtnFill(btnFill === 'fill-white' ? 'fill-red-500' : 'fill-white');
+    setBtnFill(btnFill === 'fill-transparent' ? 'fill-red-500' : 'fill-transparent');
   };
   return (
     <article className='flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white p-4 transition-all hover:scale-105 dark:bg-slate-800  lg:p-6'>
       <section className='flex items-center justify-between'>
         <div className='w-4/5'>
-          <h1 className='truncate whitespace-nowrap text-base font-semibold text-gray-900 dark:text-white md:text-xl md:font-bold'>
+          <h1 className='text-base font-semibold text-gray-900 truncate whitespace-nowrap dark:text-white md:text-xl md:font-bold'>
             {car_title}
           </h1>
           <p className='text-xs font-medium text-slate-400 md:text-sm md:font-bold'>
@@ -55,9 +55,9 @@ const CarCard = ({ data }: { data: Car }) => {
           </div>
         </div>
 
-        <section className='flex w-24 shrink-0 flex-col gap-3 sm:w-full sm:gap-2 md:flex-row md:flex-wrap md:items-center md:justify-between'>
-          <div className='flex shrink-0 items-center gap-2'>
-            <div className='relative h-4 w-4 md:h-6 md:w-6'>
+        <section className='flex flex-col w-24 gap-3 shrink-0 sm:w-full sm:gap-2 md:flex-row md:flex-wrap md:items-center md:justify-between'>
+          <div className='flex items-center gap-2 shrink-0'>
+            <div className='relative w-4 h-4 md:h-6 md:w-6'>
               <Image
                 src='/img/gas-station.svg'
                 alt='gas'
@@ -67,8 +67,8 @@ const CarCard = ({ data }: { data: Car }) => {
             </div>
             <p className='dark:text-slate-400'>{`${fuel_capacity} L`}</p>
           </div>
-          <div className='flex shrink-0 items-center gap-2'>
-            <div className='relative h-4 w-4 md:h-6 md:w-6'>
+          <div className='flex items-center gap-2 shrink-0'>
+            <div className='relative w-4 h-4 md:h-6 md:w-6'>
               <Image
                 src='/img/transmission.svg'
                 alt='transmission'
@@ -80,8 +80,8 @@ const CarCard = ({ data }: { data: Car }) => {
               {transmission}
             </p>
           </div>
-          <div className='flex shrink-0 items-center gap-2'>
-            <div className='relative h-4 w-4 md:h-6 md:w-6'>
+          <div className='flex items-center gap-2 shrink-0'>
+            <div className='relative w-4 h-4 md:h-6 md:w-6'>
               <Image
                 src='/img/capacity.svg'
                 alt='gas'
