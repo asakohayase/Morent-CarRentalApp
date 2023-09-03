@@ -20,6 +20,7 @@ export interface Database {
           fuel_capacity: number;
           images: string[] | null;
           location: string;
+          images: string[] | null;
           owner_id: string;
           price: number;
           short_description: string;
@@ -35,6 +36,7 @@ export interface Database {
           fuel_capacity: number;
           images?: string[] | null;
           location: string;
+          images: string[] | null;
           owner_id: string;
           price: number;
           short_description: string;
@@ -50,6 +52,7 @@ export interface Database {
           fuel_capacity?: number;
           images?: string[] | null;
           location?: string;
+          images: string[] | null;
           owner_id?: string;
           price?: number;
           short_description?: string;
