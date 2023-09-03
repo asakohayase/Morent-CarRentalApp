@@ -21,7 +21,7 @@ const Page = (props: Props) => {
   const [searchResult, setSearchResult] = useState<Car[] | null>([]);
   const [carsToDisplay, setCarsToDisplay] = useState<Car[] | null>([]);
   const [visible, setVisible] = useState(6);
-
+  const [initialLoad, setInitialLoad] = useState(true);
   useEffect(() => {
     const getCars = async () => {
       const { data } = await supabase.from('cars').select('*');
@@ -30,6 +30,12 @@ const Page = (props: Props) => {
     };
     getCars();
   }, [supabase]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setInitialLoad(false);
+    }, 3000);
+  }, []);
 
   useEffect(() => {
     if (searchResult) {
@@ -114,7 +120,7 @@ const Page = (props: Props) => {
                     .slice(0, visible)
                     .map((car, i) => <CarCard key={i} data={car} />)
                 ) : (
-                  <Empty />
+                  <>{!initialLoad && <Empty />}</>
                 )}
               </>
             )}
