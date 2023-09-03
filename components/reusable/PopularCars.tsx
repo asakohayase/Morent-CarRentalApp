@@ -19,8 +19,7 @@ const PopularCars = ({ data }: { data: Car }) => {
   const [user, setUser] = useState<User | null>(null);
   const [btnFill, setBtnFill] = useState('fill-none');
   const [likedCars, setLikedCars] = useState<string[]>([]);
-  const isLiked =
-    localStorage.getItem('btnFill') === 'fill-none' || 'fill-red-500';
+  // const isLiked = localStorage.getItem('btnFill');
   const supabase = createClientComponentClient();
   const [inView, setInView] = useState(false);
   const {
@@ -94,9 +93,9 @@ const PopularCars = ({ data }: { data: Car }) => {
     handleLikedCars();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('btnFill', `{$btnFill}`);
-  }, [isLiked]);
+  // useEffect(() => {
+  //   localStorage.setItem('btnFill', `{$btnFill}`);
+  // }, [isLiked]);
 
   return (
     <InView

@@ -29,8 +29,8 @@ const CarCard = ({ data }: { data: Car }) => {
   const [user, setUser] = useState<User | null>(null);
   const [btnFill, setBtnFill] = useState('fill-none');
   const [likedCars, setLikedCars] = useState<string[]>([]);
-  const isLiked =
-    localStorage.getItem('btnFill') === 'fill-none' || 'fill-red-500';
+  // const isLiked =
+  //   localStorage.getItem('btnFill') === 'fill-none' || 'fill-red-500';
   const supabase = createClientComponentClient();
 
   useEffect(() => {
@@ -95,9 +95,10 @@ const CarCard = ({ data }: { data: Car }) => {
     handleLikedCars();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('btnFill', `{$btnFill}`);
-  }, [isLiked]);
+  // useEffect(() => {
+  //   localStorage.setItem('btnFill', `{$btnFill}`);
+  // }, [isLiked]);
+
   return (
     <article className='flex w-full flex-col justify-between gap-9 rounded-[10px] bg-white p-4 transition-all hover:scale-105 dark:bg-slate-800  lg:p-6'>
       <section className='flex items-center justify-between'>
