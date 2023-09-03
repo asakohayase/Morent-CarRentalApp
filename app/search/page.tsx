@@ -1,44 +1,69 @@
 'use client';
-// import Filter from '@/components/Search/Filter';
-import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
 import PickUpDropOff from '@/components/reusable/PickUpDropOff';
 import Filter from '@/components/Search/Filter';
+import Loader from '@/components/Search/Loader';
 import FilterOnMobile from '@/components/Search/FilterOnMobile';
-import { carArray } from '@/data';
+import { Car } from '@/typings';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Empty from '@/components/Search/Empty';
 
 type Props = {};
 
 const Page = (props: Props) => {
+  const supabase = createClientComponentClient();
+  const [loading, setLoading] = useState(true);
+  const [cars, setCars] = useState<Car[] | null>([]);
   const [open, setOpen] = useState(false);
-  const filterCapacityArray: string[] = [];
-  const filterTypeArray: string[] = [];
+  const [filteredCars, setFilteredCars] = useState<Car[] | null>([]);
+  const [searchResult, setSearchResult] = useState<Car[] | null>([]);
+  const [carsToDisplay, setCarsToDisplay] = useState<Car[] | null>([]);
+  const [visible, setVisible] = useState(6);
+  const [initialLoad, setInitialLoad] = useState(true);
+  useEffect(() => {
+    const getCars = async () => {
+      const { data } = await supabase.from('cars').select('*');
+      setCars(data);
+      setCarsToDisplay(data);
+    };
+    getCars();
+  }, [supabase]);
 
-  carArray.map((el) => {
-    return filterTypeArray.push(el.vehicleType);
-  });
+  useEffect(() => {
+    setTimeout(() => {
+      setInitialLoad(false);
+    }, 3000);
+  }, []);
 
-  const filteredType = new Set(filterTypeArray);
-  const resultType = [...filteredType];
+  useEffect(() => {
+    if (searchResult) {
+      setCarsToDisplay(searchResult);
+    }
+  }, [searchResult]);
 
-  carArray.map((el) => {
-    return filterCapacityArray.push(el.capacity);
-  });
+  useEffect(() => {
+    if (filteredCars && filteredCars.length > 0) {
+      setCarsToDisplay(filteredCars);
+    } else if (filteredCars && filteredCars.length === 0) {
+      setCarsToDisplay(null);
+    }
+  }, [filteredCars]);
 
-  const filteredCapacity = new Set(filterCapacityArray);
-  const resultCapacity = [...filteredCapacity];
+  const handleMore = () => {
+    setVisible((prev) => prev + 6);
+  };
 
   return (
-    <main className='to-white-200 bg-gradient-to-r from-white from-55% dark:bg-gradient-to-r dark:from-gray-900 dark:to-[#1E2430] dark:to-75%'>
-      <div className='bg-white-100 mx-auto flex flex-col dark:bg-[#1E2430] lg:max-w-[1536px] lg:flex-row lg:gap-8'>
-        <aside className='fixed lg:static z-20 lg:z-0 flex w-full flex-col gap-14 bg-white px-6 pb-8 dark:bg-gray-900 lg:max-w-[250px] lg:pl-8 lg:pr-5 lg:pt-10 xl:w-[360px] xl:max-w-[360px]'>
+    <main className='bg-gradient-to-r from-white from-55% to-white-200 dark:bg-gradient-to-r dark:from-gray-900 dark:to-[#1E2430] dark:to-75%'>
+      <div className='mx-auto flex flex-col bg-white-100 dark:bg-[#1E2430] lg:max-w-[1536px] lg:flex-row lg:gap-8'>
+        <aside className='fixed z-20 flex w-full flex-col gap-14 bg-white px-6 pb-8 dark:bg-gray-900 lg:static lg:z-0 lg:max-w-[250px] lg:pl-8 lg:pr-5 lg:pt-10 xl:w-[360px] xl:max-w-[360px]'>
           <section className='flex gap-4 lg:flex-col lg:gap-7'>
             <h1 className='hidden text-xs font-semibold uppercase leading-[18px] text-blue-100 lg:block'>
               Search
             </h1>
-            <div className='rounded-10 dark:bg-gray-850 flex w-full gap-4 overflow-hidden border-[1px] border-blue-50 pl-3 pr-5 dark:border-gray-800 lg:max-w-[200px] xl:max-w-[283px]'>
+            <div className='flex w-full gap-4 overflow-hidden rounded-10 border-[1px] border-blue-50 pl-3 pr-5 dark:border-gray-800 dark:bg-gray-850 lg:max-w-[200px] xl:max-w-[283px]'>
               <Image
                 src={'/img/search-sidebar.svg'}
                 height={24}
@@ -69,50 +94,48 @@ const Page = (props: Props) => {
           {open && (
             <FilterOnMobile
               setOpen={setOpen}
-              capacity={resultCapacity}
-              type={resultType}
+              setFilteredCars={setFilteredCars}
+              cars={cars}
             />
           )}
 
           <section className='hidden lg:grid lg:gap-14'>
-            <section className='flex flex-col gap-7'>
-              <h1 className='hidden text-xs font-semibold uppercase leading-[18px] tracking-[0.2rem] text-blue-100 lg:block'>
-                Type
-              </h1>
-              {resultType.map((filter, i) => (
-                <Filter key={i} name={filter} />
-              ))}
-            </section>
-            <section className='flex flex-col gap-7'>
-              <h1 className='hidden text-xs font-semibold uppercase leading-[18px] tracking-[0.2rem] text-blue-100 lg:block'>
-                Capacity
-              </h1>
-              {resultCapacity.map((filter, i) => (
-                <Filter key={i} name={filter} />
-              ))}
-            </section>
-            <section className='flex flex-col gap-7'>
-              <h1 className='hidden text-xs font-semibold uppercase leading-[18px] tracking-[0.2rem] text-blue-100 lg:block'>
-                Price
-              </h1>
-            </section>
+            <Filter
+              setFilteredCars={setFilteredCars}
+              cars={cars}
+              setLoading={setLoading}
+            />
           </section>
         </aside>
 
-        <section className='flex flex-col justify-center p-6 mt-20 md:mt-0 gap-9 md:gap-5 lg:p-0 lg:pb-12 lg:pt-8 flex-1'>
-          <PickUpDropOff />
-          <section className='grid grid-cols-1 gap-8 mt-20 md:mt-0 md:grid-cols-2 lg:grid-cols-3'>
-            {carArray?.slice(0, 9).map((car, i) => {
-              return <CarCard key={i} data={car} />;
-            })}
+        <section className='relative flex flex-col flex-1 w-full gap-10 p-6 mt-20 place-items-start md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
+          <PickUpDropOff results={setSearchResult} loading={setLoading} />
+          <section className='grid w-full grid-cols-1 gap-5 mt-20 shrink-0 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
+            {loading ? (
+              <Loader />
+            ) : (
+              <>
+                {carsToDisplay && carsToDisplay.length > 0 ? (
+                  carsToDisplay
+                    .slice(0, visible)
+                    .map((car, i) => <CarCard key={i} data={car} />)
+                ) : (
+                  <>{!initialLoad && <Empty />}</>
+                )}
+              </>
+            )}
           </section>
-          <Button
-            title={'Show more cars'}
-            style={
-              'px-[10px] py-2 lg:px-[51px] lg:py-[18px] bg-blue-500 rounded-10 text-white w-fit place-self-center text-xs rounded-[4px] lg:rounded-10 lg:text-base lg:font-bold font-semibold'
-            }
-            href={'#!'}
-          />
+
+          {carsToDisplay && carsToDisplay?.length > 6 || carsToDisplay && carsToDisplay?.length + 1 < carsToDisplay?.length && (
+            <button
+              onClick={handleMore}
+              className={`${
+                loading === true && 'hidden'
+              } w-fit place-self-center rounded-[4px] bg-blue-500 px-[10px] py-2 text-xs font-semibold text-white lg:rounded-10 lg:px-[51px] lg:py-[18px] lg:text-base lg:font-bold`}
+            >
+              Show more cars
+            </button>
+          )}
         </section>
       </div>
     </main>

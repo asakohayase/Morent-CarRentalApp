@@ -2,13 +2,12 @@
 /* eslint-disable camelcase */
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import CarDetailCard from '../CarDetails/CarDetailCard';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import { Car } from '@/typings';
 import Heart from '@/public/img/heart.svg';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';

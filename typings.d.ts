@@ -1,16 +1,5 @@
 import { Database } from './utils/database.types';
 
-export type carType = {
-  title: string;
-  vehicleType: string;
-  gallons: number;
-  image: string;
-  transmission: string;
-  capacity: number;
-  price: number;
-  id: string;
-};
-
 export type Car = {
   booked_dates: string[];
   borrower_id: string[];
@@ -25,6 +14,23 @@ export type Car = {
   price: number;
   short_description: string;
   transmission: Database['public']['Enums']['transmission'];
+};
+
+export type GeoResponse = {
+  status: string;
+  country: string;
+  countryCode: string;
+  region: string;
+  regionName: string;
+  city: string;
+  zip: string;
+  lat: number;
+  lon: number;
+  timezone: string;
+  isp: string;
+  org: string;
+  as: string;
+  query: string;
 };
 
 export type ToastProps = {

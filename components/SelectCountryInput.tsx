@@ -1,7 +1,8 @@
 'use client';
 import Image from 'next/image';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Country, State, IState } from 'country-state-city';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { State, City, ICity } from 'country-state-city';
+import { GeoResponse } from '@/typings';
 
 type Props = {
   selected: string;
@@ -9,16 +10,39 @@ type Props = {
 };
 
 const SelectInput = ({ selected, setSelected }: Props) => {
-  const states: IState[] = State.getAllStates();
   const [input, setInput] = useState('');
   const [open, setOpen] = useState(false);
-  const handleClick = (state: IState) => {
-    if (state?.name?.toLowerCase() !== selected.toLowerCase()) {
-      setSelected(state?.name);
+  const [location, setLocation] = useState<GeoResponse>();
+
+  const cities = City.getCitiesOfCountry(location?.countryCode!);
+
+  const handleClick = (city: ICity) => {
+    if (city?.name?.toLowerCase() !== selected.toLowerCase()) {
+      setSelected(
+        city?.name +
+          ', ' +
+          State.getStateByCodeAndCountry(city?.stateCode, city?.countryCode)
+            ?.name +
+          ', ' +
+          city?.countryCode,
+      );
       setOpen(false);
       setInput('');
     }
   };
+
+  useEffect(() => {
+    async function fetchLocation() {
+      const url = 'http://ip-api.com/json/';
+
+      const response = await fetch(url, {
+        method: 'GET',
+      });
+      const result = await response.json();
+      setLocation(result);
+    }
+    fetchLocation();
+  }, []);
 
   return (
     <div className='relative cursor-pointer'>
@@ -53,27 +77,30 @@ const SelectInput = ({ selected, setSelected }: Props) => {
           placeholder='Enter city name'
           className='sticky top-0 w-full border-b-[1px] border-gray-100 p-2 text-sm outline-none drop-shadow-sm placeholder:text-sm placeholder:text-gray-300 dark:border-transparent dark:bg-gray-850 dark:drop-shadow-lg'
         />
-        {states?.map((state: IState, i) => {
-          if (!state?.name) {
+        {cities?.map((city: ICity, i) => {
+          if (!city?.name) {
             return <li key={i}>No city found</li>;
           }
           return (
             <li
-              onClick={() => handleClick(state)}
-              key={state?.isoCode + state?.countryCode}
+              onClick={() => handleClick(city)}
+              key={city?.name + city?.stateCode + city?.countryCode}
               className={`cursor-pointer p-2 text-sm  ${
-                state?.name?.toLowerCase() === selected?.toLowerCase()
+                city?.name?.toLowerCase() === selected?.toLowerCase()
                   ? 'bg-blue-500 text-white hover:bg-blue-500'
                   : 'hover:bg-blue-500/10 dark:hover:bg-black'
               } ${
-                state?.name?.toLowerCase().startsWith(input)
-                  ? 'block'
-                  : 'hidden'
+                city?.name?.toLowerCase().startsWith(input) ? 'block' : 'hidden'
               }`}
             >
-              {state?.name +
+              {city?.name +
                 ', ' +
-                Country.getCountryByCode(state?.countryCode)?.name}
+                State.getStateByCodeAndCountry(
+                  city?.stateCode,
+                  city?.countryCode,
+                )?.name +
+                ', ' +
+                city?.countryCode}
             </li>
           );
         })}
