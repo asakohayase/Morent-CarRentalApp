@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 
@@ -19,7 +20,9 @@ const Empty = (props: Props) => {
           Whoops ... This informaton is not available at the moment
         </p>
         <button
-          // onClick={}
+          onClick={() => {
+            window.location.reload();
+          }}
           className='w-fit rounded-full bg-blue-500 px-10 py-3 text-white'
         >
           Go Back

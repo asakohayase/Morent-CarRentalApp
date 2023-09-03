@@ -15,7 +15,6 @@ const SelectInput = ({ selected, setSelected }: Props) => {
   const [location, setLocation] = useState<GeoResponse>();
 
   const cities = City.getCitiesOfCountry(location?.countryCode!);
-  // console.log(cities);
 
   const handleClick = (city: ICity) => {
     if (city?.name?.toLowerCase() !== selected.toLowerCase()) {

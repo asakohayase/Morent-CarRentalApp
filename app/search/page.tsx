@@ -23,31 +23,35 @@ const Page = (props: Props) => {
   const [visible, setVisible] = useState(6);
 
   useEffect(() => {
-    if (searchResult && searchResult.length > 0) {
-      setCars(searchResult);
+    const getCars = async () => {
+      const { data } = await supabase.from('cars').select('*');
+      setCars(data);
+      setCarsToDisplay(data);
+    };
+    getCars();
+  }, [supabase]);
+
+  useEffect(() => {
+    if (searchResult) {
       setCarsToDisplay(searchResult);
     }
   }, [searchResult]);
 
   useEffect(() => {
-    if (searchResult && searchResult.length > 0) {
-      return;
+    if (filteredCars && filteredCars.length > 0) {
+      setCarsToDisplay(filteredCars);
+    } else if (filteredCars && filteredCars.length === 0) {
+      setCarsToDisplay(null);
     }
-    const getCars = async () => {
-      const { data } = await supabase.from('cars').select('*');
-      setCars(data);
-    };
-
-    getCars();
-  }, [supabase, searchResult]);
-
-  useEffect(() => {
-    if (filteredCars) setCarsToDisplay(filteredCars);
   }, [filteredCars]);
 
   const handleMore = () => {
     setVisible((prev) => prev + 6);
   };
+
+  console.log('from filtered cars', filteredCars);
+  console.log('from carToDisplay', carsToDisplay);
+  console.log('from searchResults', searchResult);
 
   return (
     <main className='bg-gradient-to-r from-white from-55% to-white-200 dark:bg-gradient-to-r dark:from-gray-900 dark:to-[#1E2430] dark:to-75%'>
@@ -97,7 +101,7 @@ const Page = (props: Props) => {
             <Filter
               setFilteredCars={setFilteredCars}
               cars={cars}
-              loading={setLoading}
+              setLoading={setLoading}
             />
           </section>
         </aside>
@@ -105,12 +109,8 @@ const Page = (props: Props) => {
         <section className='relative mt-20 flex w-full flex-1 flex-col place-items-start gap-10 p-6 md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
           <PickUpDropOff results={setSearchResult} loading={setLoading} />
           <section className='mt-20 grid w-full shrink-0 grid-cols-1 gap-5 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
-            {loading === true || carsToDisplay?.length === 0 ? (
-              loading && loading === true ? (
-                <Loader />
-              ) : (
-                <Empty />
-              )
+            {loading ? (
+              <Loader />
             ) : (
               <>
                 {carsToDisplay && carsToDisplay.length > 0 ? (

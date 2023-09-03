@@ -6,10 +6,10 @@ import Input from './Input';
 type Props = {
   setFilteredCars: Dispatch<SetStateAction<Car[] | null>>;
   cars: Car[];
-  loading?: Dispatch<SetStateAction<boolean>>;
+  setLoading?: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function Filter({ setFilteredCars, cars, loading }: Props) {
+export default function Filter({ setFilteredCars, cars, setLoading }: Props) {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedCapacities, setSelectedCapacities] = useState<string[]>([]);
 
@@ -47,9 +47,10 @@ export default function Filter({ setFilteredCars, cars, loading }: Props) {
   }
 
   useEffect(() => {
-    if (loading) {
-      loading(true);
+    if (setLoading) {
+      setLoading(true);
     }
+
     const newCars = cars.filter(
       (car) =>
         (selectedTypes.length === 0 || selectedTypes.includes(car.car_type)) &&
@@ -57,10 +58,16 @@ export default function Filter({ setFilteredCars, cars, loading }: Props) {
           selectedCapacities.includes(car.capacity)) &&
         car.price >= selectedPrice,
     );
-    setFilteredCars(newCars);
+
+    if (newCars.length < cars.length) {
+      setFilteredCars(newCars);
+    } else {
+      setFilteredCars(null);
+    }
+
     setTimeout(() => {
-      if (loading) {
-        loading(false);
+      if (setLoading) {
+        setLoading(false);
       }
     }, 300);
   }, [
@@ -69,7 +76,7 @@ export default function Filter({ setFilteredCars, cars, loading }: Props) {
     selectedCapacities,
     selectedTypes,
     setFilteredCars,
-    loading,
+    setLoading,
   ]);
 
   return (
@@ -111,7 +118,6 @@ export default function Filter({ setFilteredCars, cars, loading }: Props) {
             onChange={(element) => {
               element.preventDefault();
               setSelectedPrice(Number(element.currentTarget.value));
-              // applyFilters();
             }}
             className='w-full lg:w-[90%]'
           />
