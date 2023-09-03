@@ -69,7 +69,13 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   return (
     <motion.div className='sticky top-0 z-50 '>
       <nav className='padding-layout  flex h-[92px] justify-between bg-white dark:bg-gray-900'>
-        <Image src={'/img/logo.svg'} height={28} width={108} alt={'logo'} />
+        <Image
+          src={'/img/logo.svg'}
+          height={28}
+          width={108}
+          alt={'logo'}
+          className='h-auto'
+        />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
             <ToggleTheme />
@@ -80,7 +86,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               </Avatar.Root>
             )}
             <Image
-              src={'./Icons/menu.svg'}
+              src={'/Icons/menu.svg'}
               width={24}
               height={24}
               alt={'menu'}
@@ -102,7 +108,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
             <section className=' z-40 flex w-full items-center justify-between pt-5'>
               <Link href='/' className='cursor-pointer'>
                 <Image
-                  src={'./img/logo.svg'}
+                  src={'/img/logo.svg'}
                   height={24}
                   width={87}
                   alt={'logo'}
@@ -180,14 +186,21 @@ const NavMobile = ({ session }: { session: Session | null }) => {
                     My Profile
                   </span>
                 </button>
-                <Button
-                  title={'Logout'}
-                  href='#'
-                  style={
-                    'flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 active:bg-red-700 text-white font-semibold'
-                  }
-                  handleClick={handleLogout}
-                />
+                {/* <Link
+                  className='font-semibold text-blue-500'
+                  href='/auth/editprofile'
+                >
+                  <button className='flex h-14 w-full items-center justify-center gap-2 rounded-md border border-blue-50 bg-white text-blue-300 hover:bg-white-200 dark:border-dark-700 dark:bg-gray-700 hover:dark:bg-dark-850'>
+                    Edit Profile
+                  </button>
+                </Link> */}
+                <button
+                  title='Logout'
+                  className='flex h-14 w-full items-center justify-center gap-2 rounded-md bg-red-400 font-semibold text-white active:bg-red-700'
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               </Link>
             ) : (
               <Button

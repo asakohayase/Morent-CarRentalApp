@@ -12,10 +12,6 @@ import { formItems, FormData } from '@/constants/index';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
 
-interface Props {
-  id: string;
-}
-
 const initialFormData: FormData = {
   car_title: null,
   price: null,
@@ -26,7 +22,7 @@ const initialFormData: FormData = {
   capacity: null,
 };
 
-const AddCarForm = ({ id }: Props) => {
+const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
