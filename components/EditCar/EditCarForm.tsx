@@ -3,14 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import router from 'next/router';
 import * as Form from '@radix-ui/react-form';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
+import fetchCars from '@/app/api/fetchCars';
 import { formItems, FormData, carType } from '@/constants/index';
-import SelectCountryInput from '../SelectCountryInput';
-import fetchCars from '@/utils/fetchCars';
+import SelectInput from '../SelectCountryInput';
+import Toast from '../reusable/Toast';
+import SelectOption from '../reusable/SelectOption';
 
 const initialFormData: FormData = {
   car_title: null,
@@ -42,9 +45,13 @@ interface Props {
 
 const EditCarForm = ({ carId }: Props) => {
   const supabase = createClientComponentClient();
+
   const [user, setUser] = useState<User | null>(null);
-  const [carData, setCarData] = useState<carType>(initialCarData);
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedCarType, setSelectedCarType] = useState<string>('');
+  const [selectedCapacity, setSelectedCapacity] = useState<string>('');
+  const [selectedTransmission, setSelectedTransmission] = useState<string>('');
+  const [carData, setCarData] = useState<carType>(initialCarData);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -70,15 +77,14 @@ const EditCarForm = ({ carId }: Props) => {
           price: car.price,
           fuel_capacity: car.fuel_capacity,
           short_description: car.short_description,
-          car_type: car.car_type,
-          transmission: car.transmission,
-          capacity: car.capacity,
         });
         setSelectedLocation(car.location);
+        setSelectedCarType(car.car_type);
+        setSelectedCapacity(car.capacity);
+        setSelectedTransmission(car.transmission);
         setSelectedFiles(car.images);
       }
     }
-
     fetchInitialCarData();
   }, [carId]);
 
@@ -122,24 +128,40 @@ const EditCarForm = ({ carId }: Props) => {
     }
   };
 
-  const handleRegisterCar = async () => {
-    const uploadedImageUrls = await uploadImagesToSupabase();
+  const handleRegisterCar = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
 
-    const { data, error } = await supabase
-      .from('cars')
-      .update([
-        {
-          ...formData,
-          location: selectedLocation,
-          images: uploadedImageUrls,
-        },
-      ])
-      .eq('car_id', carId);
+    try {
+      const uploadedImageUrls = await uploadImagesToSupabase();
 
-    if (error) {
-      console.error('[ERROR] An Error Occured: ', error);
-    } else {
-      console.log(data);
+      const { data, error } = await supabase
+        .from('cars')
+        .update([
+          {
+            ...formData,
+            location: selectedLocation,
+            images: uploadedImageUrls,
+          },
+        ])
+        .eq('car_id', carId);
+      if (error) {
+        Toast({
+          type: 'error',
+          message: 'An error occurred during submission.',
+        });
+        console.error('[ERROR] An Error Occured: ', error);
+      } else {
+        Toast({ type: 'success', message: 'Submission successful!' });
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
+        console.log(data);
+      }
+    } catch (uploadError) {
+      Toast({ type: 'error', message: 'An error occurred during submission.' });
+      console.error('[ERROR] An Error Occured: ', uploadError);
     }
   };
 
@@ -160,9 +182,17 @@ const EditCarForm = ({ carId }: Props) => {
         .eq('car_id', carId);
 
       if (error) {
-        console.error('[ERROR] An Error Occurred:', error);
+        Toast({
+          type: 'error',
+          message: 'An error occurred during submission.',
+        });
+        console.error('[ERROR] An Error Occured: ', error);
+      } else {
+        Toast({ type: 'success', message: 'Successfully deleted!' });
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       }
-      // No navigation on success
     } catch (error) {
       console.error('An error occurred while deleting the car:', error);
     }
@@ -192,34 +222,34 @@ const EditCarForm = ({ carId }: Props) => {
             </div>
             <Form.Control asChild>
               {item.title === 'Location' ? (
-                <SelectCountryInput
+                <SelectInput
                   selected={selectedLocation}
                   setSelected={setSelectedLocation}
                 />
-              ) : item.options ? (
-                <div className='flex w-full'>
-                  <div className='relative inline-flex h-14 w-full'>
-                    <select
-                      className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200'
-                      required
-                      name={item.name}
-                      value={
-                        formData[item.name as keyof FormData] ??
-                        carData[item.name as keyof carType]
-                      }
-                      onChange={handleInputChange} // Use the common select change handler
-                    >
-                      <option value='' disabled>
-                        {item.placeholder}
-                      </option>
-                      {item.options.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+              ) : item.title === 'Car Type' ? (
+                <SelectOption
+                  selected={selectedCarType}
+                  setSelected={setSelectedCarType}
+                  title={item.title}
+                  placeholder={selectedCarType}
+                  options={item.options}
+                />
+              ) : item.title === 'Transmission' ? (
+                <SelectOption
+                  selected={selectedTransmission}
+                  setSelected={setSelectedTransmission}
+                  title={item.title}
+                  placeholder={selectedTransmission}
+                  options={item.options}
+                />
+              ) : item.title === 'Capacity' ? (
+                <SelectOption
+                  selected={selectedCapacity}
+                  setSelected={setSelectedCapacity}
+                  title={item.title}
+                  placeholder={selectedCapacity}
+                  options={item.options}
+                />
               ) : (
                 <input
                   className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px]  text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 placeholder:text-gray-400 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200 dark:placeholder:text-white-200'
