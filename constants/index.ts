@@ -73,26 +73,3 @@ export const formItems = [
     placeholder: 'Enter a short description',
   },
 ];
-
-export interface FormData {
-  car_title: string | null;
-  price: number | null;
-  fuel_capacity: number | null;
-  short_description: string | null;
-  [key: string]: string | number | null;
-}
-
-export type carType = {
-  owner_id: string;
-  borrower_id: string;
-  car_id: string;
-  car_title: string;
-  car_type: string;
-  fuel_capacity: number;
-  images: string[];
-  transmission: string;
-  capacity: number;
-  price: number;
-  short_description: string;
-  [key: string]: string | number | string[];
-};

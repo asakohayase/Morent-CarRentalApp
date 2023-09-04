@@ -10,7 +10,8 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
 import fetchCars from '@/app/api/fetchCars';
-import { formItems, FormData, carType } from '@/constants/index';
+import { formItems } from '@/constants/index';
+import { FormData, carType } from '@/typings';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
 import SelectOption from '../reusable/SelectOption';

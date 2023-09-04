@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
-import { formItems, FormData } from '@/constants/index';
+import { formItems } from '@/constants/index';
+import { FormData } from '@/typings';
 import SelectOption from '../SelectOption';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
