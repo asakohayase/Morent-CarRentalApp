@@ -3,15 +3,15 @@ import React from 'react';
 import ProfileCard from '@/components/Profile/ProfileCard';
 import Button from '@/components/reusable/Button';
 import CarCard from '@/components/reusable/CarCard';
-import { carType } from '@/constants/index';
 import fetchRentedCars from '@/app/api/fetchRentedCars';
 import fetchMyCars from '@/app/api/fetchMyCars';
+import { Car } from '@/typings';
 
 const ProfilePage = async ({ params }: { params: { id: string } }) => {
   const rentedCarsData = await fetchRentedCars({ id: params.id });
   const myCarsData = await fetchMyCars({ id: params.id });
 
-  const renderCarSection = (title: string, cars: carType[]) => (
+  const renderCarSection = (title: string, cars: Car[]) => (
     <section className='relative mt-10 flex flex-col gap-6'>
       <h5 className='px-6 text-lg font-medium text-gray-400'>{title}</h5>
       <div className='grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:gap-x-8 lg:grid-cols-4'>

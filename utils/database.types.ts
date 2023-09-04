@@ -11,16 +11,15 @@ export interface Database {
     Tables: {
       cars: {
         Row: {
-          booked_dates: string[] | null;
-          borrower_id: number | null;
+          booked_dates: string[];
+          borrower_id: number;
           capacity: Database['public']['Enums']['capacity'];
           car_id: string;
           car_title: string;
           car_type: Database['public']['Enums']['car_type'];
           fuel_capacity: number;
-          images: string[] | null;
+          images: string[];
           location: string;
-          images: string[] | null;
           owner_id: string;
           price: number;
           short_description: string;

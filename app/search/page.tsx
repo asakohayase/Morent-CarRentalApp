@@ -95,22 +95,22 @@ const Page = (props: Props) => {
             <FilterOnMobile
               setOpen={setOpen}
               setFilteredCars={setFilteredCars}
-              cars={cars}
+              cars={cars!}
             />
           )}
 
           <section className='hidden lg:grid lg:gap-14'>
             <Filter
               setFilteredCars={setFilteredCars}
-              cars={cars}
+              cars={cars!}
               setLoading={setLoading}
             />
           </section>
         </aside>
 
-        <section className='relative flex flex-col flex-1 w-full gap-10 p-6 mt-20 place-items-start md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
+        <section className='relative mt-20 flex w-full flex-1 flex-col place-items-start gap-10 p-6 md:gap-5 lg:mt-0 lg:gap-9 lg:p-0 lg:pb-12 lg:pr-8 lg:pt-8'>
           <PickUpDropOff results={setSearchResult} loading={setLoading} />
-          <section className='grid w-full grid-cols-1 gap-5 mt-20 shrink-0 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
+          <section className='mt-20 grid w-full shrink-0 grid-cols-1 gap-5 sm:mt-0 md:grid-cols-2 lg:grid-cols-2 lg:gap-8 xl:grid-cols-3'>
             {loading ? (
               <Loader />
             ) : (
@@ -126,16 +126,18 @@ const Page = (props: Props) => {
             )}
           </section>
 
-          {carsToDisplay && carsToDisplay?.length > 6 || carsToDisplay && carsToDisplay?.length + 1 < carsToDisplay?.length && (
-            <button
-              onClick={handleMore}
-              className={`${
-                loading === true && 'hidden'
-              } w-fit place-self-center rounded-[4px] bg-blue-500 px-[10px] py-2 text-xs font-semibold text-white lg:rounded-10 lg:px-[51px] lg:py-[18px] lg:text-base lg:font-bold`}
-            >
-              Show more cars
-            </button>
-          )}
+          {(carsToDisplay && carsToDisplay?.length > 6) ||
+            (carsToDisplay &&
+              carsToDisplay?.length + 1 < carsToDisplay?.length && (
+                <button
+                  onClick={handleMore}
+                  className={`${
+                    loading === true && 'hidden'
+                  } w-fit place-self-center rounded-[4px] bg-blue-500 px-[10px] py-2 text-xs font-semibold text-white lg:rounded-10 lg:px-[51px] lg:py-[18px] lg:text-base lg:font-bold`}
+                >
+                  Show more cars
+                </button>
+              ))}
         </section>
       </div>
     </main>

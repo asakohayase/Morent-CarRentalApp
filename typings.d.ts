@@ -17,7 +17,7 @@ export type Car = {
   capacity: Database['public']['Enums']['capacity'];
   car_id: string;
   car_title: string;
-  car_type: Database['public']['Enums']['car_type'];
+  car_type: Database['public']['Enums']['car_type_enum'];
   fuel_capacity: number;
   images: string[] | null;
   location: string;

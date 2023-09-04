@@ -8,7 +8,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Car } from '@/typings';
 
 type Props = {
-  results: Dispatch<SetStateAction<Car[] | null>>;
+  results?: Dispatch<SetStateAction<Car[] | null>>;
   loading?: Dispatch<SetStateAction<boolean>>;
 };
 
