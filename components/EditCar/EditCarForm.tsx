@@ -34,7 +34,7 @@ const initialCarData: carType = {
   fuel_capacity: 0,
   images: [''],
   transmission: '',
-  capacity: '',
+  capacity: 0,
   price: 0,
   short_description: '',
 };

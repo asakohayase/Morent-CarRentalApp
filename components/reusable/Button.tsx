@@ -9,7 +9,7 @@ type Props = {
   title?: String;
   style: string;
   icon?: string;
-  handleClick?: () => {};
+  handleClick?: () => void;
   children?: ReactNode;
 };
 

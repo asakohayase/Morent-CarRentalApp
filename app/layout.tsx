@@ -13,6 +13,9 @@ import NavBar from '@/components/reusable/NavBar';
 import Footer from '@/components/reusable/Footer';
 import Providers from './providers';
 
+export const dynamic = 'force-dyanmic';
+export const revalidate = 0;
+
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

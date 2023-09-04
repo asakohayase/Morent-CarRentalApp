@@ -9,7 +9,6 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-import Button from '@/components/reusable/Button';
 import { Popover, Transition } from '@headlessui/react';
 import ToggleTheme from './ToggleTheme';
 import Login from './Login';
@@ -139,14 +138,13 @@ const NavDesktop = ({ session }: { session: Session | null }) => {
                           Edit Profile
                         </button>
                       </Link>
-                      <Button
-                        title={'Logout'}
-                        href='#'
-                        style={
-                          'flex h-10 w-full items-center justify-center gap-2 rounded-md bg-red-400 text-white font-semibold hover:bg-red-700'
-                        }
-                        handleClick={handleLogout}
-                      />
+                      <button
+                        title='Logout'
+                        className='flex h-10 w-full items-center justify-center gap-2 rounded-md bg-red-400 font-semibold text-white active:bg-red-700'
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
                     </Popover.Panel>
                   </Transition>
                 </>

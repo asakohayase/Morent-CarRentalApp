@@ -121,7 +121,9 @@ export default function Filter({ setFilteredCars, cars, setLoading }: Props) {
             }}
             className='w-full lg:w-[90%]'
           />
-        <p className='mt-3 text-gray-700 font-semibold text-[20px]'>Max.${selectedPrice}.00</p>
+          <p className='mt-3 text-[20px] font-semibold text-gray-700'>
+            Max.${selectedPrice}.00
+          </p>
         </div>
       </section>
     </section>

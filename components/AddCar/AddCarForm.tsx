@@ -24,7 +24,6 @@ const initialFormData: FormData = {
 };
 
 const AddCarForm = () => {
-const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
