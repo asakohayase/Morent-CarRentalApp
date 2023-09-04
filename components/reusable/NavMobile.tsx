@@ -69,7 +69,13 @@ const NavMobile = ({ session }: { session: Session | null }) => {
   return (
     <motion.div className='sticky top-0 z-50 '>
       <nav className='padding-layout  flex h-[92px] justify-between bg-white dark:bg-gray-900'>
-        <Image src={'/img/logo.svg'} height={28} width={108} alt={'logo'} />
+        <Image
+          src={'/img/logo.svg'}
+          height={28}
+          width={108}
+          alt={'logo'}
+          className='h-auto'
+        />
         <section className='flex'>
           <div className='flex w-[110px] items-center justify-end gap-4'>
             <ToggleTheme />
@@ -80,7 +86,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               </Avatar.Root>
             )}
             <Image
-              src={'./Icons/menu.svg'}
+              src={'/Icons/menu.svg'}
               width={24}
               height={24}
               alt={'menu'}
@@ -104,7 +110,7 @@ const NavMobile = ({ session }: { session: Session | null }) => {
               <section className=' z-40 flex w-full items-center justify-between pt-5'>
                 <Link href='/' className='cursor-pointer'>
                   <Image
-                    src={'./img/logo.svg'}
+                    src={'/img/logo.svg'}
                     height={24}
                     width={87}
                     alt={'logo'}

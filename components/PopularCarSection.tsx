@@ -8,7 +8,8 @@ const PopularCarSection = ({ cars }: { cars: Car[] | null }) => {
       <h5 className='text-lg font-medium text-gray-600'>Popular Cars</h5>
       <section className='scrollbar-hide flex gap-8 overflow-x-auto scroll-smooth 2xl:block 2xl:columns-4 '>
         {cars
-          ?.slice(0, 4)
+          ?.sort(() => Math.random() - 0.5)
+          .slice(0, 4)
           .map((car) => <PopularCars key={car.car_id} data={car} />)}
       </section>
     </section>

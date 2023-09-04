@@ -6,14 +6,15 @@ import Date from '@/components/DateComp';
 import { usePathname } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Car } from '@/typings';
+import { Database } from '@/types/database.types';
 
 type Props = {
-  results: Dispatch<SetStateAction<Car[] | null>>;
+  results?: Dispatch<SetStateAction<Car[] | null>>;
   loading?: Dispatch<SetStateAction<boolean>>;
 };
 
 const PickUpDropOff = ({ results, loading }: Props) => {
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient<Database>();
   const pathname = usePathname();
   const searchPath = pathname?.split('/').pop();
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -33,7 +34,7 @@ const PickUpDropOff = ({ results, loading }: Props) => {
         .select('*')
         .eq('location', selectedLocation);
       // .contains('booked_dates', [selectedPickupDate]);
-      results(cars);
+      if (results) results(cars);
     } catch (error) {
       console.log('Failed to fetch cars:', error);
     }

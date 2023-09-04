@@ -123,6 +123,7 @@ const Login = () => {
                   width={21}
                   height={21}
                   alt='google logo'
+                  className='h-auto'
                 />
                 Continue with Google
               </button>
@@ -135,6 +136,7 @@ const Login = () => {
                   width={11}
                   height={11}
                   alt='facebook logo'
+                  className='h-auto'
                 />
                 Continue with Facebook
               </button>
@@ -147,6 +149,7 @@ const Login = () => {
                   width={25}
                   height={25}
                   alt='discord logo'
+                  className='h-auto'
                 />
                 Continue with Discord
               </button>
