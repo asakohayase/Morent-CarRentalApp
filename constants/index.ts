@@ -105,7 +105,7 @@ export type carType = {
   fuel_capacity: number;
   images: string[];
   transmission: string;
-  capacity: string;
+  capacity: number;
   price: number;
   short_description: string;
   [key: string]: string | number | string[];

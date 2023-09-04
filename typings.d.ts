@@ -1,19 +1,8 @@
 import { Database } from './utils/database.types';
 
-export type carType = {
-  title: string;
-  vehicleType: string;
-  gallons: number;
-  image: string;
-  transmission: string;
-  capacity: number;
-  price: number;
-  id: string;
-};
-
 export type Car = {
   booked_dates: string[];
-  borrower_id: number | null;
+  borrower_id: string[];
   capacity: Database['public']['Enums']['capacity'];
   car_id: string;
   car_title: string;

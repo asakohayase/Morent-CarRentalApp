@@ -1,15 +1,16 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion } from 'framer-motion';
-import Date from '@/components/Date';
-import Time from '@/components/Time';
+import DateComp from '@/components/DateComp';
 import SelectCountryInput from '../SelectCountryInput';
-import Button from '../reusable/Button';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { Car } from '@/typings';
 import CarImages from './CarImages';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
+import Toast from '../reusable/Toast';
 
 const CarDetailCard = ({
   data,
@@ -18,9 +19,22 @@ const CarDetailCard = ({
   data: Car;
   children?: React.ReactNode;
 }) => {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedPickupTime, setSelectedPickupTime] = useState('');
-  const [selectedDropoffTime, setSelectedDropoffTime] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedPickupDate, setSelectedPickupDate] = useState('');
+  const [selectedDropoffDate, setSelectedDropoffDate] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const supabase = createClientComponentClient();
+
+  const bookedDates = data.booked_dates;
+
+  const getDate = () => {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+    return `${month}/${date}}`;
+  };
+  const currentDate = getDate();
+
   const {
     car_title,
     car_type,
@@ -29,13 +43,51 @@ const CarDetailCard = ({
     transmission,
     price,
     short_description,
+    car_id,
+    borrower_id,
   } = data;
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user ?? null);
+    };
+    getUser();
+  }, [supabase]);
+
+  const handleRentCar = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (user) {
+      const { data: car, error } = await supabase
+        .from('cars')
+        .update({
+          booked_dates: [selectedPickupDate, selectedDropoffDate],
+          borrower_id: [...borrower_id, user?.id],
+        })
+        .eq('car_id', car_id)
+        .single();
+
+      if (error) {
+        console.error('Error selecting car data:', error.message);
+      } else {
+        if (error) {
+          console.error('Error inserting borrower_id:');
+        } else {
+          console.log('Borrower_id inserted successfully:');
+          Toast({ type: 'success', message: 'Success!' });
+        }
+      }
+      console.log(car);
+    }
+  };
 
   return (
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
       {children}
       <div className='flex h-full w-full flex-col transition delay-150 ease-in-out md:flex-row'>
-        <section className='flex h-full w-full flex-col gap-3 rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
+        <section className='scrollbar-hide relative flex h-full w-full flex-col gap-3 overflow-x-auto scroll-smooth rounded-l-[10px] bg-white px-5 pt-5 dark:bg-slate-800 md:p-4'>
           <CarImages data={data} />
         </section>
         <section className='flex w-full flex-col justify-between gap-10 rounded-r-[10px] bg-white p-12 dark:bg-slate-800 md:justify-around  md:px-10 md:py-6'>
@@ -96,12 +148,34 @@ const CarDetailCard = ({
               </span>
             </p>
             <Dialog.Root>
-              <Dialog.Trigger className='btn-primary ml-6 w-[148px] hover:opacity-80 md:w-fit'>
-                Rent Now
-              </Dialog.Trigger>
+              {bookedDates.includes(currentDate) ? (
+                <Dialog.Trigger
+                  className='btn-primary ml-6 w-[148px] bg-slate-400 text-neutral-100  dark:bg-gray-600/70 dark:text-slate-400 md:w-fit'
+                  disabled
+                >
+                  Unavailable
+                </Dialog.Trigger>
+              ) : (
+                <Dialog.Trigger className='btn-primary ml-6 w-[148px] hover:opacity-80 md:w-fit'>
+                  Rent Now
+                </Dialog.Trigger>
+              )}
+              {/* {bookedDates !== currentDate ? (
+                <Dialog.Trigger className='btn-primary ml-6 w-[148px] hover:opacity-80 md:w-fit'>
+                  Rent Now
+                </Dialog.Trigger>
+              ) : (
+                <Dialog.Trigger
+                  className='btn-primary ml-6 w-[148px] bg-slate-400 text-neutral-100  dark:bg-gray-600/70 dark:text-slate-400 md:w-fit'
+                  disabled
+                >
+                  Unavailable
+                </Dialog.Trigger>
+              )} */}
+
               <Dialog.Portal>
                 <Dialog.Overlay className='fixed inset-0 z-50 bg-black/50' />
-                <Dialog.Content className='fixed left-1/2  z-50 w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[10px]  bg-white text-gray-900 shadow md:top-1/2 md:max-w-[500px]'>
+                <Dialog.Content className='fixed left-1/2 top-1/2 z-50 w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-white text-gray-900  shadow md:left-1/2 md:top-1/2 md:w-[95%] md:max-w-[500px]'>
                   <motion.div
                     animate={{ scale: [1.2, 1] }}
                     transition={{ times: [1] }}
@@ -144,41 +218,38 @@ const CarDetailCard = ({
                           </span>
                         </label>
                         <SelectCountryInput
-                          selected={selectedDate}
-                          setSelected={setSelectedDate}
+                          selected={selectedLocation}
+                          setSelected={setSelectedLocation}
                         />
                       </div>
-                      <section className='flex w-full justify-between gap-x-3'>
-                        <div className='w-full '>
-                          <Date title={'Pick-Up Date'} />
-                        </div>
-                        <div className='w-full'>
-                          <Time
-                            setSelectedTime={setSelectedPickupTime}
-                            title={'Pick-Up Time'}
-                            selectedTime={selectedPickupTime}
+                      <section className='flex w-full justify-between'>
+                        <div className='w-[100%]'>
+                          <DateComp
+                            title={'Pick-Up Date'}
+                            dateValueChange={setSelectedPickupDate}
+                            dateValue={selectedPickupDate}
                           />
                         </div>
                       </section>
                       <section className='flex w-full justify-between gap-x-3'>
-                        <div className='w-full '>
-                          <Date title={'Drop-Off Date'} />
-                        </div>
-                        <div className='w-full'>
-                          <Time
-                            setSelectedTime={setSelectedDropoffTime}
-                            title={'Drop-Off Time'}
-                            selectedTime={selectedDropoffTime}
+                        <div className='w-[100%] '>
+                          <DateComp
+                            title={'Drop-Off Date'}
+                            dateValueChange={setSelectedDropoffDate}
+                            dateValue={selectedDropoffDate}
                           />
                         </div>
                       </section>
-                      <Button
-                        href='#'
-                        style={
-                          ' btn-rent w-full hover:opacity-80 rounded-[10px]'
+
+                      <button
+                        className={
+                          'flex w-full items-center justify-center gap-2 rounded-[10px] bg-blue-600 px-8 py-[13px] text-base font-bold text-white hover:opacity-80 md:px-9 md:py-4'
                         }
                         title={'Rent Now'}
-                      />
+                        onClick={handleRentCar}
+                      >
+                        Rent Now
+                      </button>
                     </form>
                   </motion.div>
                 </Dialog.Content>

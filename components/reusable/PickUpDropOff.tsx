@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import SelectCountryInput from '@/components/SelectCountryInput';
-import Date from '@/components/Date';
+import Date from '@/components/DateComp';
 import { usePathname } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Car } from '@/typings';

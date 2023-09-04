@@ -10,7 +10,7 @@ async function fetchRentedCars({ id }: Props) {
     const { data, error } = await supabase
       .from('cars')
       .select('*')
-      .eq('borrower_id', id);
+      .contains('borrower_id', [id]);
     if (error) {
       throw error;
     }

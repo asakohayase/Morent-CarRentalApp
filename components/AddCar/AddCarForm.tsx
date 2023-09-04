@@ -1,20 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import * as Form from '@radix-ui/react-form';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import * as Form from '@radix-ui/react-form';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
 import { formItems, FormData } from '@/constants/index';
+import SelectOption from '../SelectOption';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
-
-interface Props {
-  id?: string;
-}
 
 const initialFormData: FormData = {
   car_title: null,
@@ -27,10 +24,14 @@ const initialFormData: FormData = {
 };
 
 const AddCarForm = () => {
+const AddCarForm = () => {
   const supabase = createClientComponentClient();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedCarType, setSelectedCarType] = useState<string>('');
+  const [selectedCapacity, setSelectedCapacity] = useState<string>('');
+  const [selectedTransmission, setSelectedTransmission] = useState<string>('');
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -90,13 +91,20 @@ const AddCarForm = () => {
 
     try {
       const uploadedImageUrls = await uploadImagesToSupabase();
+      const location = selectedLocation;
+      const carType = selectedCarType;
+      const capacity = selectedCapacity;
+      const transmission = selectedTransmission;
+
       const { data, error } = await supabase.from('cars').insert({
         ...formData,
         owner_id: user?.id,
-        location: selectedLocation,
+        location,
+        car_type: carType,
+        capacity,
+        transmission,
         images: uploadedImageUrls,
       });
-
       if (error) {
         Toast({
           type: 'error',
@@ -153,34 +161,37 @@ const AddCarForm = () => {
                   selected={selectedLocation}
                   setSelected={setSelectedLocation}
                 />
-              ) : item.options ? (
-                <div className='flex w-full'>
-                  <div className='relative inline-flex h-14 w-full'>
-                    <select
-                      className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px] text-sm leading-7 text-gray-400 outline-none selection:bg-white-200 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200'
-                      required
-                      name={item.name} // Add name attribute
-                      value={formData[item.name as keyof FormData] ?? ''} // Use form data value
-                      onChange={handleInputChange} // Use the common select change handler
-                    >
-                      <option value='' disabled>
-                        {item.placeholder}
-                      </option>
-                      {item.options.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+              ) : item.title === 'Car Type' ? (
+                <SelectOption
+                  selected={selectedCarType}
+                  setSelected={setSelectedCarType}
+                  title={item.title}
+                  placeholder={item.placeholder}
+                  options={item.options}
+                />
+              ) : item.title === 'Transmission' ? (
+                <SelectOption
+                  selected={selectedTransmission}
+                  setSelected={setSelectedTransmission}
+                  title={item.title}
+                  placeholder={item.placeholder}
+                  options={item.options}
+                />
+              ) : item.title === 'Capacity' ? (
+                <SelectOption
+                  selected={selectedCapacity}
+                  setSelected={setSelectedCapacity}
+                  title={item.title}
+                  placeholder={item.placeholder}
+                  options={item.options}
+                />
               ) : (
                 <input
                   className='inline-flex h-14 w-full resize-none appearance-none items-center justify-center rounded-md bg-white-200 px-[18px] py-[14px]  text-sm leading-7 text-gray-900 outline-none selection:bg-white-200 placeholder:text-gray-400 hover:shadow-[0_0_0_1px] focus:shadow-[0_0_0_1px] dark:bg-gray-800 dark:text-white-200 dark:placeholder:text-white-200'
-                  name={item.name} // Add name attribute
+                  name={item.name}
                   placeholder={item.placeholder}
-                  value={formData[item.name as keyof FormData] ?? ''} // Use form data value
-                  onChange={handleInputChange} // Use the common input change handler
+                  value={formData[item.name as keyof FormData] ?? ''}
+                  onChange={handleInputChange}
                   required
                 />
               )}
@@ -203,9 +214,10 @@ const AddCarForm = () => {
               <Image
                 src={previewUrl}
                 alt='Preview'
-                className='mb-2 w-full'
+                className='mb-2'
                 width={200}
                 height={200}
+                priority
               />
             ) : (
               <>
@@ -214,6 +226,7 @@ const AddCarForm = () => {
                   alt='Upload'
                   height={28}
                   width={29}
+                  priority
                 />
 
                 <p className='mt-2.5 text-sm font-medium leading-7 text-blue-500 md:text-[14.91px] md:leading-[29.81px]'>
