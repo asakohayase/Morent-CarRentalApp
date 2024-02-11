@@ -1,4 +1,4 @@
-// eslint-disable camelcase
+/* eslint-disable camelcase */
 
 import Stripe from 'stripe';
 import { cookies, headers } from 'next/headers';
