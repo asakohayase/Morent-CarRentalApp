@@ -1,5 +1,3 @@
-import Toast from '@/components/reusable/Toast';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { NextRequest } from 'next/server';
 import { Stripe } from 'stripe';
 
@@ -9,8 +7,6 @@ interface CartItem {
   carTitle: string;
   price: number;
 }
-
-const supabase = createClientComponentClient();
 
 export async function POST(req: NextRequest) {
   try {
@@ -46,12 +42,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-
     // Return session ID to client
     const response = {
       sessionId: session.id,
     };
-  
 
     return new Response(JSON.stringify(response), {
       status: 200,

@@ -1,3 +1,5 @@
+// eslint-disable camelcase
+
 import Stripe from 'stripe';
 import { cookies, headers } from 'next/headers';
 import { NextRequest } from 'next/server';
@@ -12,7 +14,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const supabase = createServerComponentClient<Database>({ cookies });
 
-export const runtime = 'nodejs'
+export const runtime = 'nodejs';
 
 async function registerCarToSupabase(carId: string, userId: string) {
   const { data: car } = await supabase
@@ -25,15 +27,15 @@ async function registerCarToSupabase(carId: string, userId: string) {
     const { borrower_id } = car;
     const userExists = borrower_id.includes(userId);
     if (!userExists) {
-    await supabase
-      .from('cars')
-      .update({
-        borrower_id: [...borrower_id, userId],
-      })
-      .eq('car_id', carId)
-      .single();
+      await supabase
+        .from('cars')
+        .update({
+          borrower_id: [...borrower_id, userId],
+        })
+        .eq('car_id', carId)
+        .single();
+    }
   }
- }
 }
 
 export async function POST(req: NextRequest) {
@@ -73,4 +75,3 @@ export async function POST(req: NextRequest) {
     status: 200,
   });
 }
-
