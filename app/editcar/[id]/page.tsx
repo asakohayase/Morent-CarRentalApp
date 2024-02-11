@@ -21,7 +21,7 @@ const page = ({ params }: { params: { id: number } }) => {
       </div>
       <div className='inline-flex flex-col items-start justify-start gap-6 pt-[34px]'>
         <h3 className='text-lg font-extrabold text-blue-500'>CAR INFO</h3>
-        <EditCarForm carId={params.id} />
+        <EditCarForm carId={params.id.toString()} />
       </div>
     </section>
   );
