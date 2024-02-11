@@ -10,7 +10,7 @@ import { Car } from '@/typings';
 import CarImages from './CarImages';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
-import Toast from '../reusable/Toast';
+import CheckoutButton from '../CheckoutButton';
 
 const CarDetailCard = ({
   data,
@@ -57,31 +57,31 @@ const CarDetailCard = ({
     getUser();
   }, [supabase]);
 
-  const handleRentCar = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    if (user) {
-      const { data: car, error } = await supabase
-        .from('cars')
-        .update({
-          booked_dates: [selectedPickupDate, selectedDropoffDate],
-          borrower_id: [...borrower_id, user?.id],
-        })
-        .eq('car_id', car_id)
-        .single();
+  // const handleRentCar = async (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   if (user) {
+  //     const { data: car, error } = await supabase
+  //       .from('cars')
+  //       .update({
+  //         booked_dates: [selectedPickupDate, selectedDropoffDate],
+  //         borrower_id: [...borrower_id, user?.id],
+  //       })
+  //       .eq('car_id', car_id)
+  //       .single();
 
-      if (error) {
-        console.error('Error selecting car data:', error.message);
-      } else {
-        if (error) {
-          console.error('Error inserting borrower_id:');
-        } else {
-          console.log('Borrower_id inserted successfully:');
-          Toast({ type: 'success', message: 'Success!' });
-        }
-      }
-      console.log(car);
-    }
-  };
+  //     if (error) {
+  //       console.error('Error selecting car data:', error.message);
+  //     } else {
+  //       if (error) {
+  //         console.error('Error inserting borrower_id:');
+  //       } else {
+  //         console.log('Borrower_id inserted successfully:');
+  //         Toast({ type: 'success', message: 'Success!' });
+  //       }
+  //     }
+  //     console.log(car);
+  //   }
+  // };
 
   return (
     <motion.div animate={{ scale: [1.2, 1] }} transition={{ times: [1, 1, 1] }}>
@@ -241,7 +241,7 @@ const CarDetailCard = ({
                         </div>
                       </section>
 
-                      <button
+                      {/* <button
                         className={
                           'flex w-full items-center justify-center gap-2 rounded-[10px] bg-blue-600 px-8 py-[13px] text-base font-bold text-white hover:opacity-80 md:px-9 md:py-4'
                         }
@@ -249,7 +249,8 @@ const CarDetailCard = ({
                         onClick={handleRentCar}
                       >
                         Rent Now
-                      </button>
+                      </button> */}
+                      {user && <CheckoutButton car={data} userId={user.id} />}
                     </form>
                   </motion.div>
                 </Dialog.Content>

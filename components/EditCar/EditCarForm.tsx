@@ -3,15 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import * as Form from '@radix-ui/react-form';
 import { v4 as uuidv4 } from 'uuid';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
 import fetchCars from '@/app/api/fetchCars';
-import { formItems } from '@/constants/index';
-import { FormData, carType } from '@/typings';
+import { formItems, FormData, carType } from '@/constants/index';
 import SelectInput from '../SelectCountryInput';
 import Toast from '../reusable/Toast';
 import SelectOption from '../reusable/SelectOption';
@@ -41,12 +40,12 @@ const initialCarData: carType = {
 };
 
 interface Props {
-  carId: number;
+  carId: string;
 }
 
 const EditCarForm = ({ carId }: Props) => {
   const supabase = createClientComponentClient();
-
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedCarType, setSelectedCarType] = useState<string>('');
@@ -143,6 +142,9 @@ const EditCarForm = ({ carId }: Props) => {
           {
             ...formData,
             location: selectedLocation,
+            car_type: selectedCarType,
+            capacity: selectedCapacity,
+            transmission: selectedTransmission,
             images: uploadedImageUrls,
           },
         ])
