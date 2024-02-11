@@ -43,8 +43,6 @@ const CarDetailCard = ({
     transmission,
     price,
     short_description,
-    car_id,
-    borrower_id,
   } = data;
 
   useEffect(() => {
