@@ -33,7 +33,7 @@ const SelectInput = ({ selected, setSelected }: Props) => {
 
   useEffect(() => {
     async function fetchLocation() {
-      const url = 'http://ip-api.com/json/';
+      const url = 'https://ip-api.com/json/';
 
       const response = await fetch(url, {
         method: 'GET',
